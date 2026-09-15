@@ -21,7 +21,7 @@ export function Footer() {
               <span className="text-xs text-zinc-500">IF411 · UNI</span>
             </div>
             <p className="text-sm text-zinc-600 dark:text-zinc-400">
-              Plataforma de Mecánica Cuántica para la Facultad de Ciencias.
+              Plataforma de Mecánica Cuántica.
             </p>
           </div>
 

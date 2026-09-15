@@ -172,7 +172,7 @@ export default function ModuleDetailPage({
             }`}
           >
             <FileText className="w-4 h-4" />
-            <span>Diapositivas de Cátedra ({mod.slidesPath.length})</span>
+            <span>Diapositivas ({mod.slidesPath.length})</span>
           </button>
         )}
       </div>
@@ -470,7 +470,7 @@ export default function ModuleDetailPage({
         <div className="space-y-8">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-bold text-zinc-900 dark:text-white">
-              Diapositivas Oficiales del Docente ({mod.slidesPath.length} Archivo(s))
+              Diapositivas ({mod.slidesPath.length} Archivo(s))
             </h2>
           </div>
           {mod.slidesPath.map((path, idx) => (

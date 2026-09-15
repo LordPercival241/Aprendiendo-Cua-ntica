@@ -5,11 +5,15 @@ import katex from 'katex';
 const sourcePaths = [
   path.resolve('src/content/modulesData.ts'),
   path.resolve('src/content/completionSections.ts'),
+  path.resolve('src/components/simulations/BlackbodySimulator.tsx'),
 ];
 const formulas = sourcePaths.flatMap((sourcePath) => {
   const source = fs.readFileSync(sourcePath, 'utf8');
-  return [...source.matchAll(/formula:\s*'((?:\\'|[^'])*)'/g)]
+  const contentFormulas = [...source.matchAll(/formula:\s*'((?:\\'|[^'])*)'/g)]
     .map((match) => match[1].replace(/\\\\/g, '\\').replace(/\\'/g, "'"));
+  const componentFormulas = [...source.matchAll(/math=\{String\.raw`([\s\S]*?)`\}/g)]
+    .map((match) => match[1]);
+  return [...contentFormulas, ...componentFormulas];
 });
 
 if (formulas.length === 0) {

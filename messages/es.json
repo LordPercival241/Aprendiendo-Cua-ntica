@@ -47,7 +47,7 @@
     "theoryTab": "Teoría Completa del Sílabo",
     "simTab": "Simulador & Laboratorio POE",
     "challengesTab": "Retos de Evaluación",
-    "slidesTab": "Diapositivas de Cátedra",
+    "slidesTab": "Diapositivas",
     "m1": {
       "title": "Introducción a la Física Moderna",
       "desc": "Fracaso de la física clásica, radiación del cuerpo negro, catástrofe ultravioleta e hipótesis de cuantización de Planck.",
@@ -137,7 +137,7 @@
     "title": "Repositorio de Recursos Académicos",
     "subtitle": "Acceso a las diapositivas de cátedra del docente y bibliografía clásica recomendada para el curso IF411.",
     "tabAll": "Todos los Recursos",
-    "tabLectures": "Diapositivas de Cátedra (14 Semanas)",
+    "tabLectures": "Diapositivas (14 Semanas)",
     "tabBooks": "Bibliografía Clásica (6 Libros)",
     "tabSyllabus": "Sílabo Oficial",
     "download": "Descargar PDF",

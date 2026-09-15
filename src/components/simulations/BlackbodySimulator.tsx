@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BookOpen, ChevronDown, ChevronUp, Zap, Thermometer } from 'lucide-react';
 import { KaTeXRenderer } from '@/components/math/KaTeXRenderer';
-import { MathMarkdown } from '@/components/math/MathMarkdown';
 
 export function BlackbodySimulator() {
   const [temperature, setTemperature] = useState<number>(5800); // 5800 K (Sun surface)
@@ -284,7 +283,7 @@ export function BlackbodySimulator() {
             Simulador de Radiación de Cuerpo Negro & Catástrofe Ultravioleta
           </h3>
           <div className="text-xs text-zinc-400 mt-1 max-w-2xl">
-            <MathMarkdown inline content="Compara la radiancia espectral $B_\\lambda(\\lambda,T)$ de Planck con los límites clásico de Rayleigh-Jeans y de Wien." />
+            Compara la radiancia espectral <KaTeXRenderer math={String.raw`B_\lambda(\lambda,T)`} /> de Planck con los límites clásico de Rayleigh-Jeans y de Wien.
           </div>
         </div>
 
@@ -429,18 +428,22 @@ export function BlackbodySimulator() {
         {showTheory && <div className="border-t border-zinc-800 p-5 grid gap-5 lg:grid-cols-2 text-sm text-zinc-300 leading-relaxed">
           <div className="space-y-3">
             <h4 className="font-semibold text-cyan-300">1. Principio del cuerpo negro</h4>
-            <MathMarkdown content="Una cavidad en equilibrio térmico emite una distribución espectral determinada solo por la temperatura $T$. Planck cuantizó la energía de los osciladores y obtuvo:" />
-            <KaTeXRenderer block math="B_\\lambda(\\lambda,T)=\\frac{2hc^2}{\\lambda^5}\\frac{1}{e^{hc/(\\lambda k_BT)}-1}" className="text-cyan-100" />
+            <p>Una cavidad en equilibrio térmico emite una distribución espectral determinada solo por la temperatura <KaTeXRenderer math="T" />. Planck cuantizó la energía de los osciladores y obtuvo:</p>
+            <div className="overflow-x-auto rounded-xl border border-cyan-400/15 bg-black/50 px-4 py-4 text-center">
+              <KaTeXRenderer block math={String.raw`B_\lambda(\lambda,T)=\frac{2hc^2}{\lambda^5}\frac{1}{e^{hc/(\lambda k_BT)}-1}`} className="text-cyan-100" />
+            </div>
             <p>La curva cian es esta radiancia espectral. Su área crece al aumentar la temperatura.</p>
           </div>
           <div className="space-y-3">
             <h4 className="font-semibold text-cyan-300">2. Qué comparar</h4>
-            <MathMarkdown content="La curva roja usa el límite clásico $B_\\lambda\\approx2ck_BT/\\lambda^4$, válido para longitudes de onda grandes; falla en el ultravioleta. La curva violeta usa Wien, válida cuando $hc/(\\lambda k_BT)\\gg1$." />
-            <KaTeXRenderer block math="\\lambda_{\\max}T=b\\approx2.898\\times10^{-3}\\ \\mathrm{m\\,K}" className="text-cyan-100" />
-            <MathMarkdown content="Sube $T$: el pico se desplaza a menor $\\lambda$ y la emisión total aumenta como $\\sigma T^4$." />
+            <p>La curva roja usa el límite clásico <KaTeXRenderer math={String.raw`B_\lambda\approx\frac{2ck_BT}{\lambda^4}`} />, válido para longitudes de onda grandes; falla en el ultravioleta. La curva violeta usa Wien, válida cuando <KaTeXRenderer math={String.raw`\frac{hc}{\lambda k_BT}\gg1`} />.</p>
+            <div className="overflow-x-auto rounded-xl border border-cyan-400/15 bg-black/50 px-4 py-4 text-center">
+              <KaTeXRenderer block math={String.raw`\lambda_{\max}T=b\approx2.898\times10^{-3}\ \mathrm{m\,K}`} className="text-cyan-100" />
+            </div>
+            <p>Sube <KaTeXRenderer math="T" />: el pico se desplaza a menor <KaTeXRenderer math={String.raw`\lambda`} /> y la emisión total aumenta como <KaTeXRenderer math={String.raw`\sigma T^4`} />.</p>
           </div>
           <div className="lg:col-span-2 rounded-xl bg-black border border-zinc-800 p-4 text-xs text-zinc-400">
-            <strong className="text-zinc-200">Convención:</strong> el gráfico representa <MathMarkdown inline content="$B_\\lambda$" />, radiancia por longitud de onda. No es la densidad de energía <MathMarkdown inline content="$u_\\nu$" /> usada en algunas deducciones; en vacío, <MathMarkdown inline content="$u_\\lambda=4\\pi B_\\lambda/c$" />.
+            <strong className="text-zinc-200">Convención:</strong> el gráfico representa <KaTeXRenderer math={String.raw`B_\lambda`} />, radiancia por longitud de onda. No es la densidad de energía <KaTeXRenderer math={String.raw`u_\nu`} /> usada en algunas deducciones; en vacío, <KaTeXRenderer math={String.raw`u_\lambda=4\pi B_\lambda/c`} />.
           </div>
         </div>}
       </section>
