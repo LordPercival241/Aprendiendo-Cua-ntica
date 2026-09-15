@@ -1,0 +1,174 @@
+{
+  "navigation": {
+    "brand": "QuantumUNI",
+    "subtitle": "Física Cuántica IF411 • UNI",
+    "modules": "Módulos",
+    "simulations": "Simulaciones",
+    "resources": "Biblioteca & Recursos",
+    "progress": "Mi Progreso",
+    "signIn": "Acceso",
+    "signOut": "Cerrar Sesión",
+    "guest": "Modo Invitado"
+  },
+  "landing": {
+    "badge": "Universidad Nacional de Ingeniería • Facultad de Ciencias",
+    "heroTitle": "Mecánica Cuántica",
+    "heroHighlight": "Formalismo Teórico y Simulación Computacional",
+    "heroSubtitle": "Plataforma educativa para el curso IF411. Desarrollada con rigor analítico, deducciones matemáticas completas con KaTeX, simulaciones numéricas en tiempo real y metodología activa POE.",
+    "ctaExplore": "Explorar Módulos del Sílabo",
+    "ctaSims": "Laboratorio Interactivo",
+    "ctaLogin": "Iniciar Sesión",
+    "ctaSyllabus": "Descargar Sílabo IF411 (PDF)",
+    "statsModules": "14 Unidades Temáticas",
+    "statsModulesSub": "Alineadas al sílabo oficial FC-UNI",
+    "statsSims": "Laboratorios validados",
+    "statsSimsSub": "Modelo, dominio y límites explícitos",
+    "statsPOE": "Metodología POE",
+    "statsPOESub": "Predecir → Observar → Explicar",
+    "statsHake": "Ganancia de Hake",
+    "statsHakeSub": "Evaluación pre/post test ⟨g⟩",
+    "syllabusTitle": "Estructura Curricular del Curso IF411",
+    "syllabusSubtitle": "15 semanas lectivas fundamentadas en las diapositivas oficiales de la cátedra y la literatura clásica recomendada (Cohen-Tannoudji, Merzbacher, Eisberg, Feynman).",
+    "methodologyTitle": "Metodología de Aprendizaje Activo (POE)",
+    "poe1Title": "1. Predecir (Hypothesis)",
+    "poe1Desc": "Antes de interactuar con el simulador, plantea tu hipótesis teórica basada en las leyes cuánticas.",
+    "poe2Title": "2. Observar (Observation)",
+    "poe2Desc": "Ejecuta la evolución temporal del paquete de ondas o ajusta la frecuencia y potencial en vivo.",
+    "poe3Title": "3. Explicar (Synthesis)",
+    "poe3Desc": "Compara los datos numéricos con tu predicción y consolida la comprensión conceptual con retos evaluados."
+  },
+  "modules": {
+    "title": "Módulos de Aprendizaje",
+    "subtitle": "Cada módulo incluye lección teórica detallada con KaTeX, diapositivas del profesor, simulación interactiva y retos clasificados por nivel.",
+    "filterAll": "Todos",
+    "unitPrefix": "Unidad",
+    "weekPrefix": "Semana",
+    "startModule": "Ingresar al Módulo",
+    "theoryTab": "Teoría Completa del Sílabo",
+    "simTab": "Simulador & Laboratorio POE",
+    "challengesTab": "Retos de Evaluación",
+    "slidesTab": "Diapositivas de Cátedra",
+    "m1": {
+      "title": "Introducción a la Física Moderna",
+      "desc": "Fracaso de la física clásica, radiación del cuerpo negro, catástrofe ultravioleta e hipótesis de cuantización de Planck.",
+      "unit": "I",
+      "week": "1"
+    },
+    "m2": {
+      "title": "Efecto Fotoeléctrico y Compton",
+      "desc": "Interacción radiación-materia, función de trabajo, frecuencia de corte, choque fotón-electrón y dispersión Compton.",
+      "unit": "I-II",
+      "week": "1-2"
+    },
+    "m3": {
+      "title": "Dualidad Onda-Partícula y De Broglie",
+      "desc": "Hipótesis de De Broglie, difracción de electrones, longitud de onda térmica y principio de incertidumbre de Heisenberg.",
+      "unit": "II-III",
+      "week": "2"
+    },
+    "m4": {
+      "title": "Ecuación de Schrödinger 1D",
+      "desc": "Postulados fundamentales, ecuación dependiente e independiente del tiempo, interpretación probabilística de Born y densidad de corriente.",
+      "unit": "IV",
+      "week": "3-4"
+    },
+    "m5": {
+      "title": "Partícula Libre y Paquetes de Ondas",
+      "desc": "Soluciones de ondas planas, superposición espectral, dispersión temporal del paquete gaussiano y teorema de Ehrenfest.",
+      "unit": "V",
+      "week": "5-6"
+    },
+    "m6": {
+      "title": "Potenciales 1D y Estados Ligados",
+      "desc": "Pozo infinito y pozo finito, cuantización de energías por condiciones de contorno, paridad de funciones propias y penetración de barrera.",
+      "unit": "VI",
+      "week": "7"
+    },
+    "m7": {
+      "title": "Tunelamiento Cuántico y Barreras",
+      "desc": "Escalón y barrera rectangular, coeficiente de transmisión y reflexión, efecto túnel cuántico y decaimiento alfa.",
+      "unit": "VII",
+      "week": "7"
+    },
+    "m8": {
+      "title": "Formalismo de Dirac y Álgebra Cuántica",
+      "desc": "Espacios de Hilbert, notación Bra-Ket, operadores hermíticos, conmutadores, relación de incertidumbre generalizada y bases de estados.",
+      "unit": "VIII",
+      "week": "9"
+    },
+    "m9": {
+      "title": "Oscilador Armónico Cuántico",
+      "desc": "Tratamiento analítico con polinomios de Hermite y algebraico con operadores escalera de creación y aniquilación.",
+      "unit": "IX",
+      "week": "9-10"
+    },
+    "m10": {
+      "title": "Átomo de Hidrógeno y Problema Central",
+      "desc": "Separación de variables en coordenadas esféricas, armónicos esféricos, funciones radiales de Laguerre y estructura de orbitales.",
+      "unit": "X",
+      "week": "11"
+    },
+    "m11": {
+      "title": "Momento Angular y Espín",
+      "desc": "Álgebra de conmutación del momento angular orbital, espín 1/2 del electrón, matrices de Pauli y momento magnético.",
+      "unit": "XI",
+      "week": "12-13"
+    },
+    "m12": {
+      "title": "Experimento de Stern-Gerlach y Composición",
+      "desc": "Medición cuántica secuencial, colapso de estado, superposición de espín y coeficientes de Clebsch-Gordan en adición de momentos.",
+      "unit": "XII",
+      "week": "13, 15"
+    },
+    "m13": {
+      "title": "Teoría de Perturbaciones",
+      "desc": "Perturbaciones independientes del tiempo para casos no degenerado y degenerado, y efecto Stark.",
+      "unit": "XIII",
+      "week": "14"
+    },
+    "m14": {
+      "title": "Perturbaciones Dependientes del Tiempo",
+      "desc": "Amplitudes de transición de primer orden, perturbación periódica, resonancia, absorción, emisión y regla de oro de Fermi.",
+      "unit": "XIV",
+      "week": "15"
+    }
+  },
+  "resources": {
+    "title": "Repositorio de Recursos Académicos",
+    "subtitle": "Acceso a las diapositivas de cátedra del docente y bibliografía clásica recomendada para el curso IF411.",
+    "tabAll": "Todos los Recursos",
+    "tabLectures": "Diapositivas de Cátedra (14 Semanas)",
+    "tabBooks": "Bibliografía Clásica (6 Libros)",
+    "tabSyllabus": "Sílabo Oficial",
+    "download": "Descargar PDF",
+    "view": "Abrir en Visor",
+    "lecturesTitle": "Diapositivas de Teoría (Profesor IF411)",
+    "booksTitle": "Bibliografía Clásica Recomendada",
+    "notice": "Material para fines educativos de la comunidad universitaria UNI."
+  },
+  "auth": {
+    "title": "Acceso a QuantumUNI",
+    "subtitle": "Ingresa con tu cuenta de Google (Gmail personal o institucional).",
+    "googleButton": "Continuar con Google",
+    "benefitsTitle": "Beneficios de la cuenta académica:",
+    "benefit1": "Guarda tu progreso de lectura en los 14 módulos",
+    "benefit2": "Registra tus hipótesis y explicaciones en las simulaciones POE",
+    "benefit3": "Completa los retos de 3 niveles y acumula insignias cuánticas",
+    "benefit4": "Mide tu Ganancia de Hake ⟨g⟩ con los Pre/Post tests",
+    "guestMode": "O continuar como invitado",
+    "guestNotice": "Puedes interactuar libremente con todas las simulaciones y leer los recursos sin registrarte."
+  },
+  "progress": {
+    "title": "Panel de Analítica y Rendimiento del Estudiante",
+    "subtitle": "Monitorea tu avance en el sílabo, retos resueltos y métricas de aprendizaje.",
+    "notLoggedIn": "Inicia sesión para visualizar tu progreso personalizado.",
+    "modulesCompleted": "Módulos Avanzados",
+    "challengesSolved": "Retos Superados",
+    "hakeScore": "Ganancia de Hake ⟨g⟩",
+    "hakeDesc": "Mide la efectividad del aprendizaje interactivo respecto a la instrucción tradicional."
+  },
+  "footer": {
+    "text": "Universidad Nacional de Ingeniería (UNI) • Facultad de Ciencias • Curso IF411 Mecánica Cuántica.",
+    "rights": "Desarrollado para la investigación y enseñanza de la física cuántica."
+  }
+}

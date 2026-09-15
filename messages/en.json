@@ -1,0 +1,174 @@
+{
+  "navigation": {
+    "brand": "QuantumUNI",
+    "subtitle": "Quantum Mechanics IF411 • UNI",
+    "modules": "Modules",
+    "simulations": "Simulations",
+    "resources": "Library & Resources",
+    "progress": "My Progress",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "guest": "Guest Mode"
+  },
+  "landing": {
+    "badge": "National University of Engineering • Faculty of Science",
+    "heroTitle": "Quantum Mechanics",
+    "heroHighlight": "Theoretical Rigor & Computational Simulation",
+    "heroSubtitle": "Educational platform for course IF411. Built with analytical rigor, comprehensive KaTeX derivations, real-time numerical simulations, and active POE methodology.",
+    "ctaExplore": "Explore Syllabus Modules",
+    "ctaSims": "Interactive Lab",
+    "ctaLogin": "Sign In",
+    "ctaSyllabus": "Download IF411 Syllabus (PDF)",
+    "statsModules": "14 Thematic Units",
+    "statsModulesSub": "Aligned with official UNI syllabus",
+    "statsSims": "Validated laboratories",
+    "statsSimsSub": "Explicit model, domain, and limits",
+    "statsPOE": "POE Methodology",
+    "statsPOESub": "Predict → Observe → Explain",
+    "statsHake": "Hake Gain",
+    "statsHakeSub": "Pre/post test metric ⟨g⟩",
+    "syllabusTitle": "IF411 Course Curricular Structure",
+    "syllabusSubtitle": "15 teaching weeks based on official faculty lecture slides and recommended classical textbooks (Cohen-Tannoudji, Merzbacher, Eisberg, Feynman).",
+    "methodologyTitle": "Active Learning Methodology (POE)",
+    "poe1Title": "1. Predict (Hypothesis)",
+    "poe1Desc": "Before interacting with the simulator, formulate your theoretical hypothesis based on quantum principles.",
+    "poe2Title": "2. Observe (Observation)",
+    "poe2Desc": "Run wave packet time evolution or modify frequency and potential barriers live in the browser.",
+    "poe3Title": "3. Explain (Synthesis)",
+    "poe3Desc": "Compare numerical simulation data with your prediction and consolidate conceptual mastery through graded challenges."
+  },
+  "modules": {
+    "title": "Learning Modules",
+    "subtitle": "Each module contains a detailed KaTeX theoretical lesson, instructor slides, an interactive simulation, and leveled challenges.",
+    "filterAll": "All",
+    "unitPrefix": "Unit",
+    "weekPrefix": "Week",
+    "startModule": "Enter Module",
+    "theoryTab": "Complete Syllabus Theory",
+    "simTab": "Simulator & POE Lab",
+    "challengesTab": "Evaluated Challenges",
+    "slidesTab": "Lecture Slides",
+    "m1": {
+      "title": "Introduction to Modern Physics",
+      "desc": "Failure of classical physics, blackbody radiation, ultraviolet catastrophe, and Planck's quantization hypothesis.",
+      "unit": "I",
+      "week": "1"
+    },
+    "m2": {
+      "title": "Photoelectric Effect and Compton Scattering",
+      "desc": "Radiation-matter interaction, work function, cutoff frequency, photon-electron collisions, and Compton scattering.",
+      "unit": "I-II",
+      "week": "1-2"
+    },
+    "m3": {
+      "title": "Wave-Particle Duality and De Broglie",
+      "desc": "De Broglie hypothesis, electron diffraction, thermal de Broglie wavelength, and Heisenberg's uncertainty principle.",
+      "unit": "II-III",
+      "week": "2"
+    },
+    "m4": {
+      "title": "1D Schrödinger Equation",
+      "desc": "Fundamental postulates, time-dependent and independent equations, Born's probabilistic interpretation, and probability current density.",
+      "unit": "IV",
+      "week": "3-4"
+    },
+    "m5": {
+      "title": "Free Particle and Wave Packets",
+      "desc": "Plane wave solutions, spectral superposition, temporal dispersion of Gaussian wave packets, and Ehrenfest's theorem.",
+      "unit": "V",
+      "week": "5-6"
+    },
+    "m6": {
+      "title": "1D Potentials and Bound States",
+      "desc": "Infinite and finite square wells, energy quantization via boundary conditions, eigenfunction parity, and barrier penetration.",
+      "unit": "VI",
+      "week": "7"
+    },
+    "m7": {
+      "title": "Quantum Tunneling and Barriers",
+      "desc": "Step and rectangular barrier, transmission and reflection coefficients, quantum tunneling effect, and alpha decay.",
+      "unit": "VII",
+      "week": "7"
+    },
+    "m8": {
+      "title": "Dirac Formalism and Quantum Algebra",
+      "desc": "Hilbert spaces, Bra-Ket notation, Hermitian operators, commutators, generalized uncertainty relation, and state bases.",
+      "unit": "VIII",
+      "week": "9"
+    },
+    "m9": {
+      "title": "Quantum Harmonic Oscillator",
+      "desc": "Analytic treatment using Hermite polynomials and algebraic ladder operator method (creation and annihilation).",
+      "unit": "IX",
+      "week": "9-10"
+    },
+    "m10": {
+      "title": "Hydrogen Atom and Central Potential",
+      "desc": "Separation of variables in spherical coordinates, spherical harmonics, radial Laguerre functions, and orbital structure.",
+      "unit": "X",
+      "week": "11"
+    },
+    "m11": {
+      "title": "Angular Momentum and Spin",
+      "desc": "Orbital angular momentum commutation algebra, electron spin 1/2, Pauli spin matrices, and magnetic dipole moments.",
+      "unit": "XI",
+      "week": "12-13"
+    },
+    "m12": {
+      "title": "Stern-Gerlach Experiment and Addition",
+      "desc": "Sequential quantum measurement, state collapse, spin superposition, and Clebsch-Gordan coefficients in angular momentum addition.",
+      "unit": "XII",
+      "week": "13, 15"
+    },
+    "m13": {
+      "title": "Perturbation Theory",
+      "desc": "Time-independent perturbations for non-degenerate and degenerate cases, and the Stark effect.",
+      "unit": "XIII",
+      "week": "14"
+    },
+    "m14": {
+      "title": "Time-Dependent Perturbations",
+      "desc": "First-order transition amplitudes, periodic perturbations, resonance, absorption, emission, and Fermi's golden rule.",
+      "unit": "XIV",
+      "week": "15"
+    }
+  },
+  "resources": {
+    "title": "Academic Resource Repository",
+    "subtitle": "Direct access to official course slides and classical textbooks for IF411.",
+    "tabAll": "All Resources",
+    "tabLectures": "Lecture Slides (14 Weeks)",
+    "tabBooks": "Textbooks (6 Books)",
+    "tabSyllabus": "Official Syllabus",
+    "download": "Download PDF",
+    "view": "Open Viewer",
+    "lecturesTitle": "Theory Lecture Slides (IF411 Professor)",
+    "booksTitle": "Recommended Classic Literature",
+    "notice": "Educational material for the UNI academic community."
+  },
+  "auth": {
+    "title": "Access QuantumUNI",
+    "subtitle": "Sign in with your Google account (any personal or academic Gmail).",
+    "googleButton": "Continue with Google",
+    "benefitsTitle": "Academic account features:",
+    "benefit1": "Track your reading progress across all 14 modules",
+    "benefit2": "Save your predictions and explanations in POE simulations",
+    "benefit3": "Solve 3-level challenges and collect quantum badges",
+    "benefit4": "Measure your learning gain ⟨g⟩ via Pre/Post assessments",
+    "guestMode": "Or continue as guest",
+    "guestNotice": "You can interact freely with all simulations and read materials without registering."
+  },
+  "progress": {
+    "title": "Student Analytics & Performance Dashboard",
+    "subtitle": "Track your syllabus progress, completed challenges, and learning analytics.",
+    "notLoggedIn": "Sign in to view your personalized learning metrics.",
+    "modulesCompleted": "Modules Completed",
+    "challengesSolved": "Challenges Solved",
+    "hakeScore": "Hake Gain ⟨g⟩",
+    "hakeDesc": "Measures active conceptual learning effectiveness compared to traditional lectures."
+  },
+  "footer": {
+    "text": "National University of Engineering (UNI) • Faculty of Science • Course IF411 Quantum Mechanics.",
+    "rights": "Developed for quantum physics education and research."
+  }
+}
