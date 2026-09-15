@@ -38,7 +38,7 @@ export function Footer() {
         <div className="mt-6 pt-4 border-t border-zinc-200 dark:border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-zinc-500">
           <span>© {new Date().getFullYear()} Aprendiendo Cuántica — Facultad de Ciencias, UNI.</span>
           <span className="font-mono text-xs text-zinc-400">
-            Mecánica Cuántica IF411
+            by Dante Olivas 
           </span>
         </div>
       </div>
