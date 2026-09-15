@@ -50,9 +50,9 @@ export function FormulaInspector({ data, className = '' }: FormulaInspectorProps
   };
 
   return (
-    <div className={`my-8 rounded-2xl border border-zinc-800 bg-zinc-950/95 shadow-2xl overflow-hidden transition-all animate-fade-in ${className}`}>
+    <div className={`my-8 overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950/95 shadow-lg shadow-black/10 transition-all animate-fade-in ${className}`}>
       {/* Formula Top Header */}
-      <div className="px-6 py-4 bg-zinc-900/90 border-b border-zinc-800 flex flex-wrap items-center justify-between gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-800 bg-zinc-900/90 px-5 py-3.5">
         <div className="flex items-center gap-3">
           {data.category && (
             <span className="px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
@@ -88,8 +88,8 @@ export function FormulaInspector({ data, className = '' }: FormulaInspectorProps
       </div>
 
       {/* Primary Mathematical Display — LARGER */}
-      <div className="px-8 py-8 bg-zinc-950 text-center border-b border-zinc-800/80 overflow-x-auto">
-        <KaTeXRenderer math={data.formula} block className="text-2xl sm:text-3xl text-cyan-100" />
+      <div className="overflow-x-auto border-b border-zinc-800/80 bg-black/30 px-6 py-6 text-center">
+        <KaTeXRenderer math={data.formula} block className="text-xl sm:text-2xl text-cyan-100" />
       </div>
 
       {/* Detailed Analysis Accordion */}
