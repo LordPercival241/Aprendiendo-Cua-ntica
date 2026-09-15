@@ -5,7 +5,7 @@ interface QuantumMarkProps {
   title?: string;
 }
 
-/** Vector mark with animated orbital electrons. It inherits its colour from its container. */
+/** Vector mark with stationary orbital paths and electrons moving along them. */
 export function QuantumMark({ className = '', title }: QuantumMarkProps) {
   return (
     <svg
@@ -18,27 +18,26 @@ export function QuantumMark({ className = '', title }: QuantumMarkProps) {
       xmlns="http://www.w3.org/2000/svg"
     >
       {title && <title>{title}</title>}
-      <circle cx="32" cy="32" r="7" className="fill-cyan-500 dark:fill-cyan-300" opacity="0.16" />
-      <circle cx="32" cy="32" r="3.25" className="fill-cyan-600 dark:fill-cyan-300" />
-
       <g transform="rotate(-25 32 32)">
-        <g className="quantum-mark-orbit quantum-mark-orbit-a">
-          <ellipse cx="32" cy="32" rx="23" ry="9" stroke="currentColor" strokeWidth="1.7" opacity="0.9" />
-          <circle cx="55" cy="32" r="3.25" className="fill-cyan-500 dark:fill-cyan-300" />
-        </g>
+        <ellipse cx="32" cy="32" rx="23" ry="9" stroke="currentColor" strokeWidth="1.7" opacity="0.9" />
+        <circle r="3.25" className="fill-cyan-500 dark:fill-cyan-300">
+          <animateMotion dur="4.8s" repeatCount="indefinite" path="M 9 32 a 23 9 0 1 0 46 0 a 23 9 0 1 0 -46 0" />
+        </circle>
       </g>
       <g transform="rotate(38 32 32)">
-        <g className="quantum-mark-orbit quantum-mark-orbit-b">
-          <ellipse cx="32" cy="32" rx="23" ry="9" stroke="currentColor" strokeWidth="1.7" opacity="0.72" />
-          <circle cx="9" cy="32" r="3" className="fill-indigo-500 dark:fill-indigo-300" />
-        </g>
+        <ellipse cx="32" cy="32" rx="23" ry="9" stroke="currentColor" strokeWidth="1.7" opacity="0.72" />
+        <circle r="3" className="fill-indigo-500 dark:fill-indigo-300">
+          <animateMotion dur="6.3s" repeatCount="indefinite" path="M 55 32 a 23 9 0 1 0 -46 0 a 23 9 0 1 0 46 0" />
+        </circle>
       </g>
       <g transform="rotate(88 32 32)">
-        <g className="quantum-mark-orbit quantum-mark-orbit-c">
-          <ellipse cx="32" cy="32" rx="23" ry="9" stroke="currentColor" strokeWidth="1.5" opacity="0.58" />
-          <circle cx="54" cy="32" r="2.75" className="fill-sky-500 dark:fill-sky-300" />
-        </g>
+        <ellipse cx="32" cy="32" rx="23" ry="9" stroke="currentColor" strokeWidth="1.5" opacity="0.58" />
+        <circle r="2.75" className="fill-sky-500 dark:fill-sky-300">
+          <animateMotion dur="7.5s" repeatCount="indefinite" path="M 9 32 a 23 9 0 1 0 46 0 a 23 9 0 1 0 -46 0" />
+        </circle>
       </g>
+      <circle cx="32" cy="32" r="7" className="fill-cyan-500 dark:fill-cyan-300" opacity="0.16" />
+      <circle cx="32" cy="32" r="3.25" className="fill-cyan-600 dark:fill-cyan-300" />
     </svg>
   );
 }

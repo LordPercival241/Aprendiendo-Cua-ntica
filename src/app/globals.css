@@ -167,39 +167,6 @@ body {
   animation: spin-slow 20s linear infinite;
 }
 
-/* Animated vector identity: only the electrons and their orbital frames rotate. */
-.quantum-mark-orbit {
-  transform-box: fill-box;
-  transform-origin: center;
-  will-change: transform;
-}
-
-.quantum-mark-orbit-a {
-  animation: quantum-orbit-forward 5.8s linear infinite;
-}
-
-.quantum-mark-orbit-b {
-  animation: quantum-orbit-reverse 7.4s linear infinite;
-}
-
-.quantum-mark-orbit-c {
-  animation: quantum-orbit-forward 9.2s linear infinite;
-}
-
-@keyframes quantum-orbit-forward {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes quantum-orbit-reverse {
-  to { transform: rotate(-360deg); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .quantum-mark-orbit {
-    animation: none;
-  }
-}
-
 .animate-fade-in {
   animation: fade-in 0.5s ease-out both;
 }

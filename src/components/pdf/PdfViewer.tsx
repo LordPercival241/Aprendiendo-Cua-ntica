@@ -13,6 +13,7 @@ interface PdfViewerProps {
 export function PdfViewer({ url, title, className = '', height = 'h-[750px]' }: PdfViewerProps) {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Encode URL properly for spaces and symbols in filenames
   const encodedUrl = encodeURI(url);
@@ -68,27 +69,26 @@ export function PdfViewer({ url, title, className = '', height = 'h-[750px]' }: 
       {/* PDF Viewport */}
       <div className="relative flex-1 w-full h-full bg-zinc-100 dark:bg-zinc-950">
         {!hasError ? (
-          <object
-            data={`${encodedUrl}#toolbar=1&navpanes=0`}
-            type="application/pdf"
-            className="w-full h-full"
-            onError={() => setHasError(true)}
-          >
-            <div className="flex flex-col items-center justify-center h-full p-8 text-center">
-              <AlertCircle className="w-10 h-10 text-amber-500 mb-3" />
-              <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200 mb-4">
-                El navegador no pudo incrustar directamente este PDF.
-              </p>
-              <a
-                href={encodedUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-medium text-xs shadow-lg transition-all"
-              >
-                Abrir PDF en pestaña nueva
-              </a>
-            </div>
-          </object>
+          <>
+            {isLoading && (
+              <div className="absolute inset-0 z-10 flex items-center justify-center bg-zinc-100 dark:bg-zinc-950">
+                <div className="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
+                  <span className="h-4 w-4 rounded-full border-2 border-cyan-500 border-t-transparent animate-spin" />
+                  Cargando diapositivas…
+                </div>
+              </div>
+            )}
+            <iframe
+              src={`${encodedUrl}#toolbar=1&navpanes=0`}
+              title={title}
+              className="w-full h-full border-0"
+              onLoad={() => setIsLoading(false)}
+              onError={() => {
+                setIsLoading(false);
+                setHasError(true);
+              }}
+            />
+          </>
         ) : (
           <div className="flex flex-col items-center justify-center h-full p-8 text-center">
             <AlertCircle className="w-10 h-10 text-red-500 mb-3" />
