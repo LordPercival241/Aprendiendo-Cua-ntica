@@ -1,4 +1,4 @@
-#  QuantumUNI — Plataforma de Mecánica Cuántica IF411
+#  Plataforma de Mecánica Cuántica IF411
 
 Plataforma web educativa para el curso **IF411 (Mecánica Cuántica)** de la **Facultad de Ciencias de la Universidad Nacional de Ingeniería (UNI)**. Integra teoría rigurosa alineada al sílabo, renderizado matemático KaTeX, simulaciones interactivas, ciclo POE (Predecir-Observar-Explicar) y analítica de aprendizaje.
 
