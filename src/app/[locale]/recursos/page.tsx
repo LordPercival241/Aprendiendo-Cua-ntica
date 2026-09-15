@@ -4,13 +4,10 @@ import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { PdfViewer } from '@/components/pdf/PdfViewer';
 import {
-  FileText,
-  BookOpen,
   Download,
   Eye,
   FolderOpen,
-  Search,
-  ExternalLink
+  Search
 } from 'lucide-react';
 
 interface ResourceItem {

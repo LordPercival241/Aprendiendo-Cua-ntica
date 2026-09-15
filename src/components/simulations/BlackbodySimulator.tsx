@@ -1,13 +1,16 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Sliders, Play, RotateCcw, Info, Zap, Thermometer, Sparkles } from 'lucide-react';
+import { BookOpen, ChevronDown, ChevronUp, Zap, Thermometer } from 'lucide-react';
+import { KaTeXRenderer } from '@/components/math/KaTeXRenderer';
+import { MathMarkdown } from '@/components/math/MathMarkdown';
 
 export function BlackbodySimulator() {
   const [temperature, setTemperature] = useState<number>(5800); // 5800 K (Sun surface)
   const [showRayleigh, setShowRayleigh] = useState<boolean>(true);
   const [showWien, setShowWien] = useState<boolean>(false);
   const [showPlanck, setShowPlanck] = useState<boolean>(true);
+  const [showTheory, setShowTheory] = useState<boolean>(true);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   // Physical constants
@@ -79,7 +82,7 @@ export function BlackbodySimulator() {
     const height = rect.height;
 
     // Background
-    ctx.fillStyle = '#020617'; // slate-950
+    ctx.fillStyle = '#000000';
     ctx.fillRect(0, 0, width, height);
 
     // Padding for axes
@@ -116,7 +119,7 @@ export function BlackbodySimulator() {
     ctx.fillRect(visX1, padT, visX2 - visX1, plotH);
 
     // Grid lines
-    ctx.strokeStyle = '#1e293b'; // slate-800
+    ctx.strokeStyle = '#27272a';
     ctx.lineWidth = 1;
     ctx.setLineDash([4, 4]);
 
@@ -267,12 +270,12 @@ export function BlackbodySimulator() {
     ctx.rotate(-Math.PI / 2);
     ctx.fillText('Radiancia espectral Bλ(λ, T) [W·sr⁻¹·m⁻³]', 0, 0);
     ctx.restore();
-  }, [temperature, showRayleigh, showWien, showPlanck]);
+  }, [temperature, showRayleigh, showWien, showPlanck, lambdaPeakNm]);
 
   return (
-    <div className="rounded-3xl border border-slate-800 bg-slate-950 p-6 space-y-6 text-slate-100 shadow-2xl">
+    <div className="rounded-3xl border border-zinc-800 bg-black p-5 sm:p-7 space-y-6 text-zinc-100 shadow-2xl">
       {/* Simulator Top Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-800 pb-5">
         <div>
           <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
             Laboratorio Interactivo • IF411
@@ -280,33 +283,33 @@ export function BlackbodySimulator() {
           <h3 className="text-lg sm:text-xl font-bold text-white mt-1">
             Simulador de Radiación de Cuerpo Negro & Catástrofe Ultravioleta
           </h3>
-          <p className="text-xs text-slate-400 mt-0.5">
-            Grafica la radiancia espectral $B_\\lambda(\\lambda,T)$ y compara la ley de Planck frente a la divergencia clásica de Rayleigh-Jeans.
-          </p>
+          <div className="text-xs text-zinc-400 mt-1 max-w-2xl">
+            <MathMarkdown inline content="Compara la radiancia espectral $B_\\lambda(\\lambda,T)$ de Planck con los límites clásico de Rayleigh-Jeans y de Wien." />
+          </div>
         </div>
 
         {/* Dynamic Color Swatch */}
-        <div className="flex items-center gap-3 px-3.5 py-2 rounded-2xl bg-slate-900 border border-slate-800">
+        <div className="flex items-center gap-3 px-3.5 py-2 rounded-2xl bg-zinc-950 border border-zinc-800">
           <div
             className="w-7 h-7 rounded-full shadow-lg border border-white/30 transition-colors"
             style={{ backgroundColor: getBlackbodyColor(temperature) }}
           />
           <div className="text-xs font-mono">
-            <span className="text-slate-400 text-[10px] block">Color Térmico</span>
+            <span className="text-zinc-500 text-[10px] block">Temperatura</span>
             <span className="font-bold text-white">{temperature} K</span>
           </div>
         </div>
       </div>
 
       {/* Main Canvas Viewport */}
-      <div className="relative rounded-2xl border border-slate-800 bg-slate-950 overflow-hidden">
+      <div className="relative rounded-2xl border border-zinc-800 bg-black overflow-hidden">
         <canvas
           ref={canvasRef}
           className="w-full h-[320px] sm:h-[380px] block cursor-crosshair"
         />
 
         {/* Floating Legend */}
-        <div className="absolute top-3 right-3 flex flex-col gap-1.5 p-3 rounded-xl bg-slate-900/90 border border-slate-800 backdrop-blur-md text-[11px] font-mono">
+        <div className="absolute top-3 right-3 flex flex-col gap-1.5 p-3 rounded-xl bg-black/90 border border-zinc-700 backdrop-blur-md text-[11px] font-mono">
           <label className="flex items-center gap-2 cursor-pointer hover:text-cyan-300">
             <input
               type="checkbox"
@@ -343,15 +346,15 @@ export function BlackbodySimulator() {
       </div>
 
       {/* Controls & Metrics Panel */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {/* Slider */}
-        <div className="md:col-span-2 space-y-4 p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
+        <div className="md:col-span-2 space-y-4 p-5 rounded-2xl bg-zinc-950 border border-zinc-800">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-xs font-semibold text-slate-200">
+            <div className="flex items-center gap-2 text-xs font-semibold text-zinc-200">
               <Thermometer className="w-4 h-4 text-cyan-400" />
               <span>Temperatura Absoluta del Cuerpo Negro (T)</span>
             </div>
-            <span className="px-2.5 py-1 rounded-lg bg-slate-800 text-cyan-400 font-mono text-sm font-bold border border-slate-700">
+            <span className="px-2.5 py-1 rounded-lg bg-black text-cyan-400 font-mono text-sm font-bold border border-zinc-700">
               {temperature.toLocaleString()} K
             </span>
           </div>
@@ -363,12 +366,12 @@ export function BlackbodySimulator() {
             step="50"
             value={temperature}
             onChange={(e) => setTemperature(Number(e.target.value))}
-            className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"
+            className="w-full h-2 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"
           />
 
           {/* Quick Preset Buttons */}
           <div className="flex flex-wrap items-center gap-2 pt-1">
-            <span className="text-[11px] font-mono text-slate-500">Presets Cátedra:</span>
+            <span className="text-[11px] font-mono text-zinc-500">Referencias:</span>
             {[
               { label: 'Filamento (2800 K)', t: 2800 },
               { label: 'Superficie Solar (5800 K)', t: 5800 },
@@ -381,7 +384,7 @@ export function BlackbodySimulator() {
                 className={`px-2.5 py-1 rounded-lg text-xs font-mono transition-colors cursor-pointer border ${
                   temperature === p.t
                     ? 'bg-cyan-600 text-white border-cyan-400'
-                    : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700'
+                    : 'bg-black text-zinc-300 border-zinc-700 hover:bg-zinc-800'
                 }`}
               >
                 {p.label}
@@ -391,7 +394,7 @@ export function BlackbodySimulator() {
         </div>
 
         {/* Numerical Output Card */}
-        <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3 font-mono text-xs">
+        <div className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-3 font-mono text-xs">
           <div className="text-[11px] font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
             <Zap className="w-3.5 h-3.5" />
             <span>Predicciones Físicas</span>
@@ -399,17 +402,17 @@ export function BlackbodySimulator() {
 
           <div className="space-y-2">
             <div className="flex items-center justify-between border-b border-slate-800 pb-1.5">
-              <span className="text-slate-400">Pico de Wien (λ_max):</span>
+              <span className="text-zinc-500">Pico de Wien:</span>
               <span className="font-bold text-white">{Math.round(lambdaPeakNm)} nm</span>
             </div>
             <div className="flex items-center justify-between border-b border-slate-800 pb-1.5">
-              <span className="text-slate-400">Rango Espectral:</span>
+              <span className="text-zinc-500">Región del pico:</span>
               <span className="font-semibold text-cyan-300">
                 {lambdaPeakNm < 380 ? 'Ultravioleta' : lambdaPeakNm <= 750 ? 'Visible' : 'Infrarrojo'}
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-slate-400">Emisión Total (σ T⁴):</span>
+              <span className="text-zinc-500">Emisión total:</span>
               <span className="font-bold text-emerald-400">
                 {(totalEmittance / 1e6).toFixed(2)} MW/m²
               </span>
@@ -418,12 +421,29 @@ export function BlackbodySimulator() {
         </div>
       </div>
 
-      <p className="text-[11px] leading-relaxed text-slate-400">
-        Convención del gráfico: se representa la radiancia espectral por longitud de onda $B_\lambda$.
-        La densidad de energía usada en la lección, $u_\nu$, es otra magnitud; en vacío se relaciona con
-        la radiancia mediante $u_\lambda = 4\pi B_\lambda/c$ y requiere el cambio de variable
-        entre $\lambda$ y $\nu$.
-      </p>
+      <section className="rounded-2xl border border-zinc-800 bg-zinc-950">
+        <button type="button" onClick={() => setShowTheory((value) => !value)} className="w-full flex items-center justify-between gap-3 p-5 text-left cursor-pointer">
+          <span className="flex items-center gap-2 text-sm font-semibold text-zinc-100"><BookOpen className="w-4 h-4 text-cyan-400" />Fundamento físico y lectura del experimento</span>
+          {showTheory ? <ChevronUp className="w-4 h-4 text-zinc-400" /> : <ChevronDown className="w-4 h-4 text-zinc-400" />}
+        </button>
+        {showTheory && <div className="border-t border-zinc-800 p-5 grid gap-5 lg:grid-cols-2 text-sm text-zinc-300 leading-relaxed">
+          <div className="space-y-3">
+            <h4 className="font-semibold text-cyan-300">1. Principio del cuerpo negro</h4>
+            <MathMarkdown content="Una cavidad en equilibrio térmico emite una distribución espectral determinada solo por la temperatura $T$. Planck cuantizó la energía de los osciladores y obtuvo:" />
+            <KaTeXRenderer block math="B_\\lambda(\\lambda,T)=\\frac{2hc^2}{\\lambda^5}\\frac{1}{e^{hc/(\\lambda k_BT)}-1}" className="text-cyan-100" />
+            <p>La curva cian es esta radiancia espectral. Su área crece al aumentar la temperatura.</p>
+          </div>
+          <div className="space-y-3">
+            <h4 className="font-semibold text-cyan-300">2. Qué comparar</h4>
+            <MathMarkdown content="La curva roja usa el límite clásico $B_\\lambda\\approx2ck_BT/\\lambda^4$, válido para longitudes de onda grandes; falla en el ultravioleta. La curva violeta usa Wien, válida cuando $hc/(\\lambda k_BT)\\gg1$." />
+            <KaTeXRenderer block math="\\lambda_{\\max}T=b\\approx2.898\\times10^{-3}\\ \\mathrm{m\\,K}" className="text-cyan-100" />
+            <MathMarkdown content="Sube $T$: el pico se desplaza a menor $\\lambda$ y la emisión total aumenta como $\\sigma T^4$." />
+          </div>
+          <div className="lg:col-span-2 rounded-xl bg-black border border-zinc-800 p-4 text-xs text-zinc-400">
+            <strong className="text-zinc-200">Convención:</strong> el gráfico representa <MathMarkdown inline content="$B_\\lambda$" />, radiancia por longitud de onda. No es la densidad de energía <MathMarkdown inline content="$u_\\nu$" /> usada en algunas deducciones; en vacío, <MathMarkdown inline content="$u_\\lambda=4\\pi B_\\lambda/c$" />.
+          </div>
+        </div>}
+      </section>
     </div>
   );
 }

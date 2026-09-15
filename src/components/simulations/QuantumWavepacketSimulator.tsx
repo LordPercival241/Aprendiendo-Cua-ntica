@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, Pause, RotateCcw, Sliders, Activity, Info, Sparkles } from 'lucide-react';
+import { Play, Pause, RotateCcw, Activity } from 'lucide-react';
 
 export function QuantumWavepacketSimulator() {
   const [isPlaying, setIsPlaying] = useState<boolean>(true);

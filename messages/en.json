@@ -13,8 +13,8 @@
   "landing": {
     "badge": "National University of Engineering • Faculty of Science",
     "heroTitle": "Quantum Mechanics",
-    "heroHighlight": "Theoretical Rigor & Computational Simulation",
-    "heroSubtitle": "Educational platform for course IF411. Built with analytical rigor, comprehensive KaTeX derivations, real-time numerical simulations, and active POE methodology.",
+    "heroHighlight": "Rigorous theory · Interactive simulation",
+    "heroSubtitle": "IF411 course of the Faculty of Science, National University of Engineering.",
     "ctaExplore": "Explore Syllabus Modules",
     "ctaSims": "Interactive Lab",
     "ctaLogin": "Sign In",
@@ -147,16 +147,17 @@
     "notice": "Educational material for the UNI academic community."
   },
   "auth": {
-    "title": "Access QuantumUNI",
-    "subtitle": "Sign in with your Google account (any personal or academic Gmail).",
+    "title": "Access Quantum UNI",
+    "subtitle": "Sign in with Google to synchronize your academic progress.",
     "googleButton": "Continue with Google",
-    "benefitsTitle": "Academic account features:",
+    "benefitsTitle": "With an account you can:",
     "benefit1": "Track your reading progress across all 14 modules",
     "benefit2": "Save your predictions and explanations in POE simulations",
     "benefit3": "Solve 3-level challenges and collect quantum badges",
     "benefit4": "Measure your learning gain ⟨g⟩ via Pre/Post assessments",
-    "guestMode": "Or continue as guest",
-    "guestNotice": "You can interact freely with all simulations and read materials without registering."
+    "guestMode": "Explore as a visitor",
+    "guestNotice": "Access content and simulations; your progress will not be saved.",
+    "configurationError": "Google sign-in is unavailable at the moment. Please try again later."
   },
   "progress": {
     "title": "Student Analytics & Performance Dashboard",

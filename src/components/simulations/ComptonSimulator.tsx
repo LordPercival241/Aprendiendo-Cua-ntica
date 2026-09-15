@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, Pause, RotateCcw, Activity, ShieldAlert, Sparkles } from 'lucide-react';
+import { Play, Pause, RotateCcw, Activity } from 'lucide-react';
 
 export function ComptonSimulator() {
   const [thetaDeg, setThetaDeg] = useState<number>(90); // 90 degrees
@@ -13,10 +13,6 @@ export function ComptonSimulator() {
   const timeRef = useRef<number>(0);
 
   // Physical constants
-  const h = 6.62607015e-34; // J s
-  const c = 2.99792458e8; // m / s
-  const m_e = 9.1093837e-31; // kg
-  const eV = 1.602176634e-19; // J
   const lambdaC_pm = 2.42631023867; // pm (Compton wavelength of electron)
   const electronRestEnergyKeV = 510.99895; // keV (m_e * c^2)
 
@@ -136,7 +132,6 @@ export function ComptonSimulator() {
       const cycleProgress = (timeRef.current % cycleTime) / cycleTime; // 0 to 1
 
       // Speed of photon (pixels per second)
-      const vPhoton = 180;
       const tImpact = 0.4; // fraction of cycle when impact occurs
 
       if (cycleProgress < tImpact) {
@@ -282,7 +277,6 @@ export function ComptonSimulator() {
       // Draw Vector Triangle: p = p' + p_e
       const triStartX = hudX + 25;
       const triStartY = hudY + 85;
-      const pScale = 1.4;
       const lenP = Math.min(100, (100 / lambdaIncidentPm) * 16);
       const lenPPrime = lenP * (lambdaIncidentPm / lambdaScatteredPm);
 

@@ -22,7 +22,7 @@ export function MathMarkdown({ content, className = '', inline = false }: MathMa
   const blocks = content.split(/(\$\$[\s\S]*?\$\$)/g);
 
   return (
-    <div className={`space-y-3.5 text-slate-300 ${className}`}>
+    <div className={`space-y-5 text-zinc-200 ${className}`}>
       {blocks.map((block, idx) => {
         if (!block.trim()) return null;
 
@@ -30,8 +30,8 @@ export function MathMarkdown({ content, className = '', inline = false }: MathMa
         if (block.startsWith('$$') && block.endsWith('$$')) {
           const math = block.slice(2, -2).trim();
           return (
-            <div key={idx} className="my-3 py-2 px-3 rounded-xl bg-slate-950/70 border border-slate-800/80 overflow-x-auto text-center shadow-inner">
-              <KaTeXRenderer math={math} block />
+            <div key={idx} className="my-6 px-5 py-6 sm:px-8 sm:py-8 rounded-2xl bg-linear-to-br from-zinc-950 via-slate-950 to-zinc-950 border border-cyan-400/15 overflow-x-auto text-center shadow-[0_16px_45px_rgba(0,0,0,0.25)]">
+              <KaTeXRenderer math={math} block className="text-cyan-50" />
             </div>
           );
         }
@@ -47,7 +47,7 @@ export function MathMarkdown({ content, className = '', inline = false }: MathMa
             elements.push(
               <div
                 key={key}
-                className="my-3 pl-4 py-2 border-l-2 border-cyan-500 bg-slate-900/40 rounded-r-xl text-xs sm:text-sm text-slate-300 italic font-serif leading-relaxed"
+                className="my-4 pl-5 py-3 border-l-2 border-cyan-400 bg-cyan-400/5 rounded-r-xl text-base text-zinc-300 italic font-serif leading-8"
               >
                 {quoteLines.map((ql, qIdx) => (
                   <div key={qIdx}>{renderInlineText(ql)}</div>
@@ -62,7 +62,7 @@ export function MathMarkdown({ content, className = '', inline = false }: MathMa
           if (currentList) {
             if (currentList.type === 'ul') {
               elements.push(
-                <ul key={key} className="my-2 space-y-1.5 list-disc list-inside text-xs sm:text-sm pl-1 text-slate-300">
+                <ul key={key} className="my-3 space-y-2 list-disc list-inside text-base pl-1 text-zinc-300 leading-7">
                   {currentList.items.map((it, i) => (
                     <li key={i}>{it}</li>
                   ))}
@@ -70,7 +70,7 @@ export function MathMarkdown({ content, className = '', inline = false }: MathMa
               );
             } else {
               elements.push(
-                <ol key={key} className="my-2 space-y-1.5 list-decimal list-inside text-xs sm:text-sm pl-1 text-slate-300">
+                <ol key={key} className="my-3 space-y-2 list-decimal list-inside text-base pl-1 text-zinc-300 leading-7">
                   {currentList.items.map((it, i) => (
                     <li key={i}>{it}</li>
                   ))}
@@ -121,7 +121,7 @@ export function MathMarkdown({ content, className = '', inline = false }: MathMa
           // Headings
           if (trimmed.startsWith('### ')) {
             elements.push(
-              <h3 key={lineKey} className="text-base font-bold text-white tracking-wide mt-4 mb-2">
+              <h3 key={lineKey} className="text-xl font-bold text-white tracking-tight mt-7 mb-3">
                 {renderInlineText(trimmed.slice(4))}
               </h3>
             );
@@ -129,7 +129,7 @@ export function MathMarkdown({ content, className = '', inline = false }: MathMa
           }
           if (trimmed.startsWith('#### ')) {
             elements.push(
-              <h4 key={lineKey} className="text-sm font-semibold text-cyan-300 uppercase tracking-wider mt-3 mb-1.5">
+              <h4 key={lineKey} className="text-sm font-semibold text-cyan-300 uppercase tracking-[0.16em] mt-5 mb-2">
                 {renderInlineText(trimmed.slice(5))}
               </h4>
             );
@@ -139,7 +139,7 @@ export function MathMarkdown({ content, className = '', inline = false }: MathMa
           // Normal paragraph line
           if (trimmed.length > 0) {
             elements.push(
-              <p key={lineKey} className="text-xs sm:text-sm leading-relaxed text-slate-300">
+              <p key={lineKey} className="text-[1.02rem] sm:text-[1.08rem] leading-8 text-zinc-200 tracking-[-0.008em]">
                 {renderInlineText(trimmed)}
               </p>
             );

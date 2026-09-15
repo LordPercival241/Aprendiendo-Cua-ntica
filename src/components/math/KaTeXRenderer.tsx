@@ -9,6 +9,16 @@ interface KaTeXRendererProps {
   className?: string;
 }
 
+function escapeHtml(value: string) {
+  return value.replace(/[&<>'"]/g, (character) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    "'": '&#39;',
+    '"': '&quot;',
+  })[character] ?? character);
+}
+
 export function KaTeXRenderer({ math, block = false, className = '' }: KaTeXRendererProps) {
   const html = useMemo(() => {
     try {
@@ -22,7 +32,7 @@ export function KaTeXRenderer({ math, block = false, className = '' }: KaTeXRend
       });
     } catch (err) {
       console.error('KaTeX rendering error:', err);
-      return `<span class="text-red-500 font-mono text-xs">${math}</span>`;
+      return `<span class="text-red-500 font-mono text-xs">${escapeHtml(math)}</span>`;
     }
   }, [math, block]);
 

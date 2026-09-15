@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Zap, Sun, ShieldAlert, RotateCcw, Activity } from 'lucide-react';
+import { Zap, Activity } from 'lucide-react';
 
 interface Metal {
   name: string;

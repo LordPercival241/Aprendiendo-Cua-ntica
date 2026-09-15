@@ -3,7 +3,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Aptos", "Segoe UI Variable", "Segoe UI", Inter, ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
   --bg-primary: #f8fafc;
   --bg-surface: #ffffff;
@@ -40,7 +40,7 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  letter-spacing: -0.012em;
+  letter-spacing: -0.006em;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -52,8 +52,9 @@ body {
    KaTeX Typography — Larger & Clearer
    ═══════════════════════════════════════════ */
 .katex {
-  font-size: 1.35em !important;
+  font-size: 1.18em !important;
   text-rendering: geometricPrecision;
+  font-weight: 400;
 }
 
 .katex-display {
@@ -64,7 +65,14 @@ body {
 }
 
 .katex-display > .katex {
-  font-size: 1.5em !important;
+  font-size: 1.42em !important;
+}
+
+.katex .mord,
+.katex .mop,
+.katex .mbin,
+.katex .mrel {
+  color: #eef8ff;
 }
 
 /* ═══════════════════════════════════════════
@@ -157,6 +165,39 @@ body {
 
 .animate-spin-slow {
   animation: spin-slow 20s linear infinite;
+}
+
+/* Animated vector identity: only the electrons and their orbital frames rotate. */
+.quantum-mark-orbit {
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.quantum-mark-orbit-a {
+  animation: quantum-orbit-forward 5.8s linear infinite;
+}
+
+.quantum-mark-orbit-b {
+  animation: quantum-orbit-reverse 7.4s linear infinite;
+}
+
+.quantum-mark-orbit-c {
+  animation: quantum-orbit-forward 9.2s linear infinite;
+}
+
+@keyframes quantum-orbit-forward {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes quantum-orbit-reverse {
+  to { transform: rotate(-360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quantum-mark-orbit {
+    animation: none;
+  }
 }
 
 .animate-fade-in {

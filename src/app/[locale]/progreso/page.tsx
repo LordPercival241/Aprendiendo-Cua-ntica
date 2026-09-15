@@ -2,19 +2,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { useSupabase } from '@/components/providers/SupabaseProvider';
-import { Link } from '@/i18n/routing';
 import { COURSE_MODULES } from '@/types/module';
 import { KaTeXRenderer } from '@/components/math/KaTeXRenderer';
 import { countCompletedModules, LearningProgress, readLearningProgress } from '@/lib/learningProgress';
 import {
   Award,
-  BookOpen,
-  CheckCircle2,
   TrendingUp,
-  LogIn,
   Layers,
-  Sparkles,
   BarChart3,
   Flame,
   HelpCircle
@@ -22,7 +16,6 @@ import {
 
 export default function ProgressDashboardPage() {
   const t = useTranslations('progress');
-  const { user, loginAsDemoStudent } = useSupabase();
 
   const [learningProgress, setLearningProgress] = useState<LearningProgress>({});
 
@@ -64,37 +57,11 @@ export default function ProgressDashboardPage() {
         <p className="mt-2 text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-3xl">
           {t('subtitle')}
         </p>
+        <p className="mt-4 inline-flex items-center gap-2 rounded-lg border border-cyan-500/20 bg-cyan-500/5 px-3 py-2 text-xs text-zinc-600 dark:text-zinc-400">
+          <span className="h-1.5 w-1.5 rounded-full bg-cyan-500" />
+          Progreso guardado localmente en este navegador.
+        </p>
       </div>
-
-      {/* Guest Notice if not logged in */}
-      {!user && (
-        <div className="mb-8 p-6 rounded-3xl border border-cyan-500/30 bg-linear-to-r from-cyan-500/10 via-indigo-500/10 to-purple-500/10 backdrop-blur-xs flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div>
-            <h3 className="font-bold text-base text-zinc-900 dark:text-white">
-              Estás en Modo Explorador (Invitado)
-            </h3>
-            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-1 max-w-xl">
-              {t('notLoggedIn')} Puedes iniciar sesión con cualquier correo Gmail para sincronizar tu progreso y evaluaciones.
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-2 shrink-0">
-            <button
-              type="button"
-              onClick={() => loginAsDemoStudent('alumno.ciencias@uni.edu.pe')}
-              className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl font-mono text-xs font-semibold text-cyan-300 bg-cyan-950/50 hover:bg-cyan-900/60 border border-cyan-500/30 transition-all cursor-pointer"
-            >
-              <span>⚡ Modo Demo UNI</span>
-            </button>
-            <Link
-              href="/login"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider text-white bg-linear-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 shadow-md shadow-cyan-500/20 active:scale-95 transition-all cursor-pointer"
-            >
-              <LogIn className="w-4 h-4" />
-              <span>Iniciar Sesión</span>
-            </Link>
-          </div>
-        </div>
-      )}
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">

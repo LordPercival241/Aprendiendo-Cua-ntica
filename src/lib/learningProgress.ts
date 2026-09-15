@@ -16,12 +16,39 @@ const emptyModuleProgress = (): ModuleLearningProgress => ({
   updatedAt: new Date().toISOString(),
 });
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function sanitizeLearningProgress(value: unknown): LearningProgress {
+  if (!isRecord(value)) return {};
+
+  return Object.entries(value).reduce<LearningProgress>((progress, [moduleId, item]) => {
+    if (!isRecord(item)) return progress;
+
+    const quizScore = typeof item.quizScore === 'number' && Number.isFinite(item.quizScore)
+      ? Math.max(0, item.quizScore)
+      : 0;
+    const quizAnswered = typeof item.quizAnswered === 'number' && Number.isFinite(item.quizAnswered)
+      ? Math.max(0, Math.floor(item.quizAnswered))
+      : 0;
+
+    progress[moduleId] = {
+      quizScore,
+      quizAnswered,
+      poeCompleted: item.poeCompleted === true,
+      updatedAt: typeof item.updatedAt === 'string' ? item.updatedAt : new Date().toISOString(),
+    };
+    return progress;
+  }, {});
+}
+
 export function readLearningProgress(): LearningProgress {
   if (typeof window === 'undefined') return {};
 
   try {
     const value = window.localStorage.getItem(STORAGE_KEY);
-    return value ? JSON.parse(value) as LearningProgress : {};
+    return value ? sanitizeLearningProgress(JSON.parse(value)) : {};
   } catch {
     return {};
   }
@@ -42,10 +69,14 @@ export function saveModuleLearningProgress(
     updatedAt: new Date().toISOString(),
   };
 
-  window.localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify({ ...allProgress, [moduleId]: next }),
-  );
+  try {
+    window.localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ ...allProgress, [moduleId]: next }),
+    );
+  } catch {
+    // Private mode or browser quota limits must not interrupt a learning activity.
+  }
 
   return next;
 }

@@ -14,91 +14,64 @@ export function QuantumBackground() {
     if (!ctx) return;
 
     let animationFrameId: number;
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const handleResize = () => {
-      if (!canvas) return;
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.round(width * pixelRatio);
+      canvas.height = Math.round(height * pixelRatio);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
     };
+    handleResize();
     window.addEventListener('resize', handleResize);
-
-    const numPoints = 45;
-    const particles = Array.from({ length: numPoints }, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.8,
-      vy: (Math.random() - 0.5) * 0.8,
-      radius: Math.random() * 2.5 + 1.2,
-      phase: Math.random() * Math.PI * 2,
-    }));
 
     let time = 0;
     const isDark = resolvedTheme === 'dark';
+    const contours = Array.from({ length: 7 }, (_, index) => ({
+      baseline: 0.1 + index * 0.13,
+      amplitude: 18 + (index % 3) * 12,
+      frequency: 0.004 + (index % 2) * 0.0013,
+      speed: 0.22 + (index % 4) * 0.055,
+      phase: index * 1.43,
+    }));
 
     const render = () => {
-      time += 0.02;
+      time += reducedMotion ? 0 : 0.006;
       ctx.clearRect(0, 0, width, height);
 
-      // Draw subtle quantum probability grid lines
-      ctx.lineWidth = 0.5;
-      ctx.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.04)' : 'rgba(14, 116, 144, 0.03)';
-      const step = 60;
-      for (let x = 0; x < width; x += step) {
+      const aura = ctx.createRadialGradient(width * 0.5, height * 0.32, 0, width * 0.5, height * 0.32, Math.max(width, height) * 0.65);
+      aura.addColorStop(0, isDark ? 'rgba(8, 145, 178, 0.075)' : 'rgba(14, 116, 144, 0.055)');
+      aura.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = aura;
+      ctx.fillRect(0, 0, width, height);
+
+      contours.forEach((contour, index) => {
+        const gradient = ctx.createLinearGradient(0, 0, width, 0);
+        gradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
+        gradient.addColorStop(0.24, isDark ? 'rgba(34, 211, 238, 0.18)' : 'rgba(8, 145, 178, 0.14)');
+        gradient.addColorStop(0.58, isDark ? 'rgba(129, 140, 248, 0.14)' : 'rgba(79, 70, 229, 0.11)');
+        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, height);
-        ctx.stroke();
-      }
-      for (let y = 0; y < height; y += step) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(width, y);
-        ctx.stroke();
-      }
-
-      // Update and draw particles with wavefunction tails
-      particles.forEach((p, i) => {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0) p.x = width;
-        if (p.x > width) p.x = 0;
-        if (p.y < 0) p.y = height;
-        if (p.y > height) p.y = 0;
-
-        // Wave oscillation (psi amplitude)
-        const waveAmp = Math.sin(time + p.phase);
-        const glowRadius = p.radius * (1 + 0.3 * waveAmp);
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, glowRadius, 0, Math.PI * 2);
-        ctx.fillStyle = isDark
-          ? `rgba(56, 189, 248, ${0.4 + 0.3 * waveAmp})`
-          : `rgba(2, 132, 199, ${0.4 + 0.3 * waveAmp})`;
-        ctx.fill();
-
-        // Connect nearby particles to simulate entanglement / coherence
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const dx = p.x - p2.x;
-          const dy = p.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 130) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            const alpha = (1 - dist / 130) * (isDark ? 0.2 : 0.12);
-            ctx.strokeStyle = `rgba(99, 102, 241, ${alpha})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-          }
+        for (let x = -40; x <= width + 40; x += 12) {
+          const envelope = 0.48 + 0.52 * Math.sin((x / width) * Math.PI);
+          const y = height * contour.baseline
+            + Math.sin(x * contour.frequency + time * contour.speed + contour.phase) * contour.amplitude * envelope
+            + Math.sin(x * contour.frequency * 0.47 - time * contour.speed * 0.7 + contour.phase) * contour.amplitude * 0.28;
+          if (x === -40) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
         }
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = index === 3 ? 1.15 : 0.75;
+        ctx.stroke();
       });
 
-      animationFrameId = requestAnimationFrame(render);
+      if (!reducedMotion) animationFrameId = requestAnimationFrame(render);
     };
 
     render();
@@ -112,7 +85,7 @@ export function QuantumBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-60 dark:opacity-40"
+      className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-50 dark:opacity-45"
     />
   );
 }

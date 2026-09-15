@@ -367,7 +367,7 @@ export default function ModuleDetailPage({
                     }}
                     className="px-5 py-3 rounded-xl text-sm font-mono text-cyan-400 bg-cyan-950/40 border border-cyan-500/30 hover:bg-cyan-900/50 transition-colors cursor-pointer"
                   >
-                    Cargar Hipótesis Sugerida por Cátedra
+                    Cargar hipótesis sugerida
                   </button>
                 </div>
               </div>

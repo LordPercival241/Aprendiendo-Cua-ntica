@@ -24,8 +24,7 @@ import {
   Layers,
   Compass,
   FileCheck,
-  CheckCircle2,
-  ExternalLink
+  CheckCircle2
 } from 'lucide-react';
 
 const ICONS_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -93,47 +92,28 @@ function LandingContent() {
   return (
     <div className="relative overflow-hidden">
       {/* Hero Section */}
-      <section className="relative pt-16 pb-24 sm:pt-24 sm:pb-32">
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 text-center relative z-10">
-          {/* Institutional Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-700/80 bg-zinc-900/80 text-zinc-300 text-sm font-mono mb-8 shadow-sm animate-fade-in">
-            <span className="flex h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
+      <section className="relative py-20 sm:py-28 lg:py-32">
+        <div className="max-w-5xl mx-auto px-5 sm:px-6 text-center relative z-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-zinc-300/80 dark:border-zinc-700/80 bg-white/70 dark:bg-zinc-950/70 text-zinc-600 dark:text-zinc-300 text-[11px] sm:text-xs font-mono shadow-sm backdrop-blur-md animate-fade-in">
+            <span className="flex h-1.5 w-1.5 rounded-full bg-cyan-400" />
             <span>{t('badge')}</span>
           </div>
 
-          {/* Hero Heading */}
-          <h1 className="text-5xl sm:text-6xl lg:text-8xl font-black tracking-tight text-zinc-900 dark:text-white max-w-5xl mx-auto leading-[1.05] animate-fade-in delay-100">
-            {t('heroTitle')}{' '}
-            <span className="block mt-3 gradient-text-cyan">
-              {t('heroHighlight')}
-            </span>
+          <h1 className="mt-8 text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-[-0.055em] text-zinc-950 dark:text-white leading-[0.96] animate-fade-in delay-100">
+            {t('heroTitle')}
           </h1>
+          <p className="mt-5 text-lg sm:text-xl font-medium tracking-[-0.02em] gradient-text-cyan animate-fade-in delay-100">
+            {t('heroHighlight')}
+          </p>
 
-          {/* Subtitle */}
-          <p className="mt-8 text-lg sm:text-xl text-zinc-600 dark:text-zinc-300 max-w-3xl mx-auto leading-relaxed font-normal animate-fade-in delay-200">
+          <p className="mt-6 text-base sm:text-lg text-zinc-600 dark:text-zinc-300 max-w-xl mx-auto leading-relaxed animate-fade-in delay-200">
             {t('heroSubtitle')}
           </p>
 
-          {/* Mathematical Expressions Ticker */}
-          <div className="mt-10 inline-flex flex-wrap items-center justify-center gap-6 sm:gap-10 px-8 py-4 rounded-2xl bg-zinc-100/90 dark:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-800 shadow-xl backdrop-blur-md animate-fade-in delay-300">
-            <div className="text-sm sm:text-base font-serif">
-              <KaTeXRenderer math="i\hbar\frac{\partial}{\partial t}\Psi = \hat{H}\Psi" />
-            </div>
-            <div className="hidden sm:block text-zinc-400 text-xl">|</div>
-            <div className="text-sm sm:text-base font-serif">
-              <KaTeXRenderer math="\Delta x \Delta p \ge \frac{\hbar}{2}" />
-            </div>
-            <div className="hidden md:block text-zinc-400 text-xl">|</div>
-            <div className="hidden md:block text-sm sm:text-base font-serif">
-              <KaTeXRenderer math="\langle x | p \rangle = \frac{e^{ipx/\hbar}}{\sqrt{2\pi\hbar}}" />
-            </div>
-          </div>
-
-          {/* Action CTAs */}
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-4 animate-fade-in delay-400">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3 animate-fade-in delay-300">
             <Link
               href="/modulos"
-              className="flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-sm uppercase tracking-wider text-white bg-cyan-600 hover:bg-cyan-500 shadow-lg shadow-cyan-900/30 active:scale-[0.98] transition-all cursor-pointer"
+              className="flex items-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm text-white bg-cyan-600 hover:bg-cyan-500 shadow-lg shadow-cyan-900/25 active:scale-[0.98] transition-all cursor-pointer"
             >
               <span>{t('ctaExplore')}</span>
               <ArrowRight className="w-4 h-4" />
@@ -141,22 +121,17 @@ function LandingContent() {
 
             <Link
               href="/recursos"
-              className="flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-sm uppercase tracking-wider text-zinc-800 dark:text-zinc-200 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 shadow-md transition-all cursor-pointer"
+              className="flex items-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm text-zinc-800 dark:text-zinc-200 bg-white/80 dark:bg-zinc-950/70 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-900 shadow-sm backdrop-blur-md transition-all cursor-pointer"
             >
               <BookOpen className="w-4 h-4 text-cyan-500" />
               <span>Biblioteca & Diapositivas</span>
             </Link>
 
-            <a
-              href="/syllabus/IF411 MECANICA CUANTICA.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-5 py-4 rounded-xl font-medium text-sm text-zinc-600 dark:text-zinc-400 hover:text-cyan-500 transition-colors cursor-pointer"
-            >
-              <span>{t('ctaSyllabus')}</span>
-              <ExternalLink className="w-4 h-4" />
-            </a>
           </div>
+
+          <p className="mt-8 text-xs font-mono uppercase tracking-[0.15em] text-zinc-500 dark:text-zinc-500 animate-fade-in delay-400">
+            IF411 · Teoría · Simulación · Evaluación
+          </p>
         </div>
       </section>
 

@@ -3,7 +3,6 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
-import { SupabaseProvider } from '@/components/providers/SupabaseProvider';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { QuantumBackground } from '@/components/simulations/shared/QuantumBackground';
@@ -36,14 +35,12 @@ export default async function LocaleLayout({
         enableSystem
         disableTransitionOnChange
       >
-        <SupabaseProvider>
-          <div className="relative flex min-h-screen flex-col">
-            <QuantumBackground />
-            <Navbar />
-            <main className="relative z-10 flex-1">{children}</main>
-            <Footer />
-          </div>
-        </SupabaseProvider>
+        <div className="relative flex min-h-screen flex-col">
+          <QuantumBackground />
+          <Navbar />
+          <main className="relative z-10 flex-1">{children}</main>
+          <Footer />
+        </div>
       </ThemeProvider>
     </NextIntlClientProvider>
   );
