@@ -179,44 +179,44 @@ export default function ModuleDetailPage({
 
       {/* Tab 1: Comprehensive Theory — Full Width & Enlarged Presentation */}
       {activeTab === 'theory' && (
-        <div className="w-full space-y-12">
+        <div className="mx-auto w-full max-w-6xl space-y-10">
           {sections.length > 0 ? (
             sections.map((sec, secIdx) => (
               <section
                 key={sec.id}
                 id={sec.id}
-                className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/80 p-8 sm:p-14 shadow-lg space-y-10 animate-slide-up"
+                className="space-y-9 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm sm:p-10 lg:p-12 dark:border-zinc-800 dark:bg-zinc-950/85 dark:shadow-black/20 animate-slide-up"
                 style={{ animationDelay: `${secIdx * 100}ms` }}
               >
-                <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-6">
+                <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-200 pb-6 dark:border-zinc-800">
                   <div>
                     {sec.badge && (
-                      <span className="px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 mr-3">
+                      <span className="mr-3 border-l-2 border-cyan-500 pl-2.5 text-[11px] font-mono font-semibold uppercase tracking-[0.12em] text-cyan-700 dark:text-cyan-300">
                         {sec.badge}
                       </span>
                     )}
-                    <h2 className="text-2xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight mt-3">
+                    <h2 className="mt-3 text-2xl font-semibold tracking-[-0.025em] text-zinc-950 sm:text-3xl dark:text-white">
                       {sec.title}
                     </h2>
                   </div>
                 </div>
 
                 {/* Summary Callout with Math Support */}
-                <div className="p-6 sm:p-8 rounded-2xl bg-zinc-50 dark:bg-zinc-950/90 border border-zinc-200 dark:border-zinc-800 text-base sm:text-lg text-zinc-800 dark:text-zinc-200 leading-relaxed font-medium">
+                <div className="border-l-2 border-cyan-500 py-1 pl-5 text-base leading-8 text-zinc-700 sm:text-lg dark:text-zinc-300">
                   <MathMarkdown content={sec.summary} inline />
                 </div>
 
                 {/* Detailed Body Paragraphs with KaTeX Integration */}
-                <div className="text-base sm:text-lg leading-[1.9] font-normal text-zinc-700 dark:text-zinc-200 prose-headings:text-zinc-900 dark:prose-headings:text-white">
+                <div className="text-base leading-[1.85] font-normal text-zinc-700 sm:text-lg dark:text-zinc-200">
                   <MathMarkdown content={sec.contentMarkdown.trim()} />
                 </div>
 
                 {/* Formula Inspector with Minutious Breakdown */}
                 {sec.formulas && sec.formulas.length > 0 && (
                   <div className="pt-6">
-                    <div className="text-sm font-mono uppercase tracking-wider text-cyan-500 mb-4 font-bold flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-cyan-500 inline-block"></span>
-                      <span>Desglose Analítico de Ecuaciones</span>
+                    <div className="mb-4 flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-[0.14em] text-cyan-700 dark:text-cyan-300">
+                      <span className="h-px w-6 bg-cyan-500" />
+                      <span>Análisis de ecuaciones</span>
                     </div>
                     {sec.formulas.map((form, fIdx) => (
                       <FormulaInspector key={fIdx} data={form} />

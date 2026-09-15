@@ -52,26 +52,33 @@ body {
    KaTeX Typography — Larger & Clearer
    ═══════════════════════════════════════════ */
 .katex {
-  font-size: 1.18em !important;
+  font-size: 1.12em !important;
   text-rendering: geometricPrecision;
   font-weight: 400;
 }
 
 .katex-display {
-  margin: 1.75rem 0 !important;
-  padding: 1rem 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
   overflow-x: auto;
   overflow-y: hidden;
 }
 
 .katex-display > .katex {
-  font-size: 1.42em !important;
+  font-size: 1.32em !important;
 }
 
 .katex .mord,
 .katex .mop,
 .katex .mbin,
 .katex .mrel {
+  color: currentColor;
+}
+
+.dark .katex .mord,
+.dark .katex .mop,
+.dark .katex .mbin,
+.dark .katex .mrel {
   color: #eef8ff;
 }
 

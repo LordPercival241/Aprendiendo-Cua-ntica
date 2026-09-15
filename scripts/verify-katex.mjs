@@ -13,7 +13,9 @@ const formulas = sourcePaths.flatMap((sourcePath) => {
     .map((match) => match[1].replace(/\\\\/g, '\\').replace(/\\'/g, "'"));
   const componentFormulas = [...source.matchAll(/math=\{String\.raw`([\s\S]*?)`\}/g)]
     .map((match) => match[1]);
-  return [...contentFormulas, ...componentFormulas];
+  const markdownFormulas = [...source.matchAll(/\$\$([\s\S]*?)\$\$|\$([^$\n]+)\$/g)]
+    .map((match) => (match[1] ?? match[2]).replace(/\\\\/g, '\\'));
+  return [...contentFormulas, ...componentFormulas, ...markdownFormulas];
 });
 
 if (formulas.length === 0) {
