@@ -1,10 +1,10 @@
-# 🔬 QuantumUNI — Plataforma de Mecánica Cuántica IF411
+#  QuantumUNI — Plataforma de Mecánica Cuántica IF411
 
 Plataforma web educativa para el curso **IF411 (Mecánica Cuántica)** de la **Facultad de Ciencias de la Universidad Nacional de Ingeniería (UNI)**. Integra teoría rigurosa alineada al sílabo, renderizado matemático KaTeX, simulaciones interactivas, ciclo POE (Predecir-Observar-Explicar) y analítica de aprendizaje.
 
 ---
 
-## 🚀 Guía de Ejecución Local
+##  Guía de Ejecución Local
 
 ### 1. Requisitos Previos
 - **Node.js**: v18.18.0 o superior (recomendado v20+ o v24+)
@@ -54,7 +54,7 @@ Una vez iniciado el servidor, abre tu navegador web e ingresa a:
 
 ---
 
-## 🛠️ Comandos Disponibles
+##  Comandos Disponibles
 
 | Comando | Descripción |
 |---|---|
@@ -65,7 +65,7 @@ Una vez iniciado el servidor, abre tu navegador web e ingresa a:
 
 ---
 
-## 🧭 Rutas Principales de la Aplicación
+##  Rutas Principales de la Aplicación
 
 - **Inicio**: `http://localhost:3000/es` — Portada con física de partículas, métricas y resumen del sílabo.
 - **Módulos**: `http://localhost:3000/es/modulos` — Índice de las 13 unidades temáticas.
@@ -75,10 +75,10 @@ Una vez iniciado el servidor, abre tu navegador web e ingresa a:
 
 ---
 
-## 🎨 Características Implementadas
+##  Características Implementadas
 
-- 🌐 **Internacionalización Bilingüe (i18n)**: Español 🇪🇸 (por defecto) e Inglés 🇬🇧 mediante `next-intl`.
-- 🌙 **Modo Oscuro / Claro**: Alternador con `next-themes` y paleta de colores de alto contraste.
-- ⚛️ **Renderizado Matemático Riguroso**: Ecuaciones complejas renderizadas con KaTeX.
+-  **Internacionalización Bilingüe (i18n)**: Español 🇪🇸 (por defecto) e Inglés 🇬🇧 mediante `next-intl`.
+-  **Modo Oscuro / Claro**: Alternador con `next-themes` y paleta de colores de alto contraste.
+-  **Renderizado Matemático Riguroso**: Ecuaciones complejas renderizadas con KaTeX.
 - 🔍 **Inspector Minucioso de Fórmulas**: Desglose término por término con unidades físicas, rol e interpretación.
 - 📄 **Visor PDF Integrado**: Acceso directo a diapositivas del profesor y libros de texto clásicos.
