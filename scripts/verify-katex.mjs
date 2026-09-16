@@ -2,10 +2,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import katex from 'katex';
 
+const simulationDirectory = path.resolve('src/components/simulations');
+const simulationPaths = fs.readdirSync(simulationDirectory, { recursive: true })
+  .filter((entry) => entry.endsWith('.tsx'))
+  .map((entry) => path.join(simulationDirectory, entry));
+
 const sourcePaths = [
   path.resolve('src/content/modulesData.ts'),
   path.resolve('src/content/completionSections.ts'),
-  path.resolve('src/components/simulations/BlackbodySimulator.tsx'),
+  ...simulationPaths,
 ];
 const formulas = sourcePaths.flatMap((sourcePath) => {
   const source = fs.readFileSync(sourcePath, 'utf8');
@@ -13,9 +18,11 @@ const formulas = sourcePaths.flatMap((sourcePath) => {
     .map((match) => match[1].replace(/\\\\/g, '\\').replace(/\\'/g, "'"));
   const componentFormulas = [...source.matchAll(/math=\{String\.raw`([\s\S]*?)`\}/g)]
     .map((match) => match[1]);
+  const directComponentFormulas = [...source.matchAll(/math="([^"]+)"/g)]
+    .map((match) => match[1]);
   const markdownFormulas = [...source.matchAll(/\$\$([\s\S]*?)\$\$|\$([^$\n]+)\$/g)]
     .map((match) => (match[1] ?? match[2]).replace(/\\\\/g, '\\'));
-  return [...contentFormulas, ...componentFormulas, ...markdownFormulas];
+  return [...contentFormulas, ...componentFormulas, ...directComponentFormulas, ...markdownFormulas];
 });
 
 if (formulas.length === 0) {

@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Zap, Activity } from 'lucide-react';
+import { KaTeXRenderer } from '@/components/math/KaTeXRenderer';
+import { LaboratoryModel } from './shared/LaboratoryModel';
 
 interface Metal {
   name: string;
@@ -390,7 +392,8 @@ export function PhotoelectricSimulator() {
             Simulador de Fotocélula & Potencial de Frenado
           </h3>
           <p className="text-sm text-zinc-400 mt-1 max-w-3xl">
-            Comprueba cómo la emisión de fotoelectrones ocurre al instante solo si la frecuencia supera el umbral (hν ≥ Φ). Observa el giro de los electrones cuando el voltaje retardador iguala a -V_stop.
+            La emisión de fotoelectrones ocurre solo si <KaTeXRenderer math={String.raw`h\nu\geq\Phi`} />. Observa el retorno de los electrones cuando el voltaje retardador alcanza{' '}
+            <KaTeXRenderer math={String.raw`V=-V_{\mathrm{stop}}`} />.
           </p>
         </div>
 
@@ -446,7 +449,7 @@ export function PhotoelectricSimulator() {
           {/* Wavelength Slider */}
           <div className="space-y-2 pt-1">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-zinc-300 font-medium">Longitud de Onda Incidentes $\lambda$ (nm):</span>
+              <span className="text-zinc-300 font-medium">Longitud de onda incidente <KaTeXRenderer math={String.raw`\lambda`} /> (nm):</span>
               <span className="font-mono font-bold text-cyan-400">
                 {wavelengthNm} nm ({photonEnergyEv.toFixed(2)} eV)
                 <span className="ml-2 text-zinc-400 text-[11px]">
@@ -491,7 +494,7 @@ export function PhotoelectricSimulator() {
 
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs">
-                <span className="text-zinc-300 font-medium">Voltaje Placas $V$ (Frenado / Acelerador):</span>
+                <span className="text-zinc-300 font-medium">Voltaje entre placas <KaTeXRenderer math="V" /> (retardador / acelerador):</span>
                 <span className={`font-mono font-bold ${voltage < 0 ? 'text-rose-400' : 'text-cyan-400'}`}>
                   {voltage > 0 ? '+' : ''}{voltage.toFixed(2)} V
                 </span>
@@ -568,6 +571,29 @@ export function PhotoelectricSimulator() {
           </div>
         </div>
       </div>
+
+      <LaboratoryModel
+        title="Efecto fotoeléctrico: balance energético de Einstein"
+        phenomenon="Cada fotoelectrón absorbe un fotón. La frecuencia fija la energía máxima de emisión; cambiar la intensidad modifica el número de fotones y, por tanto, la corriente de saturación, no la energía máxima de un electrón."
+        equations={[
+          {
+            label: 'Energía del fotón',
+            math: String.raw`E_\gamma=h\nu=\frac{hc}{\lambda}`,
+            explanation: 'Una longitud de onda menor equivale a una frecuencia y energía fotónica mayores.',
+          },
+          {
+            label: 'Ecuación fotoeléctrica',
+            math: String.raw`K_{\max}=h\nu-\Phi`,
+            explanation: 'La emisión existe cuando hν ≥ Φ; Φ es la función de trabajo propia del metal elegido.',
+          },
+          {
+            label: 'Potencial de frenado',
+            math: String.raw`e\,|V_{\mathrm{stop}}|=K_{\max},\qquad \lambda_0=\frac{hc}{\Phi}`,
+            explanation: 'El potencial retardador anula la corriente de los electrones más energéticos; λ0 marca el umbral espectral.',
+          },
+        ]}
+        assumptions="Fotones monocromáticos y una superficie ideal. Los valores de energía, umbral y frenado son predicciones directas; la curva de fotocorriente representa cualitativamente el paso hacia saturación, no un ajuste de transporte microscópico."
+      />
     </div>
   );
 }

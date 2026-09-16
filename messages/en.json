@@ -6,9 +6,21 @@
     "simulations": "Simulations",
     "resources": "Library & Resources",
     "progress": "My Progress",
+    "support": "Support the project",
     "signIn": "Sign In",
     "signOut": "Sign Out",
     "guest": "Guest Mode"
+  },
+  "support": {
+    "eyebrow": "Voluntary contribution",
+    "title": "Support Aprendiendo Cuántica",
+    "description": "This platform remains freely accessible. If it has been useful to you, you may voluntarily contribute to its improvement and continuity.",
+    "scanTitle": "Scan with Yape",
+    "scanDescription": "Open Yape, scan the QR code, and complete the contribution from the app.",
+    "impact": "Your contribution helps keep the educational content, simulations, and resources available.",
+    "voluntary": "Contributions are optional and do not affect access to the platform.",
+    "close": "Close",
+    "qrAlt": "Yape QR code to support Aprendiendo Cuántica"
   },
   "landing": {
     "badge": "National University of Engineering • Faculty of Science",

@@ -62,7 +62,7 @@ const RESOURCES_DATA: ResourceItem[] = [
     title: 'Semana 2: Principio de Louis De Broglie',
     category: 'lectures',
     week: 'Semana 2',
-    path: '/lectures/sem2/Principio de Louis DeBroglie.pdf',
+    path: '/lectures/sem2/Principio de Louis DeBroglie -  Principio de incertidumbre -.pdf',
     description: 'Ondas de materia, difracción de electrones y relaciones de incertidumbre de Heisenberg.',
   },
   {
@@ -78,7 +78,7 @@ const RESOURCES_DATA: ResourceItem[] = [
     title: 'Semana 3: Ecuación de Schrödinger',
     category: 'lectures',
     week: 'Semana 3',
-    path: '/lectures/sem3/MECANICA_CUANTICA_SEM_4 lu.pdf',
+    path: '/lectures/sem3/MECANICA_CUANTICA_SEM_4 lu (1).pdf',
     description: 'Ecuación temporal, interpretación de Born, ecuación de continuidad y densidad de probabilidad.',
   },
   {
@@ -86,7 +86,7 @@ const RESOURCES_DATA: ResourceItem[] = [
     title: 'Semana 4: Repaso y Aplicaciones de Schrödinger',
     category: 'lectures',
     week: 'Semana 4',
-    path: '/lectures/sem4/MECANICA_CUANTICA_SEM_4 (repaso).pdf',
+    path: '/lectures/sem4/MECANICA_CUANTICA_SEM_4 (repitio clase por el paro hizo repaso).pdf',
     description: 'Ejercicios de aplicación y estados estacionarios independientes del tiempo.',
   },
   {
@@ -94,7 +94,7 @@ const RESOURCES_DATA: ResourceItem[] = [
     title: 'Semana 5: Operadores Cuánticos y Teorema de Ehrenfest',
     category: 'lectures',
     week: 'Semana 5',
-    path: '/lectures/sem5/Teorema de Ehrenfest.pdf',
+    path: '/lectures/sem5/Teorema de Ehrenfest (1).pdf',
     description: 'Evolución temporal del valor esperado y conexión con la mecánica clásica de Newton.',
   },
   {
@@ -126,7 +126,7 @@ const RESOURCES_DATA: ResourceItem[] = [
     title: 'Semana 7: Potenciales Seccionalmente Constantes',
     category: 'lectures',
     week: 'Semana 7',
-    path: '/lectures/sem7/potenciales seccionalmente constantes.pdf',
+    path: '/lectures/sem7/potenciales seccionalmente constantes + (1).pdf',
     description: 'Pozo rectangular infinito, pozo finito, tunelamiento cuántico a través de barreras.',
   },
   {
@@ -134,7 +134,7 @@ const RESOURCES_DATA: ResourceItem[] = [
     title: 'Semana 9: Formalismo de Dirac (Bra-Ket)',
     category: 'lectures',
     week: 'Semana 9',
-    path: '/lectures/sem9/DIRAC.pdf',
+    path: '/lectures/sem9/DIRAC (1).pdf',
     description: 'Espacio de Hilbert, proyectores, bases ortonormales y representación matricial de operadores.',
   },
   {
@@ -150,7 +150,7 @@ const RESOURCES_DATA: ResourceItem[] = [
     title: 'Semana 10: Oscilador Armónico (Versión Algebraica)',
     category: 'lectures',
     week: 'Semana 10',
-    path: '/lectures/sem10/EL_OSCILADOR_ARMONICO_VESION_ALGEBRAICA correg.pdf',
+    path: '/lectures/sem10/EL_OSCILADOR_ARMONICO_VESION_ALGEBRAICA correg (1).pdf',
     description: 'Operadores escalera a y a-dagger, estado fundamental y álgebra de conmutación.',
   },
   {
@@ -174,7 +174,7 @@ const RESOURCES_DATA: ResourceItem[] = [
     title: 'Semana 12: Momento Magnético Orbital y Espín',
     category: 'lectures',
     week: 'Semana 12',
-    path: '/lectures/sem12/Momento magnético orbital.pdf',
+    path: '/lectures/sem12/Momento magnético orbital (1).pdf',
     description: 'Interacción con campo magnético externo B y factor giromagnético.',
   },
   {
@@ -182,7 +182,7 @@ const RESOURCES_DATA: ResourceItem[] = [
     title: 'Semana 13: Operador de Momento Angular',
     category: 'lectures',
     week: 'Semana 13',
-    path: '/lectures/sem13/Tema-momento-angular.pdf',
+    path: '/lectures/sem14/Tema-momento-angular.pdf',
     description: 'Álgebra de Lie de momento angular, operadores escalonados J+ y J-.',
   },
   {
@@ -190,7 +190,7 @@ const RESOURCES_DATA: ResourceItem[] = [
     title: 'Semana 13: Frecuencia de Precesión de Larmor',
     category: 'lectures',
     week: 'Semana 13',
-    path: '/lectures/sem13/Frecuencia de precesion.pdf',
+    path: '/lectures/sem14/Frecuencia de precesion.pdf',
     description: 'Dinámica de precesión de espín en campos magnéticos estáticos y oscilantes.',
   },
   {
@@ -198,7 +198,7 @@ const RESOURCES_DATA: ResourceItem[] = [
     title: 'Semana 14: Teoría de Perturbaciones (No Degenerado)',
     category: 'lectures',
     week: 'Semana 14',
-    path: '/lectures/sem14/Teoría de las perturbaciones_caso_no_degenerado.pdf',
+    path: '/lectures/sem13/Teoría de las perturbaciones_caso_no_degenerado-1-4 (1).pdf',
     description: 'Corrección de energías a primer y segundo orden y corrección de funciones de onda.',
   },
   {
@@ -206,7 +206,7 @@ const RESOURCES_DATA: ResourceItem[] = [
     title: 'Semana 14: Teoría de Perturbaciones (Caso Degenerado)',
     category: 'lectures',
     week: 'Semana 14',
-    path: '/lectures/sem14/Teoría de las perturbaciones_caso_degenerado.pdf',
+    path: '/lectures/sem13/Teoría de las perturbaciones_caso_degenerado-5-7 (1).pdf',
     description: 'Diagonalización en subespacios degenerados, ruptura de degeneración y efecto Stark.',
   },
   {

@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, RotateCcw, Activity } from 'lucide-react';
+import { KaTeXRenderer } from '@/components/math/KaTeXRenderer';
+import { LaboratoryModel } from './shared/LaboratoryModel';
 
 export function QuantumWavepacketSimulator() {
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
@@ -17,8 +19,7 @@ export function QuantumWavepacketSimulator() {
   // Time in seconds
   const timeRef = useRef<number>(0);
 
-  // Analytical transmission coefficient for rectangular barrier
-  // T = [ 1 + (V_0^2 * sinh^2(k2 * a)) / (4 * E * (V_0 - E)) ]^(-1) for E < V_0
+  // Exact stationary transmission coefficients for one-dimensional piecewise-constant potentials.
   const computeTransmission = (): number => {
     const E = packetEnergy;
     const V0 = barrierHeight;
@@ -29,10 +30,10 @@ export function QuantumWavepacketSimulator() {
 
     if (potentialType === 'well') {
       // Transmission resonance in a square well
-      const k2 = Math.sqrt(2 * m_e * (E + V0 * 0.6) * e) / hbar;
+      const k2 = Math.sqrt(2 * m_e * (E + V0) * e) / hbar;
       const sinVal = Math.sin(k2 * a);
-      const denom = 1 + (Math.pow(V0 * 0.6, 2) * Math.pow(sinVal, 2)) / (4 * E * (E + V0 * 0.6));
-      return Number(Math.min(1, Math.max(0.01, 1 / denom)).toFixed(3));
+      const denom = 1 + (Math.pow(V0, 2) * Math.pow(sinVal, 2)) / (4 * E * (E + V0));
+      return Math.min(1, Math.max(0, 1 / denom));
     }
 
     if (potentialType === 'step') {
@@ -40,7 +41,7 @@ export function QuantumWavepacketSimulator() {
       const k1 = Math.sqrt(2 * m_e * E * e) / hbar;
       const k2 = Math.sqrt(2 * m_e * (E - V0) * e) / hbar;
       const T = (4 * k1 * k2) / Math.pow(k1 + k2, 2);
-      return Number(Math.min(1, Math.max(0, T)).toFixed(3));
+      return Math.min(1, Math.max(0, T));
     }
 
     // Barrier
@@ -49,19 +50,28 @@ export function QuantumWavepacketSimulator() {
       const k2 = Math.sqrt(2 * m_e * (V0 - E) * e) / hbar;
       const sinhVal = Math.sinh(k2 * a);
       const denom = 1 + (Math.pow(V0, 2) * Math.pow(sinhVal, 2)) / (4 * E * (V0 - E));
-      return Number(Math.min(1, Math.max(0, 1 / denom)).toFixed(4));
+      return Math.min(1, Math.max(0, 1 / denom));
     } else if (E > V0) {
       // Quantum over-the-barrier transmission with quantum reflection
       const k2 = Math.sqrt(2 * m_e * (E - V0) * e) / hbar;
       const sinVal = Math.sin(k2 * a);
       const denom = 1 + (Math.pow(V0, 2) * Math.pow(sinVal, 2)) / (4 * E * (E - V0));
-      return Number(Math.min(1, Math.max(0, 1 / denom)).toFixed(3));
+      return Math.min(1, Math.max(0, 1 / denom));
     }
-    return 0.5;
+    // Finite E → V0 limit of the exact barrier expression.
+    const denom = 1 + (m_e * V0 * e * a * a) / (2 * hbar * hbar);
+    return Math.min(1, Math.max(0, 1 / denom));
   };
 
   const transmissionT = computeTransmission();
-  const reflectionR = Number(Math.max(0, 1 - transmissionT).toFixed(3));
+  const reflectionR = Math.max(0, 1 - transmissionT);
+  const isBelowPotential = packetEnergy < barrierHeight;
+  const regimeLabel = potentialType === 'well'
+    ? 'Resonancias de transmisión en pozo'
+    : potentialType === 'step'
+      ? (isBelowPotential ? 'Onda evanescente; T = 0' : 'Propagación sobre el escalón')
+      : (isBelowPotential ? 'Tunelamiento' : 'Dispersión sobre la barrera');
+  const formatProbability = (value: number) => value < 0.001 ? value.toExponential(2) : value.toFixed(3);
 
   // Animation rendering
   useEffect(() => {
@@ -134,13 +144,13 @@ export function QuantumWavepacketSimulator() {
         ctx.fillText(`a = ${barrierWidth.toFixed(1)} nm`, barrierCenterX, baselineY + 18);
       } else if (potentialType === 'well') {
         const by = baselineY;
-        const wellD = barrierHeightPx * 0.6;
+        const wellD = (barrierHeight / 6.0) * (h * 0.25);
         ctx.fillRect(bx1, by, barrierWidthPx, wellD);
         ctx.strokeRect(bx1, by, barrierWidthPx, wellD);
         ctx.fillStyle = '#f59e0b';
         ctx.font = 'bold 10px monospace';
         ctx.textAlign = 'center';
-        ctx.fillText(`Pozo V₀ = -${(barrierHeight * 0.6).toFixed(1)} eV`, barrierCenterX, by + wellD + 16);
+        ctx.fillText(`Pozo V₀ = -${barrierHeight.toFixed(1)} eV`, barrierCenterX, by + wellD + 16);
       } else {
         // Step
         const by = baselineY - barrierHeightPx;
@@ -167,7 +177,7 @@ export function QuantumWavepacketSimulator() {
       ctx.fillStyle = '#38bdf8';
       ctx.font = 'bold 10px monospace';
       ctx.textAlign = 'left';
-      ctx.fillText(`Energía E = ${packetEnergy.toFixed(2)} eV ${packetEnergy < barrierHeight ? '(E < V₀: Tunelamiento)' : '(E > V₀)'}`, 35, energyY - 6);
+      ctx.fillText(`Energía E = ${packetEnergy.toFixed(2)} eV — ${regimeLabel}`, 35, energyY - 6);
 
       // Quantum Wavepacket Dynamics with True Reflection & Transmission Split
       const v_group = 80; // px/s
@@ -229,10 +239,10 @@ export function QuantumWavepacketSimulator() {
           const im = envInc * Math.sin(phaseInc) + envRef * Math.sin(phaseRef);
           psi_prob = re * re + im * im;
           psi_real = re;
-        } else if (x >= bx1 && x <= bx2) {
+        } else if (x >= bx1 && (potentialType === 'step' || x <= bx2)) {
           // Inside barrier: evanescent exponential decay for tunneling
           const overlap = Math.exp(-Math.pow(x_inc - bx1, 2) / (2 * sigmaX * sigmaX));
-          if (potentialType === 'barrier' && packetEnergy < barrierHeight) {
+          if (potentialType !== 'well' && isBelowPotential) {
             const kappa = Math.sqrt(barrierHeight - packetEnergy) * 0.08;
             const decay = Math.exp(-kappa * (x - bx1));
             psi_prob = overlap * decay * Math.max(0.04, transmissionT);
@@ -331,7 +341,7 @@ export function QuantumWavepacketSimulator() {
     return () => {
       if (animRef.current) cancelAnimationFrame(animRef.current);
     };
-  }, [isPlaying, barrierHeight, packetEnergy, barrierWidth, potentialType, transmissionT, reflectionR, showRealPart]);
+  }, [isPlaying, barrierHeight, packetEnergy, barrierWidth, potentialType, transmissionT, reflectionR, showRealPart, isBelowPotential, regimeLabel]);
 
   return (
     <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-6 sm:p-8 space-y-6 text-zinc-100 shadow-2xl">
@@ -340,7 +350,7 @@ export function QuantumWavepacketSimulator() {
         <div>
           <div className="flex items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-              Ecuación de Schrödinger 1D • Dinámica Temporal
+              Ecuación de Schrödinger 1D • Dispersión estacionaria
             </span>
             <span className="text-xs text-zinc-400 font-mono">Visualización Analítica</span>
           </div>
@@ -348,7 +358,8 @@ export function QuantumWavepacketSimulator() {
             Dispersión 1D, Barreras y Transmisión
           </h3>
           <p className="text-sm text-zinc-400 mt-1 max-w-3xl">
-            Visualiza coeficientes analíticos de reflexión y transmisión para perfiles 1D. La envolvente es ilustrativa; los valores $R$ y $T$ provienen de las expresiones estacionarias mostradas.
+            Coeficientes analíticos de reflexión y transmisión para perfiles 1D. La envolvente ilustra la dispersión; los valores{' '}
+            <KaTeXRenderer math="R" /> y <KaTeXRenderer math="T" /> provienen de las expresiones estacionarias mostradas.
           </p>
         </div>
 
@@ -417,7 +428,7 @@ export function QuantumWavepacketSimulator() {
           {/* Potential Type Tabs */}
           <div>
             <span className="text-xs font-semibold text-zinc-300 block mb-2">
-              Perfil del Potencial $V(x)$:
+              Perfil del potencial <KaTeXRenderer math={String.raw`V(x)`} />:
             </span>
             <div className="grid grid-cols-3 gap-2">
               {[
@@ -447,7 +458,7 @@ export function QuantumWavepacketSimulator() {
           {/* Energy Slider */}
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-zinc-300 font-medium">Energía del Paquete $E$ (eV):</span>
+              <span className="text-zinc-300 font-medium">Energía del paquete <KaTeXRenderer math="E" /> (eV):</span>
               <span className="font-mono font-bold text-cyan-400">{packetEnergy.toFixed(2)} eV</span>
             </div>
             <input
@@ -465,7 +476,7 @@ export function QuantumWavepacketSimulator() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-1">
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs">
-                <span className="text-zinc-300 font-medium">Altura del Potencial $V_0$ (eV):</span>
+                <span className="text-zinc-300 font-medium">Magnitud del potencial <KaTeXRenderer math={String.raw`V_0`} /> (eV):</span>
                 <span className="font-mono text-amber-400 font-bold">{barrierHeight.toFixed(1)} eV</span>
               </div>
               <input
@@ -481,7 +492,7 @@ export function QuantumWavepacketSimulator() {
 
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs">
-                <span className="text-zinc-300 font-medium">Ancho de la Barrera $a$ (nm):</span>
+                <span className="text-zinc-300 font-medium">Ancho de la región <KaTeXRenderer math="a" /> (nm):</span>
                 <span className="font-mono text-zinc-200 font-bold">{barrierWidth.toFixed(2)} nm</span>
               </div>
               <input
@@ -489,10 +500,12 @@ export function QuantumWavepacketSimulator() {
                 min="0.4"
                 max="2.5"
                 step="0.1"
-                value={barrierWidth}
-                onChange={(e) => setBarrierWidth(Number(e.target.value))}
-                className="w-full h-2.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+              value={barrierWidth}
+              onChange={(e) => setBarrierWidth(Number(e.target.value))}
+                disabled={potentialType === 'step'}
+                className="w-full h-2.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-indigo-500 disabled:cursor-not-allowed disabled:opacity-40"
               />
+              {potentialType === 'step' && <p className="text-[10px] text-zinc-500">El salto ideal no tiene ancho finito.</p>}
             </div>
           </div>
         </div>
@@ -506,35 +519,62 @@ export function QuantumWavepacketSimulator() {
 
           <div className="space-y-3 text-xs">
             <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-              <span className="text-zinc-400">Coef. Transmisión ($T$):</span>
-              <span className="font-bold text-emerald-400 font-mono text-sm">{transmissionT}</span>
+              <span className="text-zinc-400">Coef. de transmisión (<KaTeXRenderer math="T" />):</span>
+              <span className="font-bold text-emerald-400 font-mono text-sm">{formatProbability(transmissionT)}</span>
             </div>
             <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-              <span className="text-zinc-400">Coef. Reflexión ($R$):</span>
-              <span className="font-bold text-rose-400 font-mono text-sm">{reflectionR}</span>
+              <span className="text-zinc-400">Coef. de reflexión (<KaTeXRenderer math="R" />):</span>
+              <span className="font-bold text-rose-400 font-mono text-sm">{formatProbability(reflectionR)}</span>
             </div>
             <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-              <span className="text-zinc-400">Unitaridad ($R + T$):</span>
+              <span className="text-zinc-400">Unitaridad (<KaTeXRenderer math="R+T" />):</span>
               <span className="font-bold text-white">{(reflectionR + transmissionT).toFixed(3)}</span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-zinc-400">Régimen Físico:</span>
-              <span className={`font-bold ${packetEnergy < barrierHeight ? 'text-amber-400' : 'text-cyan-400'}`}>
-                {packetEnergy < barrierHeight ? 'Tunelamiento ($E < V_0$)' : 'Sobre la Barrera ($E > V_0$)'}
+              <span className={`font-bold ${isBelowPotential && potentialType !== 'well' ? 'text-amber-400' : 'text-cyan-400'}`}>
+                {regimeLabel}
               </span>
             </div>
           </div>
 
           {/* Educational callout */}
           <div className="p-3.5 rounded-xl bg-zinc-950/80 border border-zinc-800/80 text-[11px] leading-relaxed text-zinc-300">
-            {packetEnergy < barrierHeight ? (
-              <span><strong>Tunelamiento Cuántico:</strong> Clásicamente la partícula rebotaría con $R=100\%$. En mecánica cuántica, la función de onda penetra evanescentemente la barrera y una fracción finita $T &gt; 0$ emerge al otro lado.</span>
+            {potentialType === 'barrier' && isBelowPotential ? (
+              <span><strong>Tunelamiento cuántico:</strong> Clásicamente la partícula rebotaría con <KaTeXRenderer math={String.raw`R=1`} />. En mecánica cuántica, la función de onda penetra evanescentemente la barrera y una fracción finita <KaTeXRenderer math={String.raw`T>0`} /> emerge al otro lado.</span>
+            ) : potentialType === 'step' && isBelowPotential ? (
+              <span><strong>Escalón subumbral:</strong> En un escalón ideal semi-infinito con <KaTeXRenderer math={String.raw`E<V_0`} />, la solución a la derecha es evanescente y no transporta corriente: <KaTeXRenderer math={String.raw`T=0`} />.</span>
+            ) : potentialType === 'well' ? (
+              <span><strong>Pozo cuántico:</strong> La interferencia entre las dos fronteras produce resonancias; para ciertos valores de <KaTeXRenderer math={String.raw`k_2a`} />, la transmisión alcanza <KaTeXRenderer math={String.raw`T=1`} />.</span>
             ) : (
-              <span><strong>Reflexión Cuántica Sobre-Barrera:</strong> Aunque la partícula posee suficiente energía clásica para cruzar ($E &gt; V_0$), la discontinuidad del potencial causa una probabilidad no nula de reflexión cuántica $R &gt; 0$.</span>
+              <span><strong>Reflexión cuántica sobre-barrera:</strong> Aunque <KaTeXRenderer math={String.raw`E>V_0`} />, la discontinuidad del potencial puede causar una probabilidad no nula de reflexión <KaTeXRenderer math={String.raw`R>0`} />.</span>
             )}
           </div>
         </div>
       </div>
+
+      <LaboratoryModel
+        title="Dispersión estacionaria en potenciales unidimensionales"
+        phenomenon="Las probabilidades de reflexión y transmisión se obtienen al imponer continuidad de la función de onda y de su derivada en cada frontera. La animación representa el reparto de un paquete compatible con esos coeficientes, no una integración numérica de la ecuación dependiente del tiempo."
+        equations={[
+          {
+            label: 'Ecuación de partida',
+            math: String.raw`-\frac{\hbar^2}{2m}\frac{d^2\psi}{dx^2}+V(x)\psi=E\psi`,
+            explanation: 'Ecuación de Schrödinger independiente del tiempo para una partícula no relativista en una dimensión.',
+          },
+          {
+            label: 'Barrera, E < V₀',
+            math: String.raw`T=\left[1+\frac{V_0^2\sinh^2(\kappa a)}{4E(V_0-E)}\right]^{-1},\quad \kappa=\frac{\sqrt{2m(V_0-E)}}{\hbar}`,
+            explanation: 'La solución dentro de una barrera finita es evanescente, pero la transmisión permanece distinta de cero.',
+          },
+          {
+            label: 'Conservación de probabilidad',
+            math: String.raw`R+T=1`,
+            explanation: 'Para potenciales reales y estacionarios, los flujos reflejado y transmitido suman el flujo incidente.',
+          },
+        ]}
+        assumptions="Partícula no relativista, una dimensión y potenciales constantes por tramos. El escalón es semi-infinito (por eso a no interviene); la barrera y el pozo tienen ancho finito a."
+      />
     </div>
   );
 }
