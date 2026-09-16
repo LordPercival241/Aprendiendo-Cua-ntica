@@ -64,11 +64,11 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setSupportOpen(true)}
-            className="ml-1 flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium tracking-wide text-zinc-600 transition-all hover:border-cyan-500/25 hover:bg-cyan-50 hover:text-cyan-700 dark:text-zinc-400 dark:hover:bg-cyan-950/30 dark:hover:text-cyan-300 cursor-pointer"
+            className="ml-1 flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium tracking-wide text-zinc-600 transition-all hover:border-pink-500/25 hover:bg-pink-50 hover:text-pink-700 dark:text-zinc-400 dark:hover:bg-pink-950/30 dark:hover:text-pink-300 cursor-pointer"
             aria-haspopup="dialog"
             aria-expanded={supportOpen}
           >
-            <HandHeart className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
+            <HandHeart className="h-4 w-4 text-pink-600 dark:text-pink-400" />
             {t('support')}
           </button>
         </nav>
@@ -121,10 +121,10 @@ export function Navbar() {
               setMobileMenuOpen(false);
               setSupportOpen(true);
             }}
-            className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-sm font-medium text-zinc-700 hover:bg-cyan-50 hover:text-cyan-700 dark:text-zinc-300 dark:hover:bg-cyan-950/40 dark:hover:text-cyan-300"
+            className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-sm font-medium text-zinc-700 hover:bg-pink-50 hover:text-pink-700 dark:text-zinc-300 dark:hover:bg-pink-950/40 dark:hover:text-pink-300"
             aria-haspopup="dialog"
           >
-            <HandHeart className="h-4 w-4 text-cyan-500" />
+            <HandHeart className="h-4 w-4 text-pink-500" />
             {t('support')}
           </button>
         </div>

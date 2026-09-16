@@ -5,6 +5,15 @@ import { BlackbodySimulator } from './BlackbodySimulator';
 import { PhotoelectricSimulator } from './PhotoelectricSimulator';
 import { ComptonSimulator } from './ComptonSimulator';
 import { QuantumWavepacketSimulator } from './QuantumWavepacketSimulator';
+import {
+  DoubleSlitSimulator,
+  HarmonicOscillatorSimulator,
+  HydrogenOrbitalSimulator,
+  PerturbationSimulator,
+  RabiSimulator,
+  SpinMeasurementSimulator,
+  SternGerlachSimulator,
+} from './AcademicSimulators';
 import { Zap, Atom } from 'lucide-react';
 
 interface ModuleSimulatorRouterProps {
@@ -55,6 +64,8 @@ export function ModuleSimulatorRouter({ moduleId }: ModuleSimulatorRouterProps) 
     );
   }
 
+  if (moduleId === '03-dualidad-onda-particula') return <DoubleSlitSimulator />;
+
   // This model is valid only for the 1D Schrödinger / scattering units.  It is
   // deliberately not reused for spin, hydrogen, oscillator, or perturbation
   // modules: that would falsely imply that it simulates those phenomena.
@@ -69,13 +80,20 @@ export function ModuleSimulatorRouter({ moduleId }: ModuleSimulatorRouterProps) 
     return <QuantumWavepacketSimulator />;
   }
 
+  if (moduleId === '09-oscilador-armonico') return <HarmonicOscillatorSimulator />;
+  if (moduleId === '10-atomo-hidrogeno') return <HydrogenOrbitalSimulator />;
+  if (moduleId === '11-momento-angular-espin') return <SpinMeasurementSimulator />;
+  if (moduleId === '12-stern-gerlach') return <SternGerlachSimulator />;
+  if (moduleId === '13-perturbaciones') return <PerturbationSimulator />;
+  if (moduleId === '14-perturbaciones-tiempo') return <RabiSimulator />;
+
   return (
     <div className="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-6 text-sm text-zinc-300">
       <h3 className="font-semibold text-amber-300">Laboratorio específico en desarrollo académico</h3>
       <p className="mt-2 leading-relaxed">
-        Este módulo no usa el simulador de barreras 1D porque no representa fielmente su fenómeno.
-        La teoría, ejercicios y recursos siguen disponibles; el laboratorio se publicará tras validar
-        su Hamiltoniano, aproximaciones y pruebas numéricas.
+        El formalismo de Dirac se desarrolla aquí como herramienta matemática. No se muestra una animación
+        genérica porque no representaría por sí sola un fenómeno físico; los laboratorios posteriores aplican
+        esta notación a medición de espín, estados y evolución temporal.
       </p>
     </div>
   );
