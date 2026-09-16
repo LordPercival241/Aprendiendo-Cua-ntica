@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "verify:math": "node scripts/verify-katex.mjs"
+    "verify:math": "node scripts/verify-katex.mjs",
+    "verify:resources": "node scripts/verify-public-resources.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

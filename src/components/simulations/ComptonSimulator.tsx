@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, RotateCcw, Activity } from 'lucide-react';
+import { KaTeXRenderer } from '@/components/math/KaTeXRenderer';
+import { LaboratoryModel } from './shared/LaboratoryModel';
 
 export function ComptonSimulator() {
   const [thetaDeg, setThetaDeg] = useState<number>(90); // 90 degrees
@@ -22,8 +24,10 @@ export function ComptonSimulator() {
   const lambdaScatteredPm = lambdaIncidentPm + deltaLambdaPm; // pm
 
   // Energies in keV
-  const eIncidentKeV = (1239.841984 / (lambdaIncidentPm * 1e-3)); // keV (hc / lambda)
-  const eScatteredKeV = (1239.841984 / (lambdaScatteredPm * 1e-3)); // keV
+  // hc = 1.239841984 keV nm = 1239.841984 keV pm.
+  // Keeping the wavelength in pm therefore gives the photon energy directly in keV.
+  const eIncidentKeV = 1239.841984 / lambdaIncidentPm;
+  const eScatteredKeV = 1239.841984 / lambdaScatteredPm;
   const electronKineticKeV = eIncidentKeV - eScatteredKeV; // keV
 
   // Electron recoil angle phi
@@ -346,7 +350,8 @@ export function ComptonSimulator() {
             Simulador de Dispersión Compton Fotón-Electrón
           </h3>
           <p className="text-sm text-zinc-400 mt-1 max-w-3xl">
-            Colisión elástica relativista entre un fotón de rayos X y un electrón libre en reposo. Comprueba el corrimiento $\Delta\lambda = \lambda_c (1 - \cos\theta)$ independiente del material.
+            Colisión elástica relativista entre un fotón de rayos X y un electrón libre en reposo. Comprueba el corrimiento{' '}
+            <KaTeXRenderer math={String.raw`\Delta\lambda=\lambda_c(1-\cos\theta)`} /> independiente del material.
           </p>
         </div>
 
@@ -388,7 +393,7 @@ export function ComptonSimulator() {
           {/* Angle Preset Buttons */}
           <div>
             <span className="text-xs font-semibold text-zinc-300 block mb-2">
-              Ángulos Canónicos de Dispersión ($\theta$):
+              Ángulos canónicos de dispersión (<KaTeXRenderer math={String.raw`\theta`} />):
             </span>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
               {[
@@ -417,7 +422,7 @@ export function ComptonSimulator() {
           {/* Scattering Angle Slider */}
           <div className="space-y-2 pt-1">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-zinc-300 font-medium">Ángulo de Deflexión del Fotón $\theta$ (°):</span>
+              <span className="text-zinc-300 font-medium">Ángulo de deflexión del fotón <KaTeXRenderer math={String.raw`\theta`} /> (°):</span>
               <span className="font-mono font-bold text-cyan-400">{thetaDeg}°</span>
             </div>
             <input
@@ -434,7 +439,7 @@ export function ComptonSimulator() {
           {/* Incident Photon Wavelength Slider */}
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-zinc-300 font-medium">Longitud de Onda Incidente $\lambda$ (pm):</span>
+              <span className="text-zinc-300 font-medium">Longitud de onda incidente <KaTeXRenderer math={String.raw`\lambda`} /> (pm):</span>
               <span className="font-mono font-bold text-cyan-400">
                 {lambdaIncidentPm.toFixed(1)} pm ({eIncidentKeV.toFixed(1)} keV)
               </span>
@@ -465,23 +470,23 @@ export function ComptonSimulator() {
 
           <div className="space-y-2.5 text-xs">
             <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-              <span className="text-zinc-400">Corrimiento ($\Delta\lambda$):</span>
+              <span className="text-zinc-400">Corrimiento (<KaTeXRenderer math={String.raw`\Delta\lambda`} />):</span>
               <span className="font-bold text-emerald-400 font-mono">+{deltaLambdaPm.toFixed(3)} pm</span>
             </div>
             <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-              <span className="text-zinc-400">Longitud Dispersada ($\lambda^\prime$):</span>
+              <span className="text-zinc-400">Longitud dispersada (<KaTeXRenderer math={String.raw`\lambda'`} />):</span>
               <span className="font-bold text-white">{lambdaScatteredPm.toFixed(3)} pm</span>
             </div>
             <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-              <span className="text-zinc-400">Energía Fotón Dispersado ($E^\prime$):</span>
+              <span className="text-zinc-400">Energía del fotón dispersado (<KaTeXRenderer math={String.raw`E'`} />):</span>
               <span className="font-bold text-cyan-300">{eScatteredKeV.toFixed(2)} keV</span>
             </div>
             <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-              <span className="text-zinc-400">Energía Cinética Electrón ($K_e$):</span>
+              <span className="text-zinc-400">Energía cinética del electrón (<KaTeXRenderer math={String.raw`K_e`} />):</span>
               <span className="font-bold text-amber-400">{electronKineticKeV.toFixed(2)} keV</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-zinc-400">Ángulo de Retroceso Electrón ($\phi$):</span>
+              <span className="text-zinc-400">Ángulo de retroceso del electrón (<KaTeXRenderer math={String.raw`\phi`} />):</span>
               <span className="font-bold text-amber-300">{phiDeg.toFixed(1)}°</span>
             </div>
           </div>
@@ -492,6 +497,29 @@ export function ComptonSimulator() {
           </div>
         </div>
       </div>
+
+      <LaboratoryModel
+        title="Dispersión Compton: energía y momento relativistas"
+        phenomenon="El fotón cede energía y momento a un electrón inicialmente libre. Al aumentar el ángulo de dispersión, aumenta la longitud de onda del fotón y la energía cinética del electrón de retroceso."
+        equations={[
+          {
+            label: 'Corrimiento Compton',
+            math: String.raw`\Delta\lambda=\lambda_c(1-\cos\theta),\qquad \lambda_c=\frac{h}{m_ec}`,
+            explanation: 'Determina la longitud de onda dispersada y depende solo del ángulo y de las constantes fundamentales.',
+          },
+          {
+            label: 'Energía del fotón',
+            math: String.raw`E_\gamma=\frac{hc}{\lambda},\qquad E_\gamma'=\frac{hc}{\lambda'}`,
+            explanation: 'La disminución de energía del fotón se calcula con las longitudes de onda antes y después de la colisión.',
+          },
+          {
+            label: 'Transferencia al electrón',
+            math: String.raw`K_e=E_\gamma-E_\gamma',\qquad \cot\phi=(1+\alpha)\tan\frac{\theta}{2}`,
+            explanation: 'La energía perdida por el fotón es la energía cinética del electrón; aquí α = Eγ/(mec²).',
+          },
+        ]}
+        assumptions="Colisión de un fotón con un electrón libre inicialmente en reposo; se conservan la energía y el momento relativistas. El trazo del lienzo ilustra esas direcciones y los valores numéricos proceden de estas ecuaciones."
+      />
     </div>
   );
 }

@@ -201,10 +201,28 @@ export default function ModuleDetailPage({
                   </div>
                 </div>
 
-                {/* Summary Callout with Math Support */}
-                <div className="border-l-2 border-cyan-500 py-1 pl-5 text-base leading-8 text-zinc-700 sm:text-lg dark:text-zinc-300">
-                  <MathMarkdown content={sec.summary} inline />
-                </div>
+                {/* Physical reading: keeps every phenomenon connected to its observable consequence. */}
+                <aside className="grid gap-5 border-y border-zinc-200 py-6 dark:border-zinc-800 md:grid-cols-[10rem_1fr]">
+                  <div>
+                    <span className="block text-[11px] font-mono font-semibold uppercase tracking-[0.14em] text-cyan-700 dark:text-cyan-300">
+                      Fenómeno físico
+                    </span>
+                    {sec.formulas?.[0]?.category && (
+                      <span className="mt-2 block text-xs text-zinc-500 dark:text-zinc-400">
+                        {sec.formulas[0].category}
+                      </span>
+                    )}
+                  </div>
+                  <div className="space-y-3 text-base leading-8 text-zinc-700 sm:text-lg dark:text-zinc-300">
+                    <p><MathMarkdown content={sec.summary} inline /></p>
+                    {sec.formulas?.[0]?.physicalMeaning && (
+                      <p className="border-l-2 border-zinc-300 pl-4 text-sm leading-7 text-zinc-600 dark:border-zinc-700 dark:text-zinc-400">
+                        <span className="mr-2 font-semibold text-zinc-900 dark:text-zinc-200">Interpretación:</span>
+                        <MathMarkdown content={sec.formulas[0].physicalMeaning} inline />
+                      </p>
+                    )}
+                  </div>
+                </aside>
 
                 {/* Detailed Body Paragraphs with KaTeX Integration */}
                 <div className="text-base leading-[1.85] font-normal text-zinc-700 sm:text-lg dark:text-zinc-200">

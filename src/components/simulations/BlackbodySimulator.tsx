@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BookOpen, ChevronDown, ChevronUp, Zap, Thermometer } from 'lucide-react';
 import { KaTeXRenderer } from '@/components/math/KaTeXRenderer';
+import { LaboratoryModel } from './shared/LaboratoryModel';
 
 export function BlackbodySimulator() {
   const [temperature, setTemperature] = useState<number>(5800); // 5800 K (Sun surface)
@@ -447,6 +448,29 @@ export function BlackbodySimulator() {
           </div>
         </div>}
       </section>
+
+      <LaboratoryModel
+        title="Radiación de cuerpo negro: espectro térmico"
+        phenomenon="Una cavidad en equilibrio térmico emite radiación cuya distribución espectral depende únicamente de su temperatura. Al aumentar T, el máximo se desplaza hacia longitudes de onda menores y la potencia total aumenta de forma no lineal."
+        equations={[
+          {
+            label: 'Ley de Planck',
+            math: String.raw`B_\lambda(\lambda,T)=\frac{2hc^2}{\lambda^5}\frac{1}{e^{hc/(\lambda k_BT)}-1}`,
+            explanation: 'Es la radiancia espectral representada por la curva cian del gráfico.',
+          },
+          {
+            label: 'Desplazamiento de Wien',
+            math: String.raw`\lambda_{\max}T=b`,
+            explanation: 'Fija la posición del máximo; b = 2.898 × 10⁻³ m K.',
+          },
+          {
+            label: 'Emisión integrada',
+            math: String.raw`M=\sigma T^4`,
+            explanation: 'Relaciona la emitancia total con la temperatura de la superficie.',
+          },
+        ]}
+        assumptions="Cuerpo negro ideal en equilibrio térmico. La curva clásica de Rayleigh–Jeans y la aproximación de Wien se muestran solo en sus respectivos regímenes de validez para contrastarlas con la ley de Planck."
+      />
     </div>
   );
 }

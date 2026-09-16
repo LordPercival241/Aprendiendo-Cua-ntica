@@ -6,12 +6,14 @@ import { Link, usePathname } from '@/i18n/routing';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { ThemeToggle } from './ThemeToggle';
 import { QuantumMark } from '@/components/brand/QuantumMark';
-import { BookOpen, Layers, Award, Menu, X } from 'lucide-react';
+import { BookOpen, Layers, Award, HandHeart, Menu, X } from 'lucide-react';
+import { SupportDialog } from './SupportDialog';
 
 export function Navbar() {
   const t = useTranslations('navigation');
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [supportOpen, setSupportOpen] = useState(false);
 
   const navLinks = [
     { href: '/modulos', label: t('modules'), icon: Layers },
@@ -59,6 +61,16 @@ export function Navbar() {
               </Link>
             );
           })}
+          <button
+            type="button"
+            onClick={() => setSupportOpen(true)}
+            className="ml-1 flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium tracking-wide text-zinc-600 transition-all hover:border-cyan-500/25 hover:bg-cyan-50 hover:text-cyan-700 dark:text-zinc-400 dark:hover:bg-cyan-950/30 dark:hover:text-cyan-300 cursor-pointer"
+            aria-haspopup="dialog"
+            aria-expanded={supportOpen}
+          >
+            <HandHeart className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
+            {t('support')}
+          </button>
         </nav>
 
         {/* Right Action Bar */}
@@ -103,8 +115,21 @@ export function Navbar() {
               </Link>
             );
           })}
+          <button
+            type="button"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              setSupportOpen(true);
+            }}
+            className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-sm font-medium text-zinc-700 hover:bg-cyan-50 hover:text-cyan-700 dark:text-zinc-300 dark:hover:bg-cyan-950/40 dark:hover:text-cyan-300"
+            aria-haspopup="dialog"
+          >
+            <HandHeart className="h-4 w-4 text-cyan-500" />
+            {t('support')}
+          </button>
         </div>
       )}
+      <SupportDialog open={supportOpen} onClose={() => setSupportOpen(false)} />
     </header>
   );
 }
