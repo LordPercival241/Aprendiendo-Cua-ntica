@@ -28,8 +28,9 @@ export const COURSE_MODULES: CourseModule[] = [
       { book: "eisberg-r-resnick-r-quantum-physics-atoms-molecules-solids-nuclei-and-particles-solutions-supplement-accompany-2ed-wiley_compress.pdf", chapters: "Cap. 1: Radiación térmica y postulado de Planck" },
       { book: "fundamentos de mecánica cuántica.pdf", chapters: "Cap. 1: Orígenes de la Teoría Cuántica" }
     ],
-    simulationType: "none",
-    hasPOE: false,
+    simulationType: "canvas2d",
+    simulationName: "BlackbodySimulator",
+    hasPOE: true,
     equationsPreview: ["u(\\nu, T) = \\frac{8\\pi h\\nu^3}{c^3}\\frac{1}{e^{h\\nu/k_B T} - 1}", "E_n = n h \\nu"]
   },
   {
@@ -167,8 +168,9 @@ export const COURSE_MODULES: CourseModule[] = [
       { book: "L-0014096705-pdf.pdf", chapters: "Cohen-Tannoudji: Chapter II (The Mathematical Tools of Quantum Mechanics)" },
       { book: "feynman-lectures.pdf", chapters: "Vol. III - Cap. 3: Amplitudes de probabilidad" }
     ],
-    simulationType: "none",
-    hasPOE: false,
+    simulationType: "canvas2d",
+    simulationName: "RabiSimulator",
+    hasPOE: true,
     equationsPreview: ["|\\psi\\rangle = \\sum_i c_i |u_i\\rangle, \\quad c_i = \\langle u_i |\\psi\\rangle", "\\hat{A} = \\sum_n a_n |a_n\\rangle\\langle a_n|", "[\\hat{A},\\hat{B}] = i\\hat{C}"]
   },
   {

@@ -3,6 +3,16 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
+const securityPolicy = "default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'self'; media-src 'self'; worker-src 'self' blob:; upgrade-insecure-requests";
+const embeddedDocumentPolicy = securityPolicy.replace("frame-ancestors 'none'", "frame-ancestors 'self'");
+const academicDocumentHeaders = [
+  { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+  // PDFs may be framed only by this same site, never by an external origin.
+  { key: 'Content-Security-Policy', value: embeddedDocumentPolicy },
+  { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+  { key: 'Content-Disposition', value: 'inline' },
+];
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   async headers() {
@@ -12,7 +22,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'self'; media-src 'self'; worker-src 'self' blob:; upgrade-insecure-requests",
+            value: securityPolicy,
           },
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-Frame-Options', value: 'DENY' },
@@ -25,21 +35,15 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/lectures/:path*',
-        headers: [
-          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
-        ],
+        headers: academicDocumentHeaders,
       },
       {
         source: '/books/:path*',
-        headers: [
-          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
-        ],
+        headers: academicDocumentHeaders,
       },
       {
         source: '/syllabus/:path*',
-        headers: [
-          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
-        ],
+        headers: academicDocumentHeaders,
       },
       {
         source: '/support/:path*',
