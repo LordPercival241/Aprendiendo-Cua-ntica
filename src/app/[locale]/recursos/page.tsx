@@ -378,8 +378,8 @@ export default function ResourcesPage() {
               key={res.id}
               className={`flex flex-col justify-between p-5 rounded-2xl border transition-all ${
                 isSelected
-                  ? 'border-cyan-500 bg-cyan-950/20 ring-1 ring-cyan-500/40'
-                  : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 hover:border-slate-300 dark:hover:border-slate-700 shadow-xs'
+                  ? 'border-cyan-500 bg-cyan-50 dark:bg-black ring-1 ring-cyan-500/40'
+                  : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-black hover:border-slate-300 dark:hover:border-slate-700 shadow-xs'
               }`}
             >
               <div>
