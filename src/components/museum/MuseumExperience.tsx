@@ -83,7 +83,11 @@ export function MuseumExperience({ locale }: { locale: string }) {
           </div>
           <div className="absolute left-7 top-7 flex items-center gap-2 rounded-full border border-white/10 bg-black/65 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-300 backdrop-blur sm:left-9 sm:top-9"><span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />{t.focus}</div>
           <div className="absolute right-7 top-7 rounded border border-cyan-400/25 bg-black/65 px-2.5 py-1.5 font-mono text-[10px] tracking-[0.12em] text-cyan-300 backdrop-blur sm:right-9 sm:top-9">{String(activeIndex).padStart(2, '0')} / {String(SCIENTISTS.length).padStart(2, '0')}</div>
-          <div className="absolute inset-x-0 bottom-0 p-7 sm:p-9"><p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan-300">{activeYear} · {t.archive}</p><h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">{active.name}</h2><p className="mt-1 text-sm text-zinc-400">{active.years}</p></div>
+          <div className="absolute inset-x-0 bottom-0 z-10 bg-linear-to-t from-black via-black/95 to-transparent px-7 pb-7 pt-20 sm:px-9 sm:pb-9 sm:pt-28">
+            <p className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-cyan-300 drop-shadow-[0_1px_10px_rgba(0,0,0,1)]">{activeYear} · {t.archive}</p>
+            <h2 className="mt-2 max-w-[90%] text-3xl font-semibold tracking-[-0.04em] text-white drop-shadow-[0_2px_12px_rgba(0,0,0,1)] sm:text-4xl">{active.name}</h2>
+            <p className="mt-1 text-sm font-medium text-zinc-300 drop-shadow-[0_1px_8px_rgba(0,0,0,1)]">{active.years}</p>
+          </div>
         </div>
         <div className="flex flex-col p-6 sm:p-8 lg:p-10">
           <div className="flex items-center justify-between gap-3 text-[10px] font-mono uppercase tracking-[0.16em] text-cyan-400"><span className="flex items-center gap-2"><Landmark className="h-3.5 w-3.5" />{t.milestone}</span><span className="text-zinc-600">{t.record} {activeIndex} {t.of} {SCIENTISTS.length}</span></div>
