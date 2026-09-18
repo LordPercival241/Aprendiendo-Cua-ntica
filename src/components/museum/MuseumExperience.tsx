@@ -42,8 +42,8 @@ const SCIENTISTS: Scientist[] = [
 ];
 
 const UI: Record<Locale, Record<string, string>> = {
-  es: { timeline: 'Línea de tiempo de científicos de la mecánica cuántica', archive: 'archivo histórico', milestone: 'Hito de la teoría cuántica', study: 'Estudiar el módulo', source: 'Ficha biográfica Nobel', bridge: 'La ecuación presenta una puerta de entrada al desarrollo formal; el módulo asociado contiene sus hipótesis, alcance y deducción.' },
-  en: { timeline: 'Timeline of quantum-mechanics scientists', archive: 'historical archive', milestone: 'Quantum-theory milestone', study: 'Study the module', source: 'Nobel biographical profile', bridge: 'The equation is an entry point to the formal development; the associated module covers its assumptions, scope, and derivation.' },
+  es: { timeline: 'Línea de tiempo de científicos de la mecánica cuántica', archive: 'archivo histórico', milestone: 'Hito de la teoría cuántica', study: 'Estudiar el módulo', source: 'Ficha biográfica Nobel', bridge: 'La ecuación presenta una puerta de entrada al desarrollo formal; el módulo asociado contiene sus hipótesis, alcance y deducción.', collection: 'Colección permanente', record: 'Registro', of: 'de', focus: 'Pieza en estudio' },
+  en: { timeline: 'Timeline of quantum-mechanics scientists', archive: 'historical archive', milestone: 'Quantum-theory milestone', study: 'Study the module', source: 'Nobel biographical profile', bridge: 'The equation is an entry point to the formal development; the associated module covers its assumptions, scope, and derivation.', collection: 'Permanent collection', record: 'Record', of: 'of', focus: 'Work under study' },
 };
 
 export function MuseumExperience({ locale }: { locale: string }) {
@@ -52,10 +52,16 @@ export function MuseumExperience({ locale }: { locale: string }) {
   const language: Locale = locale === 'en' ? 'en' : 'es';
   const t = UI[language];
   const activeYear = active.timelineLabel ?? String(active.year);
+  const activeIndex = SCIENTISTS.findIndex((scientist) => scientist.id === active.id) + 1;
 
   return (
     <section aria-label={t.timeline}>
-      <div className="relative mb-8 overflow-x-auto pb-3">
+      <div className="mb-8 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950/70 px-2 pt-1 shadow-[0_20px_60px_-42px_rgba(34,211,238,0.5)] sm:px-5">
+        <div className="flex items-center justify-between gap-4 border-b border-zinc-800 px-3 py-3 text-[10px] font-mono uppercase tracking-[0.16em] text-zinc-500">
+          <span>{t.collection}</span>
+          <span className="text-cyan-400">1900 — 1948</span>
+        </div>
+        <div className="relative overflow-x-auto pb-4">
         <div className="relative flex min-w-max items-start gap-0 px-3 pt-7">
           <div className="absolute left-3 right-3 top-[2.55rem] h-px bg-linear-to-r from-cyan-400/20 via-cyan-400/70 to-indigo-400/20" />
           {SCIENTISTS.map((scientist) => {
@@ -63,16 +69,24 @@ export function MuseumExperience({ locale }: { locale: string }) {
             return <button key={scientist.id} type="button" onClick={() => setActiveId(scientist.id)} aria-pressed={selected} className="group relative z-10 w-28 px-2 text-center"><span className={`mx-auto block h-3 w-3 rounded-full border-2 transition-all ${selected ? 'border-cyan-200 bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.8)]' : 'border-zinc-700 bg-black group-hover:border-cyan-400'}`} /><span className={`mt-3 block font-mono text-[11px] ${selected ? 'text-cyan-300' : 'text-zinc-500'}`}>{scientist.timelineLabel ?? scientist.year}</span><span className={`mt-1 block text-xs font-medium leading-4 ${selected ? 'text-white' : 'text-zinc-500 group-hover:text-zinc-300'}`}>{scientist.name}</span></button>;
           })}
         </div>
+        </div>
       </div>
 
-      <article className="grid overflow-hidden rounded-2xl border border-zinc-800 bg-black shadow-2xl shadow-cyan-950/20 lg:grid-cols-[minmax(18rem,0.95fr)_minmax(0,1.15fr)]">
-        <div className="relative min-h-[27rem] border-b border-zinc-800 bg-zinc-950 lg:min-h-[38rem] lg:border-b-0 lg:border-r">
-          <Image key={active.portrait} src={active.portrait} alt={`${language === 'es' ? 'Retrato histórico de' : 'Historical portrait of'} ${active.name}`} fill sizes="(min-width: 1024px) 42vw, 100vw" priority={active.id === 'planck'} className="object-cover object-center grayscale contrast-110 transition-opacity duration-500" />
-          <div className="absolute inset-0 bg-linear-to-t from-black via-black/10 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8"><p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan-300">{activeYear} · {t.archive}</p><h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">{active.name}</h2><p className="mt-1 text-sm text-zinc-400">{active.years}</p></div>
+      <article className="grid overflow-hidden rounded-[1.5rem] border border-zinc-800 bg-black shadow-[0_30px_100px_-45px_rgba(6,182,212,0.38)] lg:grid-cols-[minmax(20rem,0.9fr)_minmax(0,1.1fr)]">
+        <div className="relative min-h-[30rem] overflow-hidden border-b border-zinc-800 bg-zinc-950 lg:min-h-[40rem] lg:border-b-0 lg:border-r">
+          <Image key={`ambient-${active.portrait}`} src={active.portrait} alt="" aria-hidden fill sizes="(min-width: 1024px) 45vw, 100vw" quality={90} className="scale-110 object-cover object-center opacity-25 blur-2xl grayscale" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(34,211,238,0.12),transparent_42%),linear-gradient(to_bottom,rgba(9,9,11,0.1),rgba(0,0,0,0.94))]" />
+          <div className="absolute inset-4 border border-cyan-300/20 sm:inset-6">
+            <div className="absolute inset-1 overflow-hidden border border-white/10 bg-black/30">
+              <Image key={active.portrait} src={active.portrait} alt={`${language === 'es' ? 'Retrato histórico de' : 'Historical portrait of'} ${active.name}`} fill sizes="(min-width: 1024px) 42vw, 100vw" quality={100} priority={active.id === 'planck'} className="object-contain object-center grayscale contrast-125 brightness-110 transition-opacity duration-500" />
+            </div>
+          </div>
+          <div className="absolute left-7 top-7 flex items-center gap-2 rounded-full border border-white/10 bg-black/65 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-300 backdrop-blur sm:left-9 sm:top-9"><span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />{t.focus}</div>
+          <div className="absolute right-7 top-7 rounded border border-cyan-400/25 bg-black/65 px-2.5 py-1.5 font-mono text-[10px] tracking-[0.12em] text-cyan-300 backdrop-blur sm:right-9 sm:top-9">{String(activeIndex).padStart(2, '0')} / {String(SCIENTISTS.length).padStart(2, '0')}</div>
+          <div className="absolute inset-x-0 bottom-0 p-7 sm:p-9"><p className="font-mono text-xs uppercase tracking-[0.2em] text-cyan-300">{activeYear} · {t.archive}</p><h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">{active.name}</h2><p className="mt-1 text-sm text-zinc-400">{active.years}</p></div>
         </div>
         <div className="flex flex-col p-6 sm:p-8 lg:p-10">
-          <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.16em] text-cyan-400"><Landmark className="h-3.5 w-3.5" />{t.milestone}</div>
+          <div className="flex items-center justify-between gap-3 text-[10px] font-mono uppercase tracking-[0.16em] text-cyan-400"><span className="flex items-center gap-2"><Landmark className="h-3.5 w-3.5" />{t.milestone}</span><span className="text-zinc-600">{t.record} {activeIndex} {t.of} {SCIENTISTS.length}</span></div>
           <h3 className="mt-4 text-xl font-semibold tracking-tight text-white sm:text-2xl">{active.contribution[language]}</h3>
           <p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-300 sm:text-base">{active.biography[language]}</p>
           <div className="my-7 overflow-x-auto border-y border-zinc-800 py-5 sm:my-9"><KaTeXRenderer math={active.formula} block className="text-xl text-cyan-100 sm:text-2xl" /></div>

@@ -5,7 +5,6 @@ import { routing } from '@/i18n/routing';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { QuantumBackground } from '@/components/simulations/shared/QuantumBackground';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -36,7 +35,6 @@ export default async function LocaleLayout({
         disableTransitionOnChange
       >
         <div className="relative flex min-h-screen flex-col">
-          <QuantumBackground />
           <Navbar />
           <main className="relative z-10 flex-1">{children}</main>
           <Footer />

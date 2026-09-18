@@ -15,6 +15,12 @@ const academicDocumentHeaders = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  images: {
+    // Historical portraits carry fine grain and handwritten details. Keep a
+    // high-quality source option available for the museum without disabling
+    // responsive image optimization.
+    qualities: [75, 90, 100],
+  },
   async headers() {
     return [
       {
