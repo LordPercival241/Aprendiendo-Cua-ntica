@@ -6,7 +6,7 @@ import { Link, usePathname } from '@/i18n/routing';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { ThemeToggle } from './ThemeToggle';
 import { QuantumMark } from '@/components/brand/QuantumMark';
-import { BookOpen, Layers, Award, HandHeart, Menu, X } from 'lucide-react';
+import { BookOpen, Layers, Award, HandHeart, Landmark, Menu, X } from 'lucide-react';
 import { SupportDialog } from './SupportDialog';
 
 export function Navbar() {
@@ -17,6 +17,7 @@ export function Navbar() {
 
   const navLinks = [
     { href: '/modulos', label: t('modules'), icon: Layers },
+    { href: '/museo', label: t('museum'), icon: Landmark },
     { href: '/recursos', label: t('resources'), icon: BookOpen },
     { href: '/progreso', label: t('progress'), icon: Award },
   ];
