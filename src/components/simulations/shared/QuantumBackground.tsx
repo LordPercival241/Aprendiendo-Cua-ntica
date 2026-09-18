@@ -24,7 +24,10 @@ function seededUnit(index: number, salt: number) {
   return value - Math.floor(value);
 }
 
-/** A projected phase-space field, deliberately avoiding decorative atom orbits. */
+/**
+ * A large projected phase-space field. It uses wave fronts and a perspective
+ * lattice—not atom icons or electron orbits—so the atmosphere stays academic.
+ */
 export function QuantumBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const { resolvedTheme } = useTheme();
@@ -34,7 +37,8 @@ export function QuantumBackground() {
     const context = canvas?.getContext('2d');
     if (!canvas || !context) return;
 
-    const nodes: FieldNode[] = Array.from({ length: 88 }, (_, index) => ({
+    const nodeCount = window.innerWidth < 640 ? 62 : 118;
+    const nodes: FieldNode[] = Array.from({ length: nodeCount }, (_, index) => ({
       x: seededUnit(index, 1) * 2 - 1,
       y: seededUnit(index, 2) * 1.35 - 0.68,
       z: seededUnit(index, 3) * 2 - 1,
@@ -56,7 +60,7 @@ export function QuantumBackground() {
     const dark = resolvedTheme !== 'light';
 
     const resize = () => {
-      pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+      pixelRatio = Math.min(window.devicePixelRatio || 1, 1.75);
       width = window.innerWidth;
       height = window.innerHeight;
       canvas.width = Math.round(width * pixelRatio);
@@ -77,16 +81,16 @@ export function QuantumBackground() {
     };
 
     const draw = () => {
-      time += reducedMotion ? 0 : 0.0035;
-      pointerX += (targetX - pointerX) * 0.025;
-      pointerY += (targetY - pointerY) * 0.025;
+      time += reducedMotion ? 0 : 0.003;
+      pointerX += (targetX - pointerX) * 0.022;
+      pointerY += (targetY - pointerY) * 0.022;
       context.clearRect(0, 0, width, height);
 
       const centerX = width * 0.5;
-      const centerY = height * 0.36;
-      const fieldScale = Math.min(width, height) * 0.58;
-      const yaw = time * 0.34 + pointerX * 0.12;
-      const pitch = -0.18 + pointerY * 0.08;
+      const centerY = height * 0.43;
+      const fieldScale = Math.max(width, height) * 0.68;
+      const yaw = time * 0.25 + pointerX * 0.16;
+      const pitch = -0.18 + pointerY * 0.1;
       const cosYaw = Math.cos(yaw);
       const sinYaw = Math.sin(yaw);
       const cosPitch = Math.cos(pitch);
@@ -106,29 +110,31 @@ export function QuantumBackground() {
         };
       };
       const projected: ProjectedNode[] = nodes.map((node) => {
-        const oscillation = reducedMotion ? 0 : Math.sin(time * node.drift + node.phase) * 0.035;
-        const point = project(node.x, node.y, node.z + oscillation);
+        const oscillation = reducedMotion ? 0 : Math.sin(time * node.drift + node.phase) * 0.075;
+        const transverse = reducedMotion ? 0 : Math.cos(time * node.drift * 0.72 + node.phase) * 0.045;
+        const point = project(node.x + transverse, node.y + oscillation * 0.6, node.z + oscillation);
         return { ...node, depth: point.depth, scale: point.scale, screenX: point.x, screenY: point.y };
       }).sort((a, b) => b.depth - a.depth);
 
-      const glow = context.createRadialGradient(centerX, centerY, 0, centerX, centerY, Math.max(width, height) * 0.55);
-      glow.addColorStop(0, dark ? 'rgba(8, 145, 178, 0.10)' : 'rgba(8, 145, 178, 0.055)');
-      glow.addColorStop(0.42, dark ? 'rgba(30, 41, 59, 0.03)' : 'rgba(14, 116, 144, 0.018)');
+      const glow = context.createRadialGradient(centerX, centerY, 0, centerX, centerY, Math.max(width, height) * 0.8);
+      glow.addColorStop(0, dark ? 'rgba(8, 145, 178, 0.16)' : 'rgba(8, 145, 178, 0.07)');
+      glow.addColorStop(0.36, dark ? 'rgba(59, 130, 246, 0.055)' : 'rgba(14, 116, 144, 0.028)');
+      glow.addColorStop(0.68, dark ? 'rgba(30, 41, 59, 0.025)' : 'rgba(14, 116, 144, 0.012)');
       glow.addColorStop(1, 'rgba(0, 0, 0, 0)');
       context.fillStyle = glow;
       context.fillRect(0, 0, width, height);
 
       // Perspective reference plane: a discreet computational-space grid that
       // gives the field a measurable depth instead of a decorative starfield.
-      const gridExtent = 1.45;
-      const gridY = 0.82;
-      const gridColor = dark ? 'rgba(34, 211, 238, 0.08)' : 'rgba(8, 145, 178, 0.06)';
-      for (let index = -5; index <= 5; index += 1) {
-        const offset = (index / 5) * gridExtent;
+      const gridExtent = 1.8;
+      const gridY = 0.9;
+      const gridColor = dark ? 'rgba(34, 211, 238, 0.1)' : 'rgba(8, 145, 178, 0.065)';
+      for (let index = -7; index <= 7; index += 1) {
+        const offset = (index / 7) * gridExtent;
         const drawGridLine = (axis: 'x' | 'z') => {
           context.beginPath();
-          for (let sample = 0; sample <= 24; sample += 1) {
-            const span = -gridExtent + (sample / 24) * gridExtent * 2;
+          for (let sample = 0; sample <= 32; sample += 1) {
+            const span = -gridExtent + (sample / 32) * gridExtent * 2;
             const point = axis === 'x' ? project(span, gridY, offset) : project(offset, gridY, span);
             if (sample === 0) context.moveTo(point.x, point.y);
             else context.lineTo(point.x, point.y);
@@ -136,24 +142,27 @@ export function QuantumBackground() {
           context.stroke();
         };
         context.strokeStyle = gridColor;
-        context.lineWidth = index === 0 ? 0.85 : 0.45;
+        context.lineWidth = index === 0 ? 0.9 : 0.45;
         drawGridLine('x');
         drawGridLine('z');
       }
 
-      // Two analytical phase contours supply a readable wavefunction-like
-      // structure without suggesting classical electron trajectories.
-      for (let band = 0; band < 2; band += 1) {
+      // Broad analytical phase fronts establish the main visual scale. Their
+      // travel is deliberately slow, like a measured field rather than a toy.
+      for (let band = 0; band < 4; band += 1) {
         context.beginPath();
-        for (let sample = 0; sample <= 96; sample += 1) {
-          const parameter = -1.22 + (sample / 96) * 2.44;
-          const phase = parameter * 4.6 + time * (band === 0 ? 1.2 : -0.92);
-          const point = project(parameter, -0.2 + Math.sin(phase) * (0.14 + band * 0.045), Math.cos(phase) * (0.15 + band * 0.06));
+        for (let sample = 0; sample <= 128; sample += 1) {
+          const parameter = -1.8 + (sample / 128) * 3.6;
+          const phase = parameter * (3.6 + band * 0.36) + time * (0.72 + band * 0.13) + band * 1.18;
+          const envelope = 0.22 + Math.cos(parameter * 1.1) * 0.035;
+          const point = project(parameter, -0.3 + Math.sin(phase) * envelope, Math.cos(phase) * (0.22 + band * 0.035));
           if (sample === 0) context.moveTo(point.x, point.y);
           else context.lineTo(point.x, point.y);
         }
-        context.strokeStyle = dark ? (band === 0 ? 'rgba(103, 232, 249, 0.38)' : 'rgba(129, 140, 248, 0.28)') : (band === 0 ? 'rgba(8, 145, 178, 0.26)' : 'rgba(79, 70, 229, 0.19)');
-        context.lineWidth = band === 0 ? 1.2 : 0.8;
+        context.strokeStyle = dark
+          ? (band % 2 === 0 ? `rgba(103, 232, 249, ${0.36 - band * 0.045})` : `rgba(129, 140, 248, ${0.29 - band * 0.035})`)
+          : (band % 2 === 0 ? `rgba(8, 145, 178, ${0.25 - band * 0.025})` : `rgba(79, 70, 229, ${0.18 - band * 0.02})`);
+        context.lineWidth = band === 0 ? 1.35 : 0.75;
         context.stroke();
       }
 
@@ -164,7 +173,7 @@ export function QuantumBackground() {
           const dx = a.screenX - b.screenX;
           const dy = a.screenY - b.screenY;
           const distanceSquared = dx * dx + dy * dy;
-          const threshold = Math.max(42, Math.min(width, height) * 0.13);
+          const threshold = Math.max(46, Math.min(width, height) * 0.15);
           if (distanceSquared > threshold * threshold || Math.abs(a.depth - b.depth) > 0.52) continue;
           const intensity = (1 - Math.sqrt(distanceSquared) / threshold) * Math.min(a.scale, b.scale);
           context.strokeStyle = dark ? `rgba(34, 211, 238, ${Math.max(0, intensity * 0.17)})` : `rgba(8, 145, 178, ${Math.max(0, intensity * 0.12)})`;
@@ -178,8 +187,8 @@ export function QuantumBackground() {
 
       projected.forEach((node) => {
         const pulse = 0.75 + (reducedMotion ? 0 : Math.sin(time * node.drift * 1.8 + node.phase) * 0.25);
-        const radius = Math.max(0.5, node.radius * node.scale * 4.2 * pulse);
-        const alpha = Math.min(0.7, 0.12 + node.scale * 0.85);
+        const radius = Math.max(0.55, node.radius * node.scale * 5.1 * pulse);
+        const alpha = Math.min(0.72, 0.11 + node.scale * 0.88);
         context.beginPath();
         context.arc(node.screenX, node.screenY, radius, 0, Math.PI * 2);
         context.fillStyle = dark ? `rgba(103, 232, 249, ${alpha})` : `rgba(8, 145, 178, ${alpha})`;
@@ -203,5 +212,5 @@ export function QuantumBackground() {
     };
   }, [resolvedTheme]);
 
-  return <canvas ref={canvasRef} className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-85 dark:opacity-80" aria-hidden="true" />;
+  return <canvas ref={canvasRef} className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-95 dark:opacity-90" aria-hidden="true" />;
 }

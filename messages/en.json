@@ -181,6 +181,12 @@
     "hakeScore": "Hake Gain ⟨g⟩",
     "hakeDesc": "Measures active conceptual learning effectiveness compared to traditional lectures."
   },
+  "museum": {
+    "eyebrow": "Quantum museum · pioneers archive",
+    "title": "The people behind the ideas.",
+    "subtitle": "A visual timeline of the people who transformed physics. Each portrait connects a historical milestone, a representative equation, and its rigorous development in the course.",
+    "provenance": "The photographs are part of the visual archive supplied and authorized for this platform. The biographies are educational summaries; the linked Nobel profiles provide primary references for the main historical milestones."
+  },
   "footer": {
     "text": "National University of Engineering (UNI) • Faculty of Science • Course IF411 Quantum Mechanics.",
     "rights": "Developed for quantum physics education and research."
