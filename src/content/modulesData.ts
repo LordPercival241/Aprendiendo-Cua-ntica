@@ -91,7 +91,7 @@ Este absurdo físico se denominó históricamente la **Catástrofe Ultravioleta*
         id: 'postulado-planck',
         title: '2. El Postulado Cuántico de Max Planck (1900)',
         badge: 'Ruptura Paradigmática',
-        summary: 'Para corregir la catástrofe ultravioleta, Planck propuso que los osciladores atómicos absorben y emiten energía exclusivamente en paquetes discretos E = n h nu.',
+        summary: 'Para corregir la catástrofe ultravioleta, Planck propuso que los osciladores atómicos absorben y emiten energía exclusivamente en paquetes discretos $E_n = n h\\nu$.',
         contentMarkdown: `
 El 14 de diciembre de 1900, Max Planck presentó ante la Sociedad Alemana de Física su revolucionaria hipótesis:
 
@@ -830,7 +830,7 @@ donde $\\hat{N} = \\hat{a}^\\dagger \\hat{a}$ es el **Operador Número**, cuyos 
         id: 'potencial-central-radial',
         title: '1. Separación de Variables y Ecuación Radial',
         badge: 'Problema de Fuerzas Centrales 3D',
-        summary: 'En un potencial electrostático coulombiano V(r) = -e^2 / (4 pi epsilon0 r), el Hamiltoniano se desacopla en una ecuación radial R(r) y una ecuación angular Y(theta, phi).',
+        summary: 'En un potencial electrostático coulombiano $V(r) = -\\frac{e^2}{4\\pi\\varepsilon_0 r}$, el Hamiltoniano se desacopla en una ecuación radial $R(r)$ y una ecuación angular $Y(\\theta,\\phi)$.',
         contentMarkdown: `
 El Laplaciano en coordenadas esféricas $(r, \\theta, \\phi)$ es:
 $$\\nabla^2 = \\frac{1}{r^2} \\frac{\\partial}{\\partial r}\\left(r^2 \\frac{\\partial}{\\partial r}\\right) - \\frac{\\hat{L}^2}{\\hbar^2 r^2}$$
@@ -1094,7 +1094,7 @@ $$|j, m\\rangle = \\sum_{m_1, m_2} \\langle j_1 m_1 j_2 m_2 | j m \\rangle |j_1 
         id: 'perturbaciones-no-degeneradas',
         title: '1. Teoría de Perturbaciones Independiente del Tiempo (Caso No Degenerado)',
         badge: 'Aproximación Cuántica Sistemática',
-        summary: 'Cuando el Hamiltoniano exacto no tiene solución analítica cerrada pero difiere ligeramente de uno conocido H0, H = H0 + lambda H prime.',
+        summary: 'Cuando el Hamiltoniano exacto no tiene solución analítica cerrada pero difiere ligeramente de uno conocido $\\hat H_0$, se escribe $\\hat H = \\hat H_0 + \\lambda \\hat H^\\prime$.',
         contentMarkdown: `
 Supongamos resuelto el problema no perturbado: $\\hat{H}_0 |\\psi_n^{(0)}\\rangle = E_n^{(0)} |\\psi_n^{(0)}\\rangle$.
 Queremos resolver la ecuación exacta para $\\hat{H} = \\hat{H}_0 + \\lambda \\hat{H}'$:

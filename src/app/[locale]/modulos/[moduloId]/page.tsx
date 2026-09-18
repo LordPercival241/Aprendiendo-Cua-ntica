@@ -52,6 +52,13 @@ export default function ModuleDetailPage({
   const [poeStep, setPoeStep] = useState<1 | 2 | 3>(1);
   const [poeSaved, setPoeSaved] = useState(false);
 
+  const conceptualSynthesis =
+    mod.id === '01-introduccion-fisica-moderna'
+      ? 'Los datos del simulador confirman que la catástrofe ultravioleta surge del postulado clásico continuo. La cuantización discreta de Planck $E_n = n h\\nu$ introduce el factor exponencial $e^{h\\nu/(k_B T)}$ en el denominador y suprime la radiación a altas frecuencias.'
+      : mod.id === '02-efecto-fotoelectrico-compton'
+        ? 'La emisión ocurre únicamente cuando la energía del fotón satisface $h\\nu \\geq \\Phi$. La energía restante aparece como energía cinética máxima, $K_{\\max}=h\\nu-\\Phi$, lo que valida la hipótesis de Einstein.'
+        : 'Relaciona las magnitudes observadas con las ecuaciones del modelo físico. Para escribir una expresión matemática, usa delimitadores de LaTeX: por ejemplo, $E_n = n h\\nu$.';
+
   const title = t(`${mod.titleKey}.title`);
   const desc = t(`${mod.descKey}.desc`);
 
@@ -455,18 +462,18 @@ export default function ModuleDetailPage({
                   </button>
                   <button
                     type="button"
-                    onClick={() => {
-                      setObservation(
-                        mod.id === '01-introduccion-fisica-moderna'
-                          ? 'Los datos del simulador confirman que la catástrofe ultravioleta surge del postulado clásico continuo. La cuantización discreta de Planck E = n h nu introduce el factor exponencial en el denominador que suprime la radiación en altas frecuencias.'
-                          : 'Se verifica experimentalmente que la emisión de electrones solo ocurre si la energía del fotón h*nu excede la función de trabajo Φ del metal, validando la hipótesis corpuscular de Einstein.'
-                      );
-                    }}
+                    onClick={() => setObservation(conceptualSynthesis)}
                     className="px-5 py-3 rounded-xl text-sm font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 hover:bg-emerald-900/50 transition-colors cursor-pointer"
                   >
                     Cargar Síntesis Conceptual
                   </button>
                 </div>
+                {observation.includes('$') && (
+                  <div className="rounded-xl border border-emerald-500/20 bg-black/40 px-4 py-3" aria-live="polite">
+                    <p className="mb-2 text-[10px] font-mono font-semibold uppercase tracking-[0.14em] text-emerald-400">Vista previa de notación matemática</p>
+                    <div className="text-sm leading-6 text-zinc-300"><MathMarkdown content={observation} inline /></div>
+                  </div>
+                )}
                 {poeSaved && (
                   <p className="text-sm font-mono text-emerald-400 mt-2">
                     ✓ Respuestas del ciclo POE registradas en este dispositivo.
