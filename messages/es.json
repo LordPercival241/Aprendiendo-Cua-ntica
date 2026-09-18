@@ -181,6 +181,12 @@
     "hakeScore": "Ganancia de Hake ⟨g⟩",
     "hakeDesc": "Mide la efectividad del aprendizaje interactivo respecto a la instrucción tradicional."
   },
+  "museum": {
+    "eyebrow": "Museo cuántico · archivo de pioneros",
+    "title": "Las personas detrás de las ideas.",
+    "subtitle": "Una línea de tiempo visual de quienes transformaron la física. Cada retrato conecta un hito histórico, su ecuación representativa y el desarrollo riguroso dentro del curso.",
+    "provenance": "Las fotografías forman parte del archivo visual proporcionado y autorizado para la plataforma. Las biografías son síntesis didácticas; las fichas del Nobel enlazadas permiten contrastar los principales hitos históricos."
+  },
   "footer": {
     "text": "Universidad Nacional de Ingeniería (UNI) • Facultad de Ciencias • Curso IF411 Mecánica Cuántica.",
     "rights": "Desarrollado para la investigación y enseñanza de la física cuántica."
