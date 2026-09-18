@@ -68,6 +68,14 @@ body {
   font-size: 1.32em !important;
 }
 
+/* Preserve the mathematical hierarchy while keeping powers legible on
+   high-density displays. KaTeX positions superscripts correctly; this only
+   increases their optical size and weight (for example, ν² and c³). */
+.katex .msupsub > .msup {
+  font-size: 0.82em !important;
+  font-weight: 500;
+}
+
 .katex .mord,
 .katex .mop,
 .katex .mbin,

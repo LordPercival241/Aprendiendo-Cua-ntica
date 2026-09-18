@@ -91,15 +91,24 @@ export function QuantumBackground() {
       const sinYaw = Math.sin(yaw);
       const cosPitch = Math.cos(pitch);
       const sinPitch = Math.sin(pitch);
-      const projected: ProjectedNode[] = nodes.map((node) => {
-        const oscillation = reducedMotion ? 0 : Math.sin(time * node.drift + node.phase) * 0.035;
-        const xYaw = node.x * cosYaw - (node.z + oscillation) * sinYaw;
-        const zYaw = node.x * sinYaw + (node.z + oscillation) * cosYaw;
-        const yPitch = node.y * cosPitch - zYaw * sinPitch;
-        const zPitch = node.y * sinPitch + zYaw * cosPitch;
+      const project = (x: number, y: number, z: number) => {
+        const xYaw = x * cosYaw - z * sinYaw;
+        const zYaw = x * sinYaw + z * cosYaw;
+        const yPitch = y * cosPitch - zYaw * sinPitch;
+        const zPitch = y * sinPitch + zYaw * cosPitch;
         const depth = zPitch + 2.85;
         const scale = 1 / depth;
-        return { ...node, depth, scale, screenX: centerX + xYaw * fieldScale * scale, screenY: centerY + yPitch * fieldScale * scale };
+        return {
+          x: centerX + xYaw * fieldScale * scale,
+          y: centerY + yPitch * fieldScale * scale,
+          depth,
+          scale,
+        };
+      };
+      const projected: ProjectedNode[] = nodes.map((node) => {
+        const oscillation = reducedMotion ? 0 : Math.sin(time * node.drift + node.phase) * 0.035;
+        const point = project(node.x, node.y, node.z + oscillation);
+        return { ...node, depth: point.depth, scale: point.scale, screenX: point.x, screenY: point.y };
       }).sort((a, b) => b.depth - a.depth);
 
       const glow = context.createRadialGradient(centerX, centerY, 0, centerX, centerY, Math.max(width, height) * 0.55);
@@ -108,6 +117,45 @@ export function QuantumBackground() {
       glow.addColorStop(1, 'rgba(0, 0, 0, 0)');
       context.fillStyle = glow;
       context.fillRect(0, 0, width, height);
+
+      // Perspective reference plane: a discreet computational-space grid that
+      // gives the field a measurable depth instead of a decorative starfield.
+      const gridExtent = 1.45;
+      const gridY = 0.82;
+      const gridColor = dark ? 'rgba(34, 211, 238, 0.08)' : 'rgba(8, 145, 178, 0.06)';
+      for (let index = -5; index <= 5; index += 1) {
+        const offset = (index / 5) * gridExtent;
+        const drawGridLine = (axis: 'x' | 'z') => {
+          context.beginPath();
+          for (let sample = 0; sample <= 24; sample += 1) {
+            const span = -gridExtent + (sample / 24) * gridExtent * 2;
+            const point = axis === 'x' ? project(span, gridY, offset) : project(offset, gridY, span);
+            if (sample === 0) context.moveTo(point.x, point.y);
+            else context.lineTo(point.x, point.y);
+          }
+          context.stroke();
+        };
+        context.strokeStyle = gridColor;
+        context.lineWidth = index === 0 ? 0.85 : 0.45;
+        drawGridLine('x');
+        drawGridLine('z');
+      }
+
+      // Two analytical phase contours supply a readable wavefunction-like
+      // structure without suggesting classical electron trajectories.
+      for (let band = 0; band < 2; band += 1) {
+        context.beginPath();
+        for (let sample = 0; sample <= 96; sample += 1) {
+          const parameter = -1.22 + (sample / 96) * 2.44;
+          const phase = parameter * 4.6 + time * (band === 0 ? 1.2 : -0.92);
+          const point = project(parameter, -0.2 + Math.sin(phase) * (0.14 + band * 0.045), Math.cos(phase) * (0.15 + band * 0.06));
+          if (sample === 0) context.moveTo(point.x, point.y);
+          else context.lineTo(point.x, point.y);
+        }
+        context.strokeStyle = dark ? (band === 0 ? 'rgba(103, 232, 249, 0.38)' : 'rgba(129, 140, 248, 0.28)') : (band === 0 ? 'rgba(8, 145, 178, 0.26)' : 'rgba(79, 70, 229, 0.19)');
+        context.lineWidth = band === 0 ? 1.2 : 0.8;
+        context.stroke();
+      }
 
       for (let first = 0; first < projected.length; first += 1) {
         for (let second = first + 1; second < projected.length; second += 1) {
@@ -155,5 +203,5 @@ export function QuantumBackground() {
     };
   }, [resolvedTheme]);
 
-  return <canvas ref={canvasRef} className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-75 dark:opacity-70" aria-hidden="true" />;
+  return <canvas ref={canvasRef} className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-85 dark:opacity-80" aria-hidden="true" />;
 }
