@@ -48,6 +48,8 @@ const UI: Record<Locale, Record<string, string>> = {
 
 export function MuseumExperience({ locale }: { locale: string }) {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const timelineRailRef = useRef<HTMLDivElement | null>(null);
+  const timelineItemRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [transitionId, setTransitionId] = useState(0);
   const [travelDirection, setTravelDirection] = useState<'forward' | 'backward'>('forward');
@@ -96,37 +98,54 @@ export function MuseumExperience({ locale }: { locale: string }) {
     return () => window.clearInterval(timer);
   }, [isPaused, prefersReducedMotion, isInViewport, isPageVisible, move]);
 
+  // On narrow screens the timeline is a horizontal rail. Keep the selected
+  // scientist centred in that rail without moving the document vertically.
+  useEffect(() => {
+    const rail = timelineRailRef.current;
+    const item = timelineItemRefs.current[activeIndex];
+    if (!rail || !item) return;
+
+    rail.scrollTo({
+      left: Math.max(0, item.offsetLeft - (rail.clientWidth - item.offsetWidth) / 2),
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+    });
+  }, [activeIndex, prefersReducedMotion]);
+
   return (
-    <section ref={sectionRef} aria-label={t.timeline}>
-      <div className="mb-8 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950/70 px-2 pt-1 shadow-[0_20px_60px_-42px_rgba(34,211,238,0.5)] sm:px-5">
-        <div className="flex items-center justify-between gap-4 border-b border-zinc-800 px-3 py-3 text-[10px] font-mono uppercase tracking-[0.16em] text-zinc-500">
+    <section ref={sectionRef} aria-label={t.timeline} className="museum-experience lg:flex lg:h-full lg:min-h-0 lg:flex-col">
+      <div className="mb-6 shrink-0 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950/70 px-2 pt-1 shadow-[0_20px_60px_-42px_rgba(34,211,238,0.5)] sm:px-5 lg:mb-4">
+        <div className="flex items-center justify-between gap-4 border-b border-zinc-800 px-3 py-3 text-[10px] font-mono uppercase tracking-[0.16em] text-zinc-500 lg:py-2">
           <span>{t.collection}</span>
-          <span className="text-cyan-400">1900 — 1948</span>
+          <div className="flex items-center gap-1.5">
+            <button type="button" onClick={() => move(-1)} aria-label={t.previous} title={t.previous} className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-zinc-800 text-zinc-400 transition-colors hover:border-cyan-400 hover:text-cyan-300"><ChevronLeft className="h-3.5 w-3.5" /></button>
+            <button type="button" onClick={() => setIsPaused((paused) => !paused)} aria-label={isPaused ? t.play : t.pause} title={isPaused ? t.play : t.pause} aria-pressed={isPaused} className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-zinc-800 text-zinc-400 transition-colors hover:border-cyan-400 hover:text-cyan-300">{isPaused ? <Play className="h-3.5 w-3.5" /> : <Pause className="h-3.5 w-3.5" />}</button>
+            <button type="button" onClick={() => move(1)} aria-label={t.next} title={t.next} className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-zinc-800 text-zinc-400 transition-colors hover:border-cyan-400 hover:text-cyan-300"><ChevronRight className="h-3.5 w-3.5" /></button>
+            <span className="ml-2 text-cyan-400">1900 — 1948</span>
+          </div>
         </div>
-        <div className="relative overflow-x-auto pb-4">
-        <div className="relative flex min-w-max items-start gap-0 px-3 pt-7">
-          <div className="absolute left-3 right-3 top-[2.55rem] h-px bg-linear-to-r from-cyan-400/20 via-cyan-400/70 to-indigo-400/20" />
+        <div ref={timelineRailRef} className="relative overflow-x-auto pb-4 scroll-smooth lg:pb-3">
+        <div className="relative flex min-w-max items-start gap-0 px-3 pt-7 lg:pt-5">
+          <div className="absolute left-3 right-3 top-[2.55rem] h-px bg-linear-to-r from-cyan-400/20 via-cyan-400/70 to-indigo-400/20 lg:top-[2rem]" />
           {SCIENTISTS.map((scientist, index) => {
             const selected = index === activeIndex;
-            return <button key={scientist.id} type="button" onClick={() => selectScientist(index)} aria-pressed={selected} className="group relative z-10 w-28 px-2 text-center"><span className={`mx-auto block h-3 w-3 rounded-full border-2 transition-all ${selected ? 'border-cyan-200 bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.8)]' : 'border-zinc-700 bg-black group-hover:border-cyan-400'}`} /><span className={`mt-3 block font-mono text-[11px] ${selected ? 'text-cyan-300' : 'text-zinc-500'}`}>{scientist.timelineLabel ?? scientist.year}</span><span className={`mt-1 block text-xs font-medium leading-4 ${selected ? 'text-white' : 'text-zinc-500 group-hover:text-zinc-300'}`}>{scientist.name}</span></button>;
+            return <button ref={(element) => { timelineItemRefs.current[index] = element; }} key={scientist.id} type="button" onClick={() => selectScientist(index)} aria-pressed={selected} className="group relative z-10 w-28 px-2 text-center lg:w-[6.65rem]"><span className={`mx-auto block h-3 w-3 rounded-full border-2 transition-all ${selected ? 'border-cyan-200 bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.8)]' : 'border-zinc-700 bg-black group-hover:border-cyan-400'}`} /><span className={`mt-3 block font-mono text-[11px] lg:mt-2 ${selected ? 'text-cyan-300' : 'text-zinc-500'}`}>{scientist.timelineLabel ?? scientist.year}</span><span className={`mt-1 block text-xs font-medium leading-4 ${selected ? 'text-white' : 'text-zinc-500 group-hover:text-zinc-300'}`}>{scientist.name}</span></button>;
           })}
         </div>
         </div>
       </div>
 
-      <article className="grid overflow-hidden rounded-[1.5rem] border border-zinc-800 bg-black shadow-[0_30px_100px_-45px_rgba(6,182,212,0.38)] lg:grid-cols-[minmax(20rem,0.9fr)_minmax(0,1.1fr)]">
-        <div key={`portrait-${active.id}-${transitionId}`} className={`relative min-h-[30rem] overflow-hidden border-b border-zinc-800 bg-zinc-950 lg:min-h-[40rem] lg:border-b-0 lg:border-r ${animationClass}`}>
-          <Image key={`ambient-${active.portrait}`} src={active.portrait} alt="" aria-hidden fill sizes="(min-width: 1024px) 45vw, 100vw" quality={90} className="scale-110 object-cover object-center opacity-25 blur-2xl grayscale" />
+      <article className="grid overflow-hidden rounded-[1.5rem] border border-zinc-800 bg-black shadow-[0_30px_100px_-45px_rgba(6,182,212,0.38)] lg:h-full lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(20rem,0.9fr)_minmax(0,1.1fr)]">
+        <div key={`portrait-${active.id}-${transitionId}`} className={`relative min-h-[26rem] overflow-hidden border-b border-zinc-800 bg-zinc-950 lg:min-h-0 lg:border-b-0 lg:border-r ${animationClass}`}>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(34,211,238,0.12),transparent_42%),linear-gradient(to_bottom,rgba(9,9,11,0.1),rgba(0,0,0,0.94))]" />
           <div className="absolute inset-4 border border-cyan-300/20 sm:inset-6">
             <div className="absolute inset-1 overflow-hidden border border-white/10 bg-black/30">
-              <Image key={active.portrait} src={active.portrait} alt={`${language === 'es' ? 'Retrato histórico de' : 'Historical portrait of'} ${active.name}`} fill sizes="(min-width: 1024px) 42vw, 100vw" quality={100} priority={active.id === 'planck'} className="object-contain object-center grayscale contrast-125 brightness-110 transition-opacity duration-500" />
+              <Image key={active.portrait} src={active.portrait} alt={`${language === 'es' ? 'Retrato histórico de' : 'Historical portrait of'} ${active.name}`} fill sizes="(min-width: 1024px) 42vw, 100vw" quality={100} loading="eager" className="object-contain object-center grayscale contrast-125 brightness-110 transition-opacity duration-500" />
             </div>
           </div>
           <div className="absolute left-7 top-7 flex items-center gap-2 rounded-full border border-white/10 bg-black/65 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-300 backdrop-blur sm:left-9 sm:top-9"><span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />{t.focus}</div>
           <div className="absolute right-7 top-7 rounded border border-cyan-400/25 bg-black/65 px-2.5 py-1.5 font-mono text-[10px] tracking-[0.12em] text-cyan-300 backdrop-blur sm:right-9 sm:top-9">{String(activeIndex).padStart(2, '0')} / {String(SCIENTISTS.length).padStart(2, '0')}</div>
         </div>
-        <div key={`detail-${active.id}-${transitionId}`} className={`flex flex-col p-6 sm:p-8 lg:p-10 ${animationClass}`}>
+        <div key={`detail-${active.id}-${transitionId}`} className={`flex min-h-0 flex-col p-6 sm:p-8 lg:overflow-y-auto lg:p-7 xl:p-8 ${animationClass}`}>
           <div className="flex items-center justify-between gap-3 text-[10px] font-mono uppercase tracking-[0.16em] text-cyan-400"><span className="flex items-center gap-2"><Landmark className="h-3.5 w-3.5" />{t.milestone}</span><span className="text-zinc-600">{t.record} {displayIndex} {t.of} {SCIENTISTS.length}</span></div>
           <div className="mt-6 border-b border-zinc-800 pb-6 sm:mt-8">
             <p className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-cyan-300">{activeYear} · {t.archive}</p>
@@ -138,8 +157,8 @@ export function MuseumExperience({ locale }: { locale: string }) {
           <div className="my-7 overflow-x-auto border-y border-zinc-800 py-5 sm:my-9"><KaTeXRenderer math={active.formula} block className="text-xl text-cyan-100 sm:text-2xl" /></div>
           {active.formulaNote && <p className="-mt-3 mb-2 text-xs leading-5 text-zinc-500">{active.formulaNote[language]}</p>}
           <p className="text-sm leading-6 text-zinc-500">{t.bridge}</p>
-          <div className="mt-auto flex flex-wrap items-center justify-between gap-5 pt-8">
-            <div className="flex items-center gap-2"><button type="button" onClick={() => move(-1)} aria-label={t.previous} className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-zinc-700 bg-zinc-950 text-zinc-200 transition-colors hover:border-cyan-400 hover:text-cyan-300"><ChevronLeft className="h-4 w-4" /></button><button type="button" onClick={() => setIsPaused((paused) => !paused)} aria-label={isPaused ? t.play : t.pause} aria-pressed={isPaused} className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-zinc-700 bg-zinc-950 text-zinc-200 transition-colors hover:border-cyan-400 hover:text-cyan-300">{isPaused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}</button><button type="button" onClick={() => move(1)} aria-label={t.next} className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-zinc-700 bg-zinc-950 text-zinc-200 transition-colors hover:border-cyan-400 hover:text-cyan-300"><ChevronRight className="h-4 w-4" /></button><span className="ml-1 hidden font-mono text-[10px] uppercase tracking-[0.12em] text-zinc-500 sm:inline">{isPaused ? t.paused : t.automatic}</span></div>
+          <div className="mt-auto flex flex-wrap items-center justify-between gap-5 pt-6">
+            <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-zinc-500">{isPaused ? t.paused : t.automatic}</span>
             <div className="flex flex-wrap items-center gap-4"><Link href={active.moduleHref} className="inline-flex items-center gap-2 rounded-lg bg-cyan-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-cyan-500">{t.study} <ArrowRight className="h-4 w-4" /></Link><a href={active.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-zinc-400 transition-colors hover:text-cyan-300">{t.source} <ExternalLink className="h-3.5 w-3.5" /></a></div>
           </div>
         </div>
