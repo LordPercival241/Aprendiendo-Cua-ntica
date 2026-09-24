@@ -92,7 +92,7 @@ export const COURSE_MODULES: CourseModule[] = [
       { book: "L-0014096705-pdf.pdf", chapters: "Cohen-Tannoudji: Chapter I" }
     ],
     simulationType: "canvas2d",
-    simulationName: "WavePacketSim",
+    simulationName: "SchrodingerSuperposition",
     hasPOE: true,
     equationsPreview: ["i\\hbar\\frac{\\partial \\Psi}{\\partial t} = -\\frac{\\hbar^2}{2m}\\nabla^2\\Psi + V(\\vec{r})\\Psi", "\\vec{J} = \\frac{\\hbar}{2mi}\\left(\\Psi^*\\nabla\\Psi - \\Psi\\nabla\\Psi^*\\right)"]
   },
@@ -114,7 +114,7 @@ export const COURSE_MODULES: CourseModule[] = [
       { book: "Merzbacher-Quantum-Mechanics.pdf", chapters: "Chapter 2: Wave Packets and Ehrenfest's Theorem" }
     ],
     simulationType: "canvas2d",
-    simulationName: "WavePacketSim",
+    simulationName: "FreeWavepacketDispersion",
     hasPOE: true,
     equationsPreview: ["\\Psi(x,t) = \\frac{1}{\\sqrt{2\\pi\\hbar}}\\int \\phi(p) e^{i(px - Et)/\\hbar} dp", "\\frac{d\\langle p \\rangle}{dt} = -\\left\\langle \\frac{\\partial V}{\\partial x} \\right\\rangle"]
   },
@@ -134,7 +134,7 @@ export const COURSE_MODULES: CourseModule[] = [
       { book: "eisberg-r-resnick-r-quantum-physics-atoms-molecules-solids-nuclei-and-particles-solutions-supplement-accompany-2ed-wiley_compress.pdf", chapters: "Cap. 6: Soluciones de la ecuación de Schrödinger independiente del tiempo" }
     ],
     simulationType: "canvas2d",
-    simulationName: "PotentialWell",
+    simulationName: "InfiniteWellBoundStates",
     hasPOE: true,
     equationsPreview: ["E_n = \\frac{n^2 \\pi^2 \\hbar^2}{2m L^2}", "\\psi_n(x) = \\sqrt{\\frac{2}{L}}\\sin\\left(\\frac{n\\pi x}{L}\\right)"]
   },
@@ -169,7 +169,7 @@ export const COURSE_MODULES: CourseModule[] = [
       { book: "feynman-lectures.pdf", chapters: "Vol. III - Cap. 3: Amplitudes de probabilidad" }
     ],
     simulationType: "canvas2d",
-    simulationName: "RabiSimulator",
+    simulationName: "StateVectorSimulator",
     hasPOE: true,
     equationsPreview: ["|\\psi\\rangle = \\sum_i c_i |u_i\\rangle, \\quad c_i = \\langle u_i |\\psi\\rangle", "\\hat{A} = \\sum_n a_n |a_n\\rangle\\langle a_n|", "[\\hat{A},\\hat{B}] = i\\hat{C}"]
   },
@@ -210,8 +210,8 @@ export const COURSE_MODULES: CourseModule[] = [
       { book: "L-0014096705-pdf.pdf", chapters: "Cohen-Tannoudji: Chapter VII (The Hydrogen Atom)" },
       { book: "eisberg-r-resnick-r-quantum-physics-atoms-molecules-solids-nuclei-and-particles-solutions-supplement-accompany-2ed-wiley_compress.pdf", chapters: "Cap. 7: Átomo de Hidrógeno" }
     ],
-    simulationType: "three3d",
-    simulationName: "OrbitalRenderer3D",
+    simulationType: "canvas2d",
+    simulationName: "HydrogenOrbitalSlice",
     hasPOE: true,
     equationsPreview: ["\\psi_{nlm}(r,\\theta,\\phi) = R_{nl}(r) Y_l^m(\\theta,\\phi)", "E_n = -\\frac{m_e e^4}{32\\pi^2 \\varepsilon_0^2 \\hbar^2 n^2} = -\\frac{13.6\\text{ eV}}{n^2}"]
   },
@@ -288,8 +288,9 @@ export const COURSE_MODULES: CourseModule[] = [
       { book: "L-0014096705-pdf.pdf", chapters: "Cohen-Tannoudji: Time-dependent perturbation theory" },
       { book: "Merzbacher-Quantum-Mechanics.pdf", chapters: "Chapter 19: Time-dependent perturbations" }
     ],
-    simulationType: "none",
-    hasPOE: false,
+    simulationType: "canvas2d",
+    simulationName: "RabiSimulator",
+    hasPOE: true,
     equationsPreview: ["c_f^{(1)}(t) = -\\frac{i}{\\hbar}\\int_0^t \\langle f|\\hat V(t')|i\\rangle e^{i\\omega_{fi}t'}dt'", "\\Gamma_{i\\to f} = \\frac{2\\pi}{\\hbar}|\\langle f|\\hat V|i\\rangle|^2\\rho(E_f)"]
   }
 ];

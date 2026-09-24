@@ -6,11 +6,17 @@ import { PhotoelectricSimulator } from './PhotoelectricSimulator';
 import { ComptonSimulator } from './ComptonSimulator';
 import { QuantumWavepacketSimulator } from './QuantumWavepacketSimulator';
 import {
+  FreeWavepacketSimulator,
+  InfiniteWellSimulator,
+  SchrodingerSuperpositionSimulator,
+} from './OneDimensionalLabs';
+import {
   DoubleSlitSimulator,
   HarmonicOscillatorSimulator,
   HydrogenOrbitalSimulator,
   PerturbationSimulator,
   RabiSimulator,
+  StateVectorSimulator,
   SpinMeasurementSimulator,
   SternGerlachSimulator,
 } from './AcademicSimulators';
@@ -66,20 +72,14 @@ export function ModuleSimulatorRouter({ moduleId }: ModuleSimulatorRouterProps) 
 
   if (moduleId === '03-dualidad-onda-particula') return <DoubleSlitSimulator />;
 
-  // This model is valid only for the 1D Schrödinger / scattering units.  It is
-  // deliberately not reused for spin, hydrogen, oscillator, or perturbation
-  // modules: that would falsely imply that it simulates those phenomena.
-  if (
-    [
-      '04-ecuacion-schrodinger',
-      '05-particula-libre-paquetes',
-      '06-potenciales-1d',
-      '07-tunelamiento-cuantico',
-    ].includes(moduleId)
-  ) {
-    return <QuantumWavepacketSimulator />;
-  }
+  // Units IV–VII all use the 1D Schrödinger equation, but they do not model
+  // the same phenomenon. Each route has its own domain and explicit model.
+  if (moduleId === '04-ecuacion-schrodinger') return <SchrodingerSuperpositionSimulator />;
+  if (moduleId === '05-particula-libre-paquetes') return <FreeWavepacketSimulator />;
+  if (moduleId === '06-potenciales-1d') return <InfiniteWellSimulator />;
+  if (moduleId === '07-tunelamiento-cuantico') return <QuantumWavepacketSimulator tunnelOnly />;
 
+  if (moduleId === '08-formalismo-dirac') return <StateVectorSimulator />;
   if (moduleId === '09-oscilador-armonico') return <HarmonicOscillatorSimulator />;
   if (moduleId === '10-atomo-hidrogeno') return <HydrogenOrbitalSimulator />;
   if (moduleId === '11-momento-angular-espin') return <SpinMeasurementSimulator />;

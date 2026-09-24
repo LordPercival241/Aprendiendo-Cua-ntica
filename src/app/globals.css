@@ -53,19 +53,53 @@ body {
    ═══════════════════════════════════════════ */
 .katex {
   font-size: 1.12em !important;
+  /* KaTeX positions fractions, limits and superscripts outside the ordinary
+     text cap-height.  A self-contained line box keeps those glyphs from
+     being clipped by a surrounding card or a horizontal scroller. */
+  line-height: 1.45 !important;
   text-rendering: geometricPrecision;
   font-weight: 400;
 }
 
 .katex-display {
   margin: 0 !important;
-  padding: 0 !important;
-  overflow-x: auto;
-  overflow-y: hidden;
+  /* Do not use overflow-y: hidden here: it cuts off raised powers such as
+     n² and the top of stacked fractions.  Horizontal overflow is handled by
+     the reusable .math-display viewport instead. */
+  padding: 0.25em 0 0.4em !important;
+  overflow: visible;
+  min-height: 2.15em;
 }
 
 .katex-display > .katex {
   font-size: 1.32em !important;
+  line-height: 1.45 !important;
+  display: inline-block;
+}
+
+/* Reusable math viewports.  Long equations scroll horizontally on narrow
+   screens, while vertical overflow always remains visible. */
+.math-display {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 0.75rem 0.25rem;
+  text-align: center;
+  scrollbar-gutter: stable both-edges;
+}
+
+.math-inline {
+  display: inline-block;
+  overflow: visible;
+  padding: 0.12em 0 0.22em;
+  line-height: 1.45;
+  vertical-align: -0.16em;
+}
+
+.math-display .katex-display {
+  min-width: max-content;
 }
 
 /* Preserve the mathematical hierarchy while keeping powers legible on
@@ -176,6 +210,25 @@ body {
 @keyframes slide-up {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Museum itinerary: the next work approaches from depth; the previous one
+   recedes, producing a calm forward-path sensation without a heavy 3D engine. */
+@keyframes museum-forward {
+  from { opacity: 0; transform: perspective(1200px) translateY(44px) translateZ(-180px) scale(0.82); filter: blur(4px); }
+  to { opacity: 1; transform: perspective(1200px) translateY(0) translateZ(0) scale(1); filter: blur(0); }
+}
+
+@keyframes museum-backward {
+  from { opacity: 0; transform: perspective(1200px) translateY(-28px) translateZ(120px) scale(1.1); filter: blur(3px); }
+  to { opacity: 1; transform: perspective(1200px) translateY(0) translateZ(0) scale(1); filter: blur(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [class*="museum-forward"],
+  [class*="museum-backward"] {
+    animation: none !important;
+  }
 }
 
 .animate-spin-slow {

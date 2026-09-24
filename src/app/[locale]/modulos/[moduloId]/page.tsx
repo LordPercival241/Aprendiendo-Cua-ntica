@@ -28,6 +28,23 @@ import {
   Quote
 } from 'lucide-react';
 
+const POE_CONTENT: Record<string, { prediction: string; synthesis: string }> = {
+  '01-introduccion-fisica-moderna': { prediction: 'Al aumentar la temperatura T, el pico espectral se desplazará hacia menores longitudes de onda y la aproximación de Rayleigh-Jeans divergerá en el ultravioleta.', synthesis: 'Los datos del simulador confirman que la catástrofe ultravioleta surge del postulado clásico continuo. La cuantización discreta de Planck $E_n = n h\\nu$ introduce el factor exponencial $e^{h\\nu/(k_B T)}$ en el denominador y suprime la radiación a altas frecuencias.' },
+  '02-efecto-fotoelectrico-compton': { prediction: 'Si la frecuencia supera el umbral del metal, la energía cinética máxima aumentará como $K_{\\max}=h\\nu-\\Phi$; en Compton, el corrimiento crecerá al aumentar el ángulo.', synthesis: 'La emisión fotoeléctrica ocurre cuando $h\\nu\\geq\\Phi$ y el potencial de frenado mide $K_{\\max}$. En la dispersión Compton, $\\Delta\\lambda=\\lambda_c(1-\\cos\\theta)$ expresa la transferencia relativista de energía y momento.' },
+  '03-dualidad-onda-particula': { prediction: 'Al disminuir la longitud de onda o aumentar la separación entre rendijas, las franjas de interferencia se acercarán en la pantalla.', synthesis: 'El patrón cumple $\\Delta y\\simeq L\\lambda/d$: la amplitud se superpone coherentemente y la envolvente de difracción modula las franjas. La longitud de onda de de Broglie vincula este comportamiento con el momento, $\\lambda=h/p$.' },
+  '04-ecuacion-schrodinger': { prediction: 'Una superposición de dos autoestados tendrá una densidad de probabilidad dependiente del tiempo, aunque la probabilidad total se mantendrá igual a uno.', synthesis: 'La evolución unitaria dada por $i\\hbar\\partial_t\\psi=\\hat H\\psi$ modifica la fase relativa entre autoestados. Por ello $|\\psi(x,t)|^2$ puede oscilar, mientras $\\int|\\psi|^2dx=1$ permanece conservada.' },
+  '05-particula-libre-paquetes': { prediction: 'Un paquete gaussiano libre se desplazará según su momento medio y se ensanchará con el tiempo; un ancho inicial menor producirá dispersión más rápida.', synthesis: 'Para $\\hat H=\\hat p^2/(2m)$, el centro sigue $\\langle x\\rangle=x_0+\\langle p\\rangle t/m$ y el ancho $\\sigma_x(t)$ crece por dispersión de fases. No interviene una barrera ni un potencial externo.' },
+  '06-potenciales-1d': { prediction: 'Al aumentar el número cuántico n aparecerán más nodos y la energía crecerá como $n^2$; al ensanchar el pozo, los niveles se acercarán.', synthesis: 'Las condiciones de frontera del pozo infinito seleccionan $\\psi_n=\\sqrt{2/L}\\sin(n\\pi x/L)$ y $E_n=n^2\\pi^2\\hbar^2/(2mL^2)$. Cada autoestado ligado tiene densidad estacionaria.' },
+  '07-tunelamiento-cuantico': { prediction: 'Al incrementar la energía del paquete respecto a la barrera o reducir su ancho, aumentará la probabilidad de transmisión por tunelamiento.', synthesis: 'Para $E<V_0$, la función de onda es evanescente dentro de la barrera, pero la transmisión finita satisface $T>0$ y la conservación de flujo exige $R+T=1$.' },
+  '08-formalismo-dirac': { prediction: 'Al variar la mezcla entre |0⟩ y |1⟩ cambiarán sus probabilidades de Born; al variar la fase relativa cambiarán los valores esperados de operadores no diagonales.', synthesis: 'Un estado normalizado $|\\psi\\rangle=c_0|0\\rangle+c_1|1\\rangle$ cumple $|c_0|^2+|c_1|^2=1$. Las probabilidades se obtienen con $P_j=|\\langle j|\\psi\\rangle|^2$ y los observables con $\\langle\\hat A\\rangle=\\langle\\psi|\\hat A|\\psi\\rangle$.' },
+  '09-oscilador-armonico': { prediction: 'Al aumentar n, la densidad tendrá más nodos y la energía aumentará en pasos uniformes de $\\hbar\\omega$.', synthesis: 'El oscilador posee energías $E_n=(n+1/2)\\hbar\\omega$; incluso el estado fundamental conserva energía de punto cero. Las densidades se construyen con polinomios de Hermite.' },
+  '10-atomo-hidrogeno': { prediction: 'Al cambiar de orbital cambiarán los nodos y lóbulos de la densidad; estos representan probabilidad, no trayectorias de electrones.', synthesis: 'La función de onda del hidrógeno se separa como $\\psi_{nlm}=R_{nl}Y_l^m$. Los cortes de $|\\psi|^2$ muestran regiones de mayor probabilidad y nodos; para el átomo ideal, $E_n=-13.6\\,\\mathrm{eV}/n^2$.' },
+  '11-momento-angular-espin': { prediction: 'La probabilidad de obtener +n para un espín preparado en +z seguirá $\\cos^2(\\theta/2)$ al rotar el analizador.', synthesis: 'El operador $\\hat S_{\\mathbf n}=(\\hbar/2)\\mathbf n\\cdot\\boldsymbol\\sigma$ tiene dos resultados posibles. La regla de Born produce $P(+\\mathbf n)=\\cos^2(\\theta/2)$, sin valores intermedios de espín.' },
+  '12-stern-gerlach': { prediction: 'La transmisión del segundo analizador dependerá del ángulo relativo al primero, porque el primer filtro prepara el estado que entra al segundo.', synthesis: 'La secuencia usa probabilidades condicionales: $P_{\\mathrm{total}}=P(+\\mathbf n_1)P(+\\mathbf n_2|+\\mathbf n_1)$. Para dos espines 1/2, los estados acoplados incluyen el triplete $|1,0\\rangle$ y el singlete $|0,0\\rangle$.' },
+  '13-perturbaciones': { prediction: 'Al aumentar el acoplamiento entre dos niveles, el cruce se evitará y la separación mínima de energías aumentará.', synthesis: 'La diagonalización del bloque $H=\\begin{pmatrix}\\Delta/2&V\\\\V&-\\Delta/2\\end{pmatrix}$ da $E_\\pm=\\pm\\sqrt{(\\Delta/2)^2+|V|^2}$. Cerca de degeneración debe tratarse el subespacio completo.' },
+  '14-perturbaciones-tiempo': { prediction: 'En resonancia, la población excitada puede alcanzar uno; al aumentar el desajuste disminuye su amplitud máxima y cambia la frecuencia de oscilación.', synthesis: 'Para un sistema de dos niveles bajo la aproximación de onda rotante, $P_e(t)=\\Omega^2\\sin^2(\\Omega_Rt/2)/\\Omega_R^2$, con $\\Omega_R=\\sqrt{\\Omega^2+\\delta^2}$. El laboratorio describe dinámica coherente sin decoherencia.' },
+};
+
 export default function ModuleDetailPage({
   params,
 }: {
@@ -52,12 +69,11 @@ export default function ModuleDetailPage({
   const [poeStep, setPoeStep] = useState<1 | 2 | 3>(1);
   const [poeSaved, setPoeSaved] = useState(false);
 
-  const conceptualSynthesis =
-    mod.id === '01-introduccion-fisica-moderna'
-      ? 'Los datos del simulador confirman que la catástrofe ultravioleta surge del postulado clásico continuo. La cuantización discreta de Planck $E_n = n h\\nu$ introduce el factor exponencial $e^{h\\nu/(k_B T)}$ en el denominador y suprime la radiación a altas frecuencias.'
-      : mod.id === '02-efecto-fotoelectrico-compton'
-        ? 'La emisión ocurre únicamente cuando la energía del fotón satisface $h\\nu \\geq \\Phi$. La energía restante aparece como energía cinética máxima, $K_{\\max}=h\\nu-\\Phi$, lo que valida la hipótesis de Einstein.'
-        : 'Relaciona las magnitudes observadas con las ecuaciones del modelo físico. Para escribir una expresión matemática, usa delimitadores de LaTeX: por ejemplo, $E_n = n h\\nu$.';
+  const poeContent = POE_CONTENT[mod.id] ?? {
+    prediction: 'Formula una hipótesis cuantitativa sobre las variables que controlarás en el laboratorio.',
+    synthesis: 'Relaciona las magnitudes observadas con las ecuaciones y el alcance explícito del modelo físico.',
+  };
+  const conceptualSynthesis = poeContent.synthesis;
 
   const title = t(`${mod.titleKey}.title`);
   const desc = t(`${mod.descKey}.desc`);
@@ -382,13 +398,7 @@ export default function ModuleDetailPage({
                   <button
                     type="button"
                     onClick={() => {
-                      setPrediction(
-                        mod.id === '01-introduccion-fisica-moderna'
-                          ? 'Al aumentar la temperatura T, el pico espectral se desplazará hacia menores longitudes de onda (Ley de Wien) y la aproximación de Rayleigh-Jeans divergerá bruscamente en el ultravioleta.'
-                          : mod.id === '02-efecto-fotoelectrico-compton'
-                          ? 'Al incrementar la frecuencia por encima de la función de trabajo Φ, la energía cinética máxima aumentará linealmente, requiriendo un mayor potencial de frenado Vs para extinguir la fotocorriente.'
-                          : 'Al incrementar la energía del paquete E respecto a la barrera V0, la probabilidad de tunelamiento aumentará exponencialmente conforme el ancho a decrece.'
-                      );
+                      setPrediction(poeContent.prediction);
                     }}
                     className="px-5 py-3 rounded-xl text-sm font-mono text-cyan-400 bg-cyan-950/40 border border-cyan-500/30 hover:bg-cyan-900/50 transition-colors cursor-pointer"
                   >
