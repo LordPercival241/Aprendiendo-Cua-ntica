@@ -116,6 +116,13 @@ body {
   min-width: max-content;
 }
 
+/* Museum formulas must never inherit a clipping viewport from the profile
+   panel. The formula renderer itself owns horizontal scrolling; this outer
+   frame reserves vertical room for fractions, powers and limits. */
+.museum-formula > .math-display {
+  margin: 0;
+}
+
 /* Preserve the mathematical hierarchy while keeping powers legible on
    high-density displays. KaTeX positions superscripts correctly; this only
    increases their optical size and weight (for example, ν² and c³). */

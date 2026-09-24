@@ -154,7 +154,9 @@ export function MuseumExperience({ locale }: { locale: string }) {
           </div>
           <h3 className="mt-4 text-xl font-semibold tracking-tight text-white sm:text-2xl">{active.contribution[language]}</h3>
           <p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-300 sm:text-base">{active.biography[language]}</p>
-          <div className="my-7 overflow-x-auto border-y border-zinc-800 py-5 sm:my-9"><KaTeXRenderer math={active.formula} block className="text-xl text-cyan-100 sm:text-2xl" /></div>
+          <div className="museum-formula my-7 flex min-h-32 items-center overflow-visible border-y border-zinc-800 py-5 sm:my-9">
+            <KaTeXRenderer math={active.formula} block className="text-xl text-cyan-100 sm:text-2xl" />
+          </div>
           {active.formulaNote && <p className="-mt-3 mb-2 text-xs leading-5 text-zinc-500">{active.formulaNote[language]}</p>}
           <p className="text-sm leading-6 text-zinc-500">{t.bridge}</p>
           <div className="mt-auto flex flex-wrap items-center justify-between gap-5 pt-6">
