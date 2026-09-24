@@ -98,6 +98,20 @@ body {
   vertical-align: -0.16em;
 }
 
+/* The museum is a focused desktop experience: the timeline and the active
+   work share a single viewport. The regular footer remains available on
+   mobile, where vertical reading is the appropriate interaction. */
+@media (min-width: 1024px) {
+  body:has(.museum-page) footer {
+    display: none;
+  }
+
+  body:has(.museum-page) main {
+    min-height: 0;
+    overflow: hidden;
+  }
+}
+
 .math-display .katex-display {
   min-width: max-content;
 }
