@@ -5,7 +5,7 @@ import { Play, Pause, RotateCcw, Activity } from 'lucide-react';
 import { KaTeXRenderer } from '@/components/math/KaTeXRenderer';
 import { LaboratoryModel } from './shared/LaboratoryModel';
 
-export function QuantumWavepacketSimulator() {
+export function QuantumWavepacketSimulator({ tunnelOnly = false }: { tunnelOnly?: boolean }) {
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [barrierHeight, setBarrierHeight] = useState<number>(3.5); // eV
   const [packetEnergy, setPacketEnergy] = useState<number>(2.2); // eV (starts below barrier for tunneling!)
@@ -350,15 +350,15 @@ export function QuantumWavepacketSimulator() {
         <div>
           <div className="flex items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-              Ecuación de Schrödinger 1D • Dispersión estacionaria
+              Ecuación de Schrödinger 1D • {tunnelOnly ? 'Barrera finita' : 'Dispersión estacionaria'}
             </span>
             <span className="text-xs text-zinc-400 font-mono">Visualización Analítica</span>
           </div>
           <h3 className="text-xl sm:text-2xl font-bold text-white mt-1.5">
-            Dispersión 1D, Barreras y Transmisión
+            {tunnelOnly ? 'Tunelamiento a través de una barrera finita' : 'Dispersión 1D, Barreras y Transmisión'}
           </h3>
           <p className="text-sm text-zinc-400 mt-1 max-w-3xl">
-            Coeficientes analíticos de reflexión y transmisión para perfiles 1D. La envolvente ilustra la dispersión; los valores{' '}
+            {tunnelOnly ? 'Un paquete con energía menor o mayor que la barrera se reparte entre reflexión y transmisión. ' : 'Coeficientes analíticos de reflexión y transmisión para perfiles 1D. La envolvente ilustra la dispersión; los valores '}
             <KaTeXRenderer math="R" /> y <KaTeXRenderer math="T" /> provienen de las expresiones estacionarias mostradas.
           </p>
         </div>
@@ -430,7 +430,9 @@ export function QuantumWavepacketSimulator() {
             <span className="text-xs font-semibold text-zinc-300 block mb-2">
               Perfil del potencial <KaTeXRenderer math={String.raw`V(x)`} />:
             </span>
-            <div className="grid grid-cols-3 gap-2">
+            {tunnelOnly ? (
+              <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-xs text-amber-200">Barrera rectangular finita. Ajusta su altura y ancho para estudiar el régimen de tunelamiento.</div>
+            ) : <div className="grid grid-cols-3 gap-2">
               {[
                 { id: 'barrier', label: 'Barrera Rectangular (Efecto Túnel)' },
                 { id: 'well', label: 'Pozo Cuántico (Resonancias)' },
@@ -452,7 +454,7 @@ export function QuantumWavepacketSimulator() {
                   {p.label}
                 </button>
               ))}
-            </div>
+            </div>}
           </div>
 
           {/* Energy Slider */}

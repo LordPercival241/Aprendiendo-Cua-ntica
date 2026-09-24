@@ -36,12 +36,19 @@ export function KaTeXRenderer({ math, block = false, className = '' }: KaTeXRend
     }
   }, [math, block]);
 
-  return (
-    <span
-      className={`inline-block select-text ${block ? 'my-4 text-center w-full overflow-x-auto py-3' : ''} ${className}`}
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
-  );
+  const sharedProps = {
+    className: `${block ? 'math-display my-4 select-text' : 'math-inline select-text'} ${className}`,
+    dangerouslySetInnerHTML: { __html: html },
+  };
+
+  // Block equations need their own block formatting context.  Rendering a
+  // .katex-display inside an inline span can create an undersized line box in
+  // some browsers, clipping superscripts and fraction numerators.
+  if (block) {
+    return <div {...sharedProps} />;
+  }
+
+  return <span {...sharedProps} />;
 }
 
 export function EquationBlock({
