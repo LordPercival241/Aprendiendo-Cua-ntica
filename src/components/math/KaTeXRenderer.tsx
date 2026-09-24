@@ -37,7 +37,10 @@ export function KaTeXRenderer({ math, block = false, className = '' }: KaTeXRend
   }, [math, block]);
 
   const sharedProps = {
-    className: `${block ? 'math-display my-4 select-text' : 'math-inline select-text'} ${className}`,
+    // Spacing belongs to the surrounding component. A vertical margin here
+    // escapes horizontal-scrolling viewports and can be clipped at their
+    // border (notably in the museum profile panel).
+    className: `${block ? 'math-display select-text' : 'math-inline select-text'} ${className}`,
     dangerouslySetInnerHTML: { __html: html },
   };
 
