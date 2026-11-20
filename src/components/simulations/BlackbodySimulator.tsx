@@ -81,8 +81,8 @@ export function BlackbodySimulator() {
     const width = rect.width;
     const height = rect.height;
 
-    // Background
-    ctx.fillStyle = '#000000';
+    // Background (spec: #0B1120)
+    ctx.fillStyle = '#0B1120';
     ctx.fillRect(0, 0, width, height);
 
     // Padding for axes
@@ -273,36 +273,36 @@ export function BlackbodySimulator() {
   }, [temperature, showRayleigh, showWien, showPlanck, lambdaPeakNm]);
 
   return (
-    <div className="rounded-3xl border border-zinc-800 bg-black p-5 sm:p-7 space-y-6 text-zinc-100 shadow-2xl">
+    <div className="rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1E293B] p-5 sm:p-7 space-y-6 text-[#1E293B] dark:text-[#F1F5F9] shadow-xl">
       {/* Simulator Top Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-800 pb-5">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700/80 pb-5">
         <div>
-          <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+          <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
             Laboratorio Interactivo • IF411
           </span>
-          <h3 className="text-lg sm:text-xl font-bold text-white mt-1">
+          <h3 className="text-lg sm:text-xl font-bold text-[#1E293B] dark:text-[#F1F5F9] mt-1">
             Simulador de Radiación de Cuerpo Negro & Catástrofe Ultravioleta
           </h3>
-          <div className="text-xs text-zinc-400 mt-1 max-w-2xl">
+          <div className="text-xs text-[#334155] dark:text-[#CBD5E1] mt-1 max-w-2xl">
             Compara la radiancia espectral <KaTeXRenderer math={String.raw`B_\lambda(\lambda,T)`} /> de Planck con los límites clásico de Rayleigh-Jeans y de Wien.
           </div>
         </div>
 
         {/* Dynamic Color Swatch */}
-        <div className="flex items-center gap-3 px-3.5 py-2 rounded-2xl bg-zinc-950 border border-zinc-800">
+        <div className="flex items-center gap-3 px-3.5 py-2 rounded-2xl bg-slate-100 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700">
           <div
             className="w-7 h-7 rounded-full shadow-lg border border-white/30 transition-colors"
             style={{ backgroundColor: getBlackbodyColor(temperature) }}
           />
           <div className="text-xs font-mono">
-            <span className="text-zinc-500 text-[10px] block">Temperatura</span>
-            <span className="font-bold text-white">{temperature} K</span>
+            <span className="text-[#475569] dark:text-[#94A3B8] text-[10px] block">Temperatura</span>
+            <span className="font-bold text-[#1E293B] dark:text-[#F1F5F9]">{temperature} K</span>
           </div>
         </div>
       </div>
 
-      {/* Main Canvas Viewport */}
-      <div className="relative rounded-2xl border border-zinc-800 bg-black overflow-hidden">
+      {/* Main Canvas Viewport (spec: #0B1120) */}
+      <div className="relative rounded-2xl border border-slate-700 bg-[#0B1120] overflow-hidden">
         <canvas
           ref={canvasRef}
           className="w-full h-[320px] sm:h-[380px] block cursor-crosshair"

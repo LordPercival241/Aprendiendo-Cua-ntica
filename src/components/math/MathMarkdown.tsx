@@ -30,8 +30,8 @@ export function MathMarkdown({ content, className = '', inline = false }: MathMa
         if (block.startsWith('$$') && block.endsWith('$$')) {
           const math = block.slice(2, -2).trim();
           return (
-            <div key={idx} className="my-8 overflow-x-auto border-y border-zinc-200 py-5 text-center dark:border-zinc-800">
-              <KaTeXRenderer math={math} block className="text-zinc-900 dark:text-cyan-100" />
+            <div key={idx} className="my-8 overflow-x-auto rounded-2xl border border-slate-300 dark:border-slate-700/80 bg-[#E2E8F0] dark:bg-[#131C31] py-5 px-6 text-center text-[#1E293B] dark:text-[#F1F5F9] shadow-sm">
+              <KaTeXRenderer math={math} block className="text-xl sm:text-2xl text-[#1E293B] dark:text-[#F1F5F9]" />
             </div>
           );
         }

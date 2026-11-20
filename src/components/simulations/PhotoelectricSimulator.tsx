@@ -134,8 +134,8 @@ export function PhotoelectricSimulator() {
       const w = rect.width;
       const h = rect.height;
 
-      // Pure black chamber background
-      ctx.fillStyle = '#050508';
+      // Pure dark chamber background (spec: #0B1120)
+      ctx.fillStyle = '#0B1120';
       ctx.fillRect(0, 0, w, h);
 
       // Vacuum Tube Geometry
@@ -378,39 +378,39 @@ export function PhotoelectricSimulator() {
   }, [wavelengthNm, intensity, voltage, selectedMetal, isEjection, kMaxEv, photonEnergyEv, stoppingPotentialV, currentPa]);
 
   return (
-    <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-6 sm:p-8 space-y-6 text-zinc-100 shadow-2xl">
+    <div className="rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1E293B] p-6 sm:p-8 space-y-6 text-[#1E293B] dark:text-[#F1F5F9] shadow-xl">
       {/* Top Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-800 pb-5">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700/80 pb-5">
         <div>
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
               Laboratorio Cuántico Fundamental • Einstein 1905
             </span>
-            <span className="text-xs text-zinc-400 font-mono">Nobel de Física 1921</span>
+            <span className="text-xs font-semibold text-[#475569] dark:text-[#94A3B8] font-mono">Nobel de Física 1921</span>
           </div>
-          <h3 className="text-xl sm:text-2xl font-bold text-white mt-1.5">
+          <h3 className="text-xl sm:text-2xl font-bold text-[#1E293B] dark:text-[#F1F5F9] mt-1.5">
             Simulador de Fotocélula & Potencial de Frenado
           </h3>
-          <p className="text-sm text-zinc-400 mt-1 max-w-3xl">
+          <p className="text-sm text-[#334155] dark:text-[#CBD5E1] mt-1 max-w-3xl">
             La emisión de fotoelectrones ocurre solo si <KaTeXRenderer math={String.raw`h\nu\geq\Phi`} />. Observa el retorno de los electrones cuando el voltaje retardador alcanza{' '}
             <KaTeXRenderer math={String.raw`V=-V_{\mathrm{stop}}`} />.
           </p>
         </div>
 
         {/* Current Ammeter Badge */}
-        <div className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-zinc-900/90 border border-zinc-800 font-mono shadow-inner">
-          <Zap className={`w-6 h-6 ${currentPa > 0 ? 'text-amber-400 animate-pulse' : 'text-zinc-600'}`} />
+        <div className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-slate-100 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 font-mono shadow-inner">
+          <Zap className={`w-6 h-6 ${currentPa > 0 ? 'text-amber-500 animate-pulse' : 'text-[#475569] dark:text-[#94A3B8]'}`} />
           <div>
-            <span className="text-zinc-400 text-[11px] uppercase tracking-wider block font-semibold">Fotocorriente (I)</span>
-            <span className={`font-bold text-lg ${currentPa > 0 ? 'text-cyan-300' : 'text-zinc-500'}`}>
-              {currentPa} <span className="text-xs font-normal text-zinc-400">pA</span>
+            <span className="text-[#475569] dark:text-[#94A3B8] text-[11px] uppercase tracking-wider block font-semibold">Fotocorriente (I)</span>
+            <span className={`font-bold text-lg ${currentPa > 0 ? 'text-sky-600 dark:text-sky-400' : 'text-[#475569] dark:text-[#94A3B8]'}`}>
+              {currentPa} <span className="text-xs font-normal text-[#475569] dark:text-[#94A3B8]">pA</span>
             </span>
           </div>
         </div>
       </div>
 
       {/* Main Simulation Viewport */}
-      <div className="relative rounded-2xl border border-zinc-800 bg-zinc-950 overflow-hidden shadow-inner">
+      <div className="relative rounded-2xl border border-slate-700 bg-[#0B1120] overflow-hidden shadow-inner">
         <canvas
           ref={canvasRef}
           className="w-full h-[320px] sm:h-[380px] block"
@@ -420,12 +420,12 @@ export function PhotoelectricSimulator() {
       {/* Controls Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-2">
         {/* Metal Selector & Sliders */}
-        <div className="lg:col-span-2 space-y-5 p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800">
+        <div className="lg:col-span-2 space-y-5 p-6 rounded-2xl bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700">
           {/* Target Metal */}
           <div>
-            <div className="flex items-center justify-between text-xs font-semibold text-zinc-300 mb-2">
+            <div className="flex items-center justify-between text-xs font-semibold text-[#1E293B] dark:text-[#F1F5F9] mb-2">
               <span>Material del Cátodo Emisor:</span>
-              <span className="font-mono text-cyan-400">Φ = {selectedMetal.phiEv} eV</span>
+              <span className="font-mono text-sky-600 dark:text-sky-400 font-bold">Φ = {selectedMetal.phiEv} eV</span>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
               {METALS.map((m) => (
@@ -435,8 +435,8 @@ export function PhotoelectricSimulator() {
                   onClick={() => setSelectedMetal(m)}
                   className={`p-2.5 rounded-xl text-xs font-mono transition-all border cursor-pointer text-center ${
                     selectedMetal.symbol === m.symbol
-                      ? 'bg-cyan-600 text-white border-cyan-400 shadow-md font-bold'
-                      : 'bg-zinc-800/90 text-zinc-300 border-zinc-700 hover:bg-zinc-700'
+                      ? 'bg-[#0284C7] text-[#FFFFFF] dark:bg-[#38BDF8] dark:text-[#0F172A] border-sky-400 shadow-md font-bold'
+                      : 'bg-slate-200 dark:bg-slate-800 text-[#334155] dark:text-[#CBD5E1] border-slate-300 dark:border-slate-700 hover:bg-slate-300 dark:hover:bg-slate-700'
                   }`}
                 >
                   <strong className="block text-sm">{m.symbol}</strong>
@@ -449,10 +449,10 @@ export function PhotoelectricSimulator() {
           {/* Wavelength Slider */}
           <div className="space-y-2 pt-1">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-zinc-300 font-medium">Longitud de onda incidente <KaTeXRenderer math={String.raw`\lambda`} /> (nm):</span>
-              <span className="font-mono font-bold text-cyan-400">
+              <span className="text-[#334155] dark:text-[#CBD5E1] font-medium">Longitud de onda incidente <KaTeXRenderer math={String.raw`\lambda`} /> (nm):</span>
+              <span className="font-mono font-bold text-sky-600 dark:text-sky-400">
                 {wavelengthNm} nm ({photonEnergyEv.toFixed(2)} eV)
-                <span className="ml-2 text-zinc-400 text-[11px]">
+                <span className="ml-2 text-[#475569] dark:text-[#94A3B8] text-[11px]">
                   {wavelengthNm < 380 ? '[Ultravioleta]' : wavelengthNm > 700 ? '[Infrarrojo]' : '[Luz Visible]'}
                 </span>
               </span>
@@ -464,9 +464,9 @@ export function PhotoelectricSimulator() {
               step="5"
               value={wavelengthNm}
               onChange={(e) => setWavelengthNm(Number(e.target.value))}
-              className="w-full h-2.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"
+              className="w-full h-2.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-sky-500"
             />
-            <div className="flex justify-between text-[10px] text-zinc-500 font-mono">
+            <div className="flex justify-between text-[10px] text-[#475569] dark:text-[#94A3B8] font-mono">
               <span>180 nm (UV Lejano)</span>
               <span>380 nm (Violeta)</span>
               <span>550 nm (Verde)</span>
@@ -478,8 +478,8 @@ export function PhotoelectricSimulator() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-1">
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs">
-                <span className="text-zinc-300 font-medium">Intensidad de la Luz (Flujo de fotones):</span>
-                <span className="font-mono text-zinc-200 font-bold">{intensity}%</span>
+                <span className="text-[#334155] dark:text-[#CBD5E1] font-medium">Intensidad de la Luz (Flujo de fotones):</span>
+                <span className="font-mono text-[#1E293B] dark:text-[#F1F5F9] font-bold">{intensity}%</span>
               </div>
               <input
                 type="range"
@@ -488,14 +488,14 @@ export function PhotoelectricSimulator() {
                 step="5"
                 value={intensity}
                 onChange={(e) => setIntensity(Number(e.target.value))}
-                className="w-full h-2.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"
+                className="w-full h-2.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-sky-500"
               />
             </div>
 
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs">
-                <span className="text-zinc-300 font-medium">Voltaje entre placas <KaTeXRenderer math="V" /> (retardador / acelerador):</span>
-                <span className={`font-mono font-bold ${voltage < 0 ? 'text-rose-400' : 'text-cyan-400'}`}>
+                <span className="text-[#334155] dark:text-[#CBD5E1] font-medium">Voltaje entre placas <KaTeXRenderer math="V" /> (retardador / acelerador):</span>
+                <span className={`font-mono font-bold ${voltage < 0 ? 'text-rose-500' : 'text-sky-600 dark:text-sky-400'}`}>
                   {voltage > 0 ? '+' : ''}{voltage.toFixed(2)} V
                 </span>
               </div>
@@ -506,48 +506,48 @@ export function PhotoelectricSimulator() {
                 step="0.05"
                 value={voltage}
                 onChange={(e) => setVoltage(Number(e.target.value))}
-                className="w-full h-2.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+                className="w-full h-2.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-sky-500"
               />
               <div className="flex justify-between text-[10px] font-mono">
-                <span className="text-rose-400">-4.0 V (Retardador)</span>
-                <span className="text-zinc-500">0.0 V</span>
-                <span className="text-cyan-400">+3.5 V (Acelerador)</span>
+                <span className="text-rose-500 font-semibold">-4.0 V (Retardador)</span>
+                <span className="text-[#475569] dark:text-[#94A3B8]">0.0 V</span>
+                <span className="text-sky-600 dark:text-sky-400 font-semibold">+3.5 V (Acelerador)</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Live Physical Diagnostics */}
-        <div className="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800 space-y-4 font-mono text-xs">
-          <div className="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
-            <Activity className="w-4 h-4 text-cyan-400" />
+        <div className="p-6 rounded-2xl bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700 space-y-4 font-mono text-xs">
+          <div className="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider flex items-center gap-2">
+            <Activity className="w-4 h-4 text-sky-500" />
             <span>Balance Energético de Einstein</span>
           </div>
 
           <div className="space-y-2.5 text-xs">
-            <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-              <span className="text-zinc-400">Energía del Fotón (hν):</span>
-              <span className="font-bold text-white">{photonEnergyEv.toFixed(2)} eV</span>
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700/80 pb-2">
+              <span className="text-[#475569] dark:text-[#94A3B8]">Energía del Fotón (hν):</span>
+              <span className="font-bold text-[#1E293B] dark:text-[#F1F5F9]">{photonEnergyEv.toFixed(2)} eV</span>
             </div>
-            <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-              <span className="text-zinc-400">Función Trabajo (Φ):</span>
-              <span className="font-bold text-zinc-300">{selectedMetal.phiEv.toFixed(2)} eV</span>
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700/80 pb-2">
+              <span className="text-[#475569] dark:text-[#94A3B8]">Función Trabajo (Φ):</span>
+              <span className="font-bold text-[#334155] dark:text-[#CBD5E1]">{selectedMetal.phiEv.toFixed(2)} eV</span>
             </div>
-            <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-              <span className="text-zinc-400">Energía Cinética K_max:</span>
-              <span className={`font-bold ${isEjection ? 'text-emerald-400' : 'text-zinc-500'}`}>
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700/80 pb-2">
+              <span className="text-[#475569] dark:text-[#94A3B8]">Energía Cinética K_max:</span>
+              <span className={`font-bold ${isEjection ? 'text-emerald-500 dark:text-emerald-400' : 'text-[#475569] dark:text-[#94A3B8]'}`}>
                 {kMaxEv.toFixed(2)} eV
               </span>
             </div>
-            <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-              <span className="text-zinc-400">Potencial Frenado (V_stop):</span>
-              <span className="font-bold text-cyan-300">
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700/80 pb-2">
+              <span className="text-[#475569] dark:text-[#94A3B8]">Potencial Frenado (V_stop):</span>
+              <span className="font-bold text-sky-600 dark:text-sky-400">
                 {isEjection ? `-${stoppingPotentialV.toFixed(2)} V` : '0.00 V'}
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-zinc-400">Longitud de Onda Umbral:</span>
-              <span className="font-bold text-amber-400">
+              <span className="text-[#475569] dark:text-[#94A3B8]">Longitud de Onda Umbral:</span>
+              <span className="font-bold text-amber-500 dark:text-amber-400">
                 {thresholdWavelengthNm.toFixed(0)} nm
               </span>
             </div>

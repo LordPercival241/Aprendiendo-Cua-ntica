@@ -117,23 +117,23 @@ export default function ModuleDetailPage({
           )}
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-bold text-zinc-900 dark:text-white tracking-tight leading-tight">
+        <h1 className="text-3xl sm:text-4xl font-bold text-[#1E293B] dark:text-[#F1F5F9] tracking-tight leading-tight">
           {title}
         </h1>
-        <p className="mt-4 text-base text-zinc-600 dark:text-zinc-400 max-w-4xl leading-relaxed">
+        <p className="mt-4 text-base text-[#334155] dark:text-[#CBD5E1] max-w-4xl leading-relaxed">
           {desc}
         </p>
 
         {/* Syllabus Competencies */}
         {detailed?.learningOutcomes && (
-          <div className="mt-8 pt-6 border-t border-zinc-100 dark:border-zinc-800">
-            <h4 className="text-sm font-mono uppercase tracking-wider text-cyan-500 mb-4 flex items-center gap-2">
+          <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800">
+            <h4 className="text-sm font-mono uppercase tracking-wider text-sky-600 dark:text-sky-400 mb-4 flex items-center gap-2">
               <GraduationCap className="w-5 h-5" />
               <span>Competencias Específicas del Sílabo</span>
             </h4>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-zinc-600 dark:text-zinc-300">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-[#334155] dark:text-[#CBD5E1]">
               {detailed.learningOutcomes.map((outcome, idx) => (
-                <div key={idx} className="flex items-start gap-3 p-4 rounded-xl bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800">
+                <div key={idx} className="flex items-start gap-3 p-4 rounded-xl bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-800">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                   <span className="leading-relaxed">{outcome}</span>
                 </div>
@@ -143,15 +143,15 @@ export default function ModuleDetailPage({
         )}
       </div>
 
-      {/* Tabs Menu */}
-      <div className="flex items-center gap-2 border-b border-zinc-200 dark:border-zinc-800 mb-10 overflow-x-auto pb-1 animate-fade-in delay-200">
+      {/* Tabs Menu (spec: #0284C7 text #FFFFFF light / #38BDF8 text #0F172A dark) */}
+      <div className="flex items-center gap-2 border-b border-slate-200 dark:border-slate-700 mb-10 overflow-x-auto pb-2 animate-fade-in delay-200">
         <button
           type="button"
           onClick={() => setActiveTab('theory')}
-          className={`flex items-center gap-2 px-6 py-3.5 text-sm font-semibold uppercase tracking-wider border-b-2 transition-all cursor-pointer whitespace-nowrap ${
+          className={`flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap rounded-xl ${
             activeTab === 'theory'
-              ? 'border-cyan-500 text-cyan-600 dark:text-cyan-400 font-bold'
-              : 'border-transparent text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200'
+              ? 'bg-[#0284C7] text-[#FFFFFF] dark:bg-[#38BDF8] dark:text-[#0F172A] shadow-md'
+              : 'text-[#475569] dark:text-[#CBD5E1] hover:text-[#1E293B] dark:hover:text-[#F1F5F9] hover:bg-slate-100 dark:hover:bg-slate-800/60'
           }`}
         >
           <BookOpen className="w-4 h-4" />
@@ -161,10 +161,10 @@ export default function ModuleDetailPage({
         <button
           type="button"
           onClick={() => setActiveTab('simulation')}
-          className={`flex items-center gap-2 px-6 py-3.5 text-sm font-semibold uppercase tracking-wider border-b-2 transition-all cursor-pointer whitespace-nowrap ${
+          className={`flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap rounded-xl ${
             activeTab === 'simulation'
-              ? 'border-cyan-500 text-cyan-600 dark:text-cyan-400 font-bold'
-              : 'border-transparent text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200'
+              ? 'bg-[#0284C7] text-[#FFFFFF] dark:bg-[#38BDF8] dark:text-[#0F172A] shadow-md'
+              : 'text-[#475569] dark:text-[#CBD5E1] hover:text-[#1E293B] dark:hover:text-[#F1F5F9] hover:bg-slate-100 dark:hover:bg-slate-800/60'
           }`}
         >
           <Sparkles className="w-4 h-4" />
@@ -174,10 +174,10 @@ export default function ModuleDetailPage({
         <button
           type="button"
           onClick={() => setActiveTab('challenges')}
-          className={`flex items-center gap-2 px-6 py-3.5 text-sm font-semibold uppercase tracking-wider border-b-2 transition-all cursor-pointer whitespace-nowrap ${
+          className={`flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap rounded-xl ${
             activeTab === 'challenges'
-              ? 'border-cyan-500 text-cyan-600 dark:text-cyan-400 font-bold'
-              : 'border-transparent text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200'
+              ? 'bg-[#0284C7] text-[#FFFFFF] dark:bg-[#38BDF8] dark:text-[#0F172A] shadow-md'
+              : 'text-[#475569] dark:text-[#CBD5E1] hover:text-[#1E293B] dark:hover:text-[#F1F5F9] hover:bg-slate-100 dark:hover:bg-slate-800/60'
           }`}
         >
           <Award className="w-4 h-4" />
@@ -188,10 +188,10 @@ export default function ModuleDetailPage({
           <button
             type="button"
             onClick={() => setActiveTab('slides')}
-            className={`flex items-center gap-2 px-6 py-3.5 text-sm font-semibold uppercase tracking-wider border-b-2 transition-all cursor-pointer whitespace-nowrap ${
+            className={`flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap rounded-xl ${
               activeTab === 'slides'
-                ? 'border-cyan-500 text-cyan-600 dark:text-cyan-400 font-bold'
-                : 'border-transparent text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200'
+                ? 'bg-[#0284C7] text-[#FFFFFF] dark:bg-[#38BDF8] dark:text-[#0F172A] shadow-md'
+                : 'text-[#475569] dark:text-[#CBD5E1] hover:text-[#1E293B] dark:hover:text-[#F1F5F9] hover:bg-slate-100 dark:hover:bg-slate-800/60'
             }`}
           >
             <FileText className="w-4 h-4" />

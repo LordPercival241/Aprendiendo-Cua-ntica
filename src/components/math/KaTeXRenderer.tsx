@@ -66,17 +66,17 @@ export function EquationBlock({
   className?: string;
 }) {
   return (
-    <div className={`relative my-6 rounded-2xl border border-cyan-500/20 bg-linear-to-r from-cyan-950/20 via-zinc-900/40 to-indigo-950/20 p-6 shadow-inner backdrop-blur-xs ${className}`}>
+    <div className={`relative my-6 rounded-2xl border border-slate-300 dark:border-slate-700/80 bg-[#E2E8F0] dark:bg-[#131C31] text-[#1E293B] dark:text-[#F1F5F9] p-6 shadow-sm ${className}`}>
       {title && (
-        <div className="mb-3 text-sm font-semibold uppercase tracking-wider text-cyan-400/90">
+        <div className="mb-3 text-sm font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400">
           {title}
         </div>
       )}
       <div className="overflow-x-auto py-2">
-        <KaTeXRenderer math={math} block className="text-xl sm:text-2xl text-cyan-100" />
+        <KaTeXRenderer math={math} block className="text-xl sm:text-2xl text-[#1E293B] dark:text-[#F1F5F9]" />
       </div>
       {label && (
-        <div className="mt-2 text-right text-xs font-mono text-zinc-500 dark:text-zinc-400">
+        <div className="mt-2 text-right text-xs font-mono text-[#475569] dark:text-[#94A3B8]">
           ({label})
         </div>
       )}

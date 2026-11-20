@@ -74,8 +74,8 @@ export function ComptonSimulator() {
       const w = rect.width;
       const h = rect.height;
 
-      // Dark background
-      ctx.fillStyle = '#050508';
+      // Canvas chamber background (spec: #0B1120)
+      ctx.fillStyle = '#0B1120';
       ctx.fillRect(0, 0, w, h);
 
       // Grid
@@ -336,20 +336,20 @@ export function ComptonSimulator() {
   }, [thetaDeg, lambdaIncidentPm, isPlaying, thetaRad, phiRad, phiDeg, lambdaScatteredPm, electronKineticKeV]);
 
   return (
-    <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-6 sm:p-8 space-y-6 text-zinc-100 shadow-2xl">
+    <div className="rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1E293B] p-6 sm:p-8 space-y-6 text-[#1E293B] dark:text-[#F1F5F9] shadow-xl">
       {/* Top Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-800 pb-5">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700/80 pb-5">
         <div>
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
               Cinemática Relativista • Arthur Compton 1923
             </span>
-            <span className="text-xs text-zinc-400 font-mono">Nobel de Física 1927</span>
+            <span className="text-xs font-semibold text-[#475569] dark:text-[#94A3B8] font-mono">Nobel de Física 1927</span>
           </div>
-          <h3 className="text-xl sm:text-2xl font-bold text-white mt-1.5">
+          <h3 className="text-xl sm:text-2xl font-bold text-[#1E293B] dark:text-[#F1F5F9] mt-1.5">
             Simulador de Dispersión Compton Fotón-Electrón
           </h3>
-          <p className="text-sm text-zinc-400 mt-1 max-w-3xl">
+          <p className="text-sm text-[#334155] dark:text-[#CBD5E1] mt-1 max-w-3xl">
             Colisión elástica relativista entre un fotón de rayos X y un electrón libre en reposo. Comprueba el corrimiento{' '}
             <KaTeXRenderer math={String.raw`\Delta\lambda=\lambda_c(1-\cos\theta)`} /> independiente del material.
           </p>
@@ -360,7 +360,7 @@ export function ComptonSimulator() {
           <button
             type="button"
             onClick={() => setIsPlaying(!isPlaying)}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-mono text-xs font-semibold cursor-pointer transition-colors shadow-sm"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#0284C7] text-[#FFFFFF] dark:bg-[#38BDF8] dark:text-[#0F172A] font-mono text-xs font-bold cursor-pointer transition-colors shadow-sm"
           >
             {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
             <span>{isPlaying ? 'Pausar' : 'Reanudar'}</span>
@@ -370,7 +370,7 @@ export function ComptonSimulator() {
             onClick={() => {
               timeRef.current = 0;
             }}
-            className="p-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 cursor-pointer border border-zinc-700 transition-colors"
+            className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-[#334155] dark:text-[#CBD5E1] cursor-pointer border border-slate-300 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
             title="Reiniciar colisión"
           >
             <RotateCcw className="w-4 h-4" />
@@ -378,8 +378,8 @@ export function ComptonSimulator() {
         </div>
       </div>
 
-      {/* Main Canvas Viewport */}
-      <div className="relative rounded-2xl border border-zinc-800 bg-zinc-950 overflow-hidden shadow-inner">
+      {/* Main Canvas Viewport (spec: #0B1120) */}
+      <div className="relative rounded-2xl border border-slate-700 bg-[#0B1120] overflow-hidden shadow-inner">
         <canvas
           ref={canvasRef}
           className="w-full h-[320px] sm:h-[380px] block"
@@ -389,10 +389,10 @@ export function ComptonSimulator() {
       {/* Controls & Metrics */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-2">
         {/* Angle & Wavelength Sliders */}
-        <div className="lg:col-span-2 space-y-5 p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800">
+        <div className="lg:col-span-2 space-y-5 p-6 rounded-2xl bg-slate-50 dark:bg-[#0F172A] border border-slate-200 dark:border-slate-700">
           {/* Angle Preset Buttons */}
           <div>
-            <span className="text-xs font-semibold text-zinc-300 block mb-2">
+            <span className="text-xs font-semibold text-[#1E293B] dark:text-[#F1F5F9] block mb-2">
               Ángulos canónicos de dispersión (<KaTeXRenderer math={String.raw`\theta`} />):
             </span>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
@@ -409,8 +409,8 @@ export function ComptonSimulator() {
                   onClick={() => setThetaDeg(p.val)}
                   className={`p-2.5 rounded-xl text-xs font-mono transition-all border cursor-pointer text-center ${
                     thetaDeg === p.val
-                      ? 'bg-cyan-600 text-white border-cyan-400 shadow-md font-bold'
-                      : 'bg-zinc-800 text-zinc-300 border-zinc-700 hover:bg-zinc-700'
+                      ? 'bg-[#0284C7] text-[#FFFFFF] dark:bg-[#38BDF8] dark:text-[#0F172A] border-sky-400 shadow-md font-bold'
+                      : 'bg-slate-200 dark:bg-slate-800 text-[#334155] dark:text-[#CBD5E1] border-slate-300 dark:border-slate-700 hover:bg-slate-300 dark:hover:bg-slate-700'
                   }`}
                 >
                   {p.label}
