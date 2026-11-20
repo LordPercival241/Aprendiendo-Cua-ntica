@@ -5,35 +5,45 @@
 :root {
   --font-sans: "Aptos", "Segoe UI Variable", "Segoe UI", Inter, ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
-  --bg-primary: #f8fafc;
-  --bg-surface: #ffffff;
-  --bg-subtle: #f1f5f9;
-  --border-subtle: rgba(226, 232, 240, 0.8);
-  --border-glow: rgba(14, 165, 233, 0.2);
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
-  --accent-cyan: #0284c7;
+  --bg-primary: #F4F5F7;
+  --bg-surface: #FFFFFF;
+  --bg-subtle: #E2E8F0;
+  --bg-equation: #E2E8F0;
+  --border-subtle: #E2E8F0;
+  --border-equation: #CBD5E1;
+  --border-glow: rgba(2, 132, 199, 0.2);
+  --text-primary: #1E293B;
+  --text-secondary: #334155;
+  --text-muted: #475569;
+  --btn-active-bg: #0284C7;
+  --btn-active-text: #FFFFFF;
+  --accent-cyan: #0284C7;
   --accent-indigo: #4f46e5;
   --accent-purple: #9333ea;
   --accent-emerald: #059669;
   --accent-amber: #d97706;
+  --canvas-bg: #0B1120;
 }
 
 .dark {
-  --bg-primary: #000000;
-  --bg-surface: #09090b;
-  --bg-subtle: #0a0a0a;
-  --border-subtle: rgba(38, 38, 38, 0.9);
+  --bg-primary: #0F172A;
+  --bg-surface: #1E293B;
+  --bg-subtle: #172236;
+  --bg-equation: #131C31;
+  --border-subtle: #334155;
+  --border-equation: #1E293B;
   --border-glow: rgba(56, 189, 248, 0.25);
-  --text-primary: #fafafa;
-  --text-secondary: #d4d4d8;
-  --text-muted: #a1a1aa;
-  --accent-cyan: #22d3ee;
+  --text-primary: #F1F5F9;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+  --btn-active-bg: #38BDF8;
+  --btn-active-text: #0F172A;
+  --accent-cyan: #38BDF8;
   --accent-indigo: #818cf8;
   --accent-purple: #c084fc;
   --accent-emerald: #34d399;
   --accent-amber: #fbbf24;
+  --canvas-bg: #0B1120;
 }
 
 body {
@@ -135,31 +145,31 @@ body {
 .katex .mop,
 .katex .mbin,
 .katex .mrel {
-  color: currentColor;
+  color: #1E293B;
 }
 
 .dark .katex .mord,
 .dark .katex .mop,
 .dark .katex .mbin,
 .dark .katex .mrel {
-  color: #eef8ff;
+  color: #F1F5F9;
 }
 
 /* ═══════════════════════════════════════════
    Glassmorphism Panels
    ═══════════════════════════════════════════ */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-subtle);
 }
 
 .dark .glass-panel {
-  background: rgba(0, 0, 0, 0.65);
+  background: rgba(30, 41, 59, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.15);
 }
 
 /* ═══════════════════════════════════════════

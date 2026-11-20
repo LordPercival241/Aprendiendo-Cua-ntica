@@ -113,55 +113,55 @@ export function MuseumExperience({ locale }: { locale: string }) {
 
   return (
     <section ref={sectionRef} aria-label={t.timeline} className="museum-experience lg:flex lg:h-full lg:min-h-0 lg:flex-col">
-      <div className="mb-6 shrink-0 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950/70 px-2 pt-1 shadow-[0_20px_60px_-42px_rgba(34,211,238,0.5)] sm:px-5 lg:mb-4">
-        <div className="flex items-center justify-between gap-4 border-b border-zinc-800 px-3 py-3 text-[10px] font-mono uppercase tracking-[0.16em] text-zinc-500 lg:py-2">
+      <div className="mb-6 shrink-0 overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1E293B] px-2 pt-1 shadow-lg sm:px-5 lg:mb-4">
+        <div className="flex items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 px-3 py-3 text-[10px] font-mono uppercase tracking-[0.16em] text-[#475569] dark:text-[#94A3B8] lg:py-2">
           <span>{t.collection}</span>
           <div className="flex items-center gap-1.5">
-            <button type="button" onClick={() => move(-1)} aria-label={t.previous} title={t.previous} className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-zinc-800 text-zinc-400 transition-colors hover:border-cyan-400 hover:text-cyan-300"><ChevronLeft className="h-3.5 w-3.5" /></button>
-            <button type="button" onClick={() => setIsPaused((paused) => !paused)} aria-label={isPaused ? t.play : t.pause} title={isPaused ? t.play : t.pause} aria-pressed={isPaused} className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-zinc-800 text-zinc-400 transition-colors hover:border-cyan-400 hover:text-cyan-300">{isPaused ? <Play className="h-3.5 w-3.5" /> : <Pause className="h-3.5 w-3.5" />}</button>
-            <button type="button" onClick={() => move(1)} aria-label={t.next} title={t.next} className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-zinc-800 text-zinc-400 transition-colors hover:border-cyan-400 hover:text-cyan-300"><ChevronRight className="h-3.5 w-3.5" /></button>
-            <span className="ml-2 text-cyan-400">1900 — 1948</span>
+            <button type="button" onClick={() => move(-1)} aria-label={t.previous} title={t.previous} className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-slate-300 dark:border-slate-700 text-[#334155] dark:text-[#CBD5E1] transition-colors hover:border-sky-500 hover:text-sky-600 dark:hover:text-sky-300"><ChevronLeft className="h-3.5 w-3.5" /></button>
+            <button type="button" onClick={() => setIsPaused((paused) => !paused)} aria-label={isPaused ? t.play : t.pause} title={isPaused ? t.play : t.pause} aria-pressed={isPaused} className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-slate-300 dark:border-slate-700 text-[#334155] dark:text-[#CBD5E1] transition-colors hover:border-sky-500 hover:text-sky-600 dark:hover:text-sky-300">{isPaused ? <Play className="h-3.5 w-3.5" /> : <Pause className="h-3.5 w-3.5" />}</button>
+            <button type="button" onClick={() => move(1)} aria-label={t.next} title={t.next} className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-slate-300 dark:border-slate-700 text-[#334155] dark:text-[#CBD5E1] transition-colors hover:border-sky-500 hover:text-sky-600 dark:hover:text-sky-300"><ChevronRight className="h-3.5 w-3.5" /></button>
+            <span className="ml-2 font-bold text-sky-600 dark:text-sky-400">1900 — 1948</span>
           </div>
         </div>
         <div ref={timelineRailRef} className="relative overflow-x-auto pb-4 scroll-smooth lg:pb-3">
         <div className="relative flex min-w-max items-start gap-0 px-3 pt-7 lg:pt-5">
-          <div className="absolute left-3 right-3 top-[2.55rem] h-px bg-linear-to-r from-cyan-400/20 via-cyan-400/70 to-indigo-400/20 lg:top-[2rem]" />
+          <div className="absolute left-3 right-3 top-[2.55rem] h-px bg-linear-to-r from-sky-400/20 via-sky-400/70 to-indigo-400/20 lg:top-[2rem]" />
           {SCIENTISTS.map((scientist, index) => {
             const selected = index === activeIndex;
-            return <button ref={(element) => { timelineItemRefs.current[index] = element; }} key={scientist.id} type="button" onClick={() => selectScientist(index)} aria-pressed={selected} className="group relative z-10 w-28 px-2 text-center lg:w-[6.65rem]"><span className={`mx-auto block h-3 w-3 rounded-full border-2 transition-all ${selected ? 'border-cyan-200 bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.8)]' : 'border-zinc-700 bg-black group-hover:border-cyan-400'}`} /><span className={`mt-3 block font-mono text-[11px] lg:mt-2 ${selected ? 'text-cyan-300' : 'text-zinc-500'}`}>{scientist.timelineLabel ?? scientist.year}</span><span className={`mt-1 block text-xs font-medium leading-4 ${selected ? 'text-white' : 'text-zinc-500 group-hover:text-zinc-300'}`}>{scientist.name}</span></button>;
+            return <button ref={(element) => { timelineItemRefs.current[index] = element; }} key={scientist.id} type="button" onClick={() => selectScientist(index)} aria-pressed={selected} className="group relative z-10 w-28 px-2 text-center lg:w-[6.65rem]"><span className={`mx-auto block h-3 w-3 rounded-full border-2 transition-all ${selected ? 'border-sky-200 bg-sky-400 shadow-[0_0_18px_rgba(56,189,248,0.8)]' : 'border-slate-400 dark:border-slate-600 bg-slate-100 dark:bg-slate-800 group-hover:border-sky-400'}`} /><span className={`mt-3 block font-mono text-[11px] lg:mt-2 ${selected ? 'text-sky-600 dark:text-sky-400 font-bold' : 'text-[#475569] dark:text-[#94A3B8]'}`}>{scientist.timelineLabel ?? scientist.year}</span><span className={`mt-1 block text-xs font-medium leading-4 ${selected ? 'text-[#1E293B] dark:text-[#F1F5F9] font-bold' : 'text-[#475569] dark:text-[#94A3B8] group-hover:text-slate-800 dark:group-hover:text-slate-200'}`}>{scientist.name}</span></button>;
           })}
         </div>
         </div>
       </div>
 
-      <article className="grid overflow-hidden rounded-[1.5rem] border border-zinc-800 bg-black shadow-[0_30px_100px_-45px_rgba(6,182,212,0.38)] lg:h-full lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(20rem,0.9fr)_minmax(0,1.1fr)]">
-        <div key={`portrait-${active.id}-${transitionId}`} className={`relative min-h-[26rem] overflow-hidden border-b border-zinc-800 bg-zinc-950 lg:min-h-0 lg:border-b-0 lg:border-r ${animationClass}`}>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(34,211,238,0.12),transparent_42%),linear-gradient(to_bottom,rgba(9,9,11,0.1),rgba(0,0,0,0.94))]" />
-          <div className="absolute inset-4 border border-cyan-300/20 sm:inset-6">
-            <div className="absolute inset-1 overflow-hidden border border-white/10 bg-black/30">
+      <article className="grid overflow-hidden rounded-[1.5rem] border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1E293B] shadow-xl lg:h-full lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(20rem,0.9fr)_minmax(0,1.1fr)]">
+        <div key={`portrait-${active.id}-${transitionId}`} className={`relative min-h-[26rem] overflow-hidden border-b border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-[#0F172A] lg:min-h-0 lg:border-b-0 lg:border-r ${animationClass}`}>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(56,189,248,0.12),transparent_42%),linear-gradient(to_bottom,rgba(15,23,42,0.05),rgba(15,23,42,0.85))]" />
+          <div className="absolute inset-4 border border-sky-400/20 sm:inset-6">
+            <div className="absolute inset-1 overflow-hidden border border-slate-300/40 dark:border-white/10 bg-white/20 dark:bg-black/30">
               <Image key={active.portrait} src={active.portrait} alt={`${language === 'es' ? 'Retrato histórico de' : 'Historical portrait of'} ${active.name}`} fill sizes="(min-width: 1024px) 42vw, 100vw" quality={100} loading="eager" className="object-contain object-center grayscale contrast-125 brightness-110 transition-opacity duration-500" />
             </div>
           </div>
-          <div className="absolute left-7 top-7 flex items-center gap-2 rounded-full border border-white/10 bg-black/65 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-300 backdrop-blur sm:left-9 sm:top-9"><span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />{t.focus}</div>
-          <div className="absolute right-7 top-7 rounded border border-cyan-400/25 bg-black/65 px-2.5 py-1.5 font-mono text-[10px] tracking-[0.12em] text-cyan-300 backdrop-blur sm:right-9 sm:top-9">{String(activeIndex).padStart(2, '0')} / {String(SCIENTISTS.length).padStart(2, '0')}</div>
+          <div className="absolute left-7 top-7 flex items-center gap-2 rounded-full border border-slate-300/60 dark:border-white/10 bg-white/80 dark:bg-black/65 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-[#334155] dark:text-[#CBD5E1] backdrop-blur sm:left-9 sm:top-9"><span className="h-1.5 w-1.5 rounded-full bg-sky-500" />{t.focus}</div>
+          <div className="absolute right-7 top-7 rounded border border-sky-500/25 bg-white/80 dark:bg-black/65 px-2.5 py-1.5 font-mono text-[10px] tracking-[0.12em] text-sky-600 dark:text-sky-300 backdrop-blur sm:right-9 sm:top-9">{String(activeIndex).padStart(2, '0')} / {String(SCIENTISTS.length).padStart(2, '0')}</div>
         </div>
         <div key={`detail-${active.id}-${transitionId}`} className={`flex min-h-0 flex-col p-6 sm:p-8 lg:overflow-y-auto lg:p-7 xl:p-8 ${animationClass}`}>
-          <div className="flex items-center justify-between gap-3 text-[10px] font-mono uppercase tracking-[0.16em] text-cyan-400"><span className="flex items-center gap-2"><Landmark className="h-3.5 w-3.5" />{t.milestone}</span><span className="text-zinc-600">{t.record} {displayIndex} {t.of} {SCIENTISTS.length}</span></div>
-          <div className="mt-6 border-b border-zinc-800 pb-6 sm:mt-8">
-            <p className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-cyan-300">{activeYear} · {t.archive}</p>
-            <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">{active.name}</h2>
-            <p className="mt-1 text-sm font-medium text-zinc-400">{active.years}</p>
+          <div className="flex items-center justify-between gap-3 text-[10px] font-mono uppercase tracking-[0.16em] text-sky-600 dark:text-sky-400"><span className="flex items-center gap-2"><Landmark className="h-3.5 w-3.5" />{t.milestone}</span><span className="font-semibold text-[#475569] dark:text-[#94A3B8]">{t.record} {displayIndex} {t.of} {SCIENTISTS.length}</span></div>
+          <div className="mt-6 border-b border-slate-200 dark:border-slate-700/80 pb-6 sm:mt-8">
+            <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-sky-600 dark:text-sky-400">{activeYear} · {t.archive}</p>
+            <h2 className="mt-2 text-3xl font-bold tracking-[-0.04em] text-[#1E293B] dark:text-[#F1F5F9] sm:text-4xl">{active.name}</h2>
+            <p className="mt-1 text-sm font-medium text-[#475569] dark:text-[#94A3B8]">{active.years}</p>
           </div>
-          <h3 className="mt-4 text-xl font-semibold tracking-tight text-white sm:text-2xl">{active.contribution[language]}</h3>
-          <p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-300 sm:text-base">{active.biography[language]}</p>
-          <div className="museum-formula my-7 flex min-h-32 items-center overflow-visible border-y border-zinc-800 py-5 sm:my-9">
-            <KaTeXRenderer math={active.formula} block className="text-xl text-cyan-100 sm:text-2xl" />
+          <h3 className="mt-4 text-xl font-semibold tracking-tight text-[#1E293B] dark:text-[#F1F5F9] sm:text-2xl">{active.contribution[language]}</h3>
+          <p className="mt-4 max-w-2xl text-sm leading-7 text-[#334155] dark:text-[#CBD5E1] sm:text-base">{active.biography[language]}</p>
+          <div className="museum-formula my-7 flex min-h-32 items-center justify-center overflow-visible rounded-2xl border border-slate-300 dark:border-slate-700/80 bg-[#E2E8F0] dark:bg-[#131C31] px-6 py-5 sm:my-9 shadow-inner">
+            <KaTeXRenderer math={active.formula} block className="text-xl text-[#1E293B] dark:text-[#F1F5F9] sm:text-2xl" />
           </div>
-          {active.formulaNote && <p className="-mt-3 mb-2 text-xs leading-5 text-zinc-500">{active.formulaNote[language]}</p>}
-          <p className="text-sm leading-6 text-zinc-500">{t.bridge}</p>
+          {active.formulaNote && <p className="-mt-3 mb-2 text-xs leading-5 text-[#475569] dark:text-[#94A3B8]">{active.formulaNote[language]}</p>}
+          <p className="text-sm leading-6 text-[#475569] dark:text-[#94A3B8]">{t.bridge}</p>
           <div className="mt-auto flex flex-wrap items-center justify-between gap-5 pt-6">
-            <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-zinc-500">{isPaused ? t.paused : t.automatic}</span>
-            <div className="flex flex-wrap items-center gap-4"><Link href={active.moduleHref} className="inline-flex items-center gap-2 rounded-lg bg-cyan-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-cyan-500">{t.study} <ArrowRight className="h-4 w-4" /></Link><a href={active.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-zinc-400 transition-colors hover:text-cyan-300">{t.source} <ExternalLink className="h-3.5 w-3.5" /></a></div>
+            <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#475569] dark:text-[#94A3B8]">{isPaused ? t.paused : t.automatic}</span>
+            <div className="flex flex-wrap items-center gap-4"><Link href={active.moduleHref} className="inline-flex items-center gap-2 rounded-lg bg-[#0284C7] text-[#FFFFFF] hover:bg-[#0284C7]/90 dark:bg-[#38BDF8] dark:text-[#0F172A] dark:hover:bg-[#38BDF8]/90 px-4 py-2.5 text-sm font-bold shadow-md transition-all">{t.study} <ArrowRight className="h-4 w-4" /></Link><a href={active.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-[#475569] dark:text-[#94A3B8] transition-colors hover:text-sky-600 dark:hover:text-sky-300">{t.source} <ExternalLink className="h-3.5 w-3.5" /></a></div>
           </div>
         </div>
       </article>

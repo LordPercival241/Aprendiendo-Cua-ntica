@@ -59,14 +59,14 @@ function ModulesContent() {
     <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 py-12">
       {/* Header */}
       <div className="mb-12">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 mb-4">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 mb-4">
           <Layers className="w-4 h-4" />
           <span>Currícula Semestral IF411</span>
         </div>
-        <h1 className="text-4xl sm:text-5xl font-black text-zinc-900 dark:text-white tracking-tight">
+        <h1 className="text-4xl sm:text-5xl font-black text-[#1E293B] dark:text-[#F1F5F9] tracking-tight">
           {t('title')}
         </h1>
-        <p className="mt-3 text-base sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-3xl leading-relaxed">
+        <p className="mt-3 text-base sm:text-lg text-[#334155] dark:text-[#CBD5E1] max-w-3xl leading-relaxed">
           {t('subtitle')}
         </p>
       </div>
@@ -81,17 +81,17 @@ function ModulesContent() {
           return (
             <div
               key={mod.id}
-              className="group flex flex-col justify-between rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/80 p-6 shadow-xs hover:border-cyan-500/60 hover:shadow-xl hover:shadow-cyan-500/5 transition-all animate-slide-up"
+              className="group flex flex-col justify-between rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1E293B] p-6 shadow-sm hover:border-sky-500/60 hover:shadow-xl hover:shadow-sky-500/5 transition-all animate-slide-up"
               style={{ animationDelay: `${idx * 50}ms` }}
             >
               <div>
                 {/* Meta pills */}
                 <div className="flex items-center justify-between gap-2 mb-3">
                   <div className="flex items-center gap-1.5">
-                    <span className="px-2.5 py-0.5 rounded-lg text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
+                    <span className="px-2.5 py-0.5 rounded-lg text-xs font-bold bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 border border-sky-500/20">
                       {t('unitPrefix')} {mod.unit}
                     </span>
-                    <span className="px-2 py-0.5 rounded-md text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
+                    <span className="px-2 py-0.5 rounded-md text-xs font-medium bg-slate-100 dark:bg-slate-800 text-[#475569] dark:text-[#94A3B8]">
                       {t('weekPrefix')} {mod.week}
                     </span>
                   </div>
@@ -105,32 +105,32 @@ function ModulesContent() {
 
                 {/* Title */}
                 <div className="flex items-start gap-3 mt-2">
-                  <div className="p-2.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-cyan-600 dark:text-cyan-400 group-hover:bg-cyan-500 group-hover:text-white transition-colors shrink-0">
+                  <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-sky-600 dark:text-sky-400 group-hover:bg-sky-500 group-hover:text-white transition-colors shrink-0">
                     <Icon className="w-5 h-5" />
                   </div>
-                  <h3 className="text-base font-bold text-zinc-900 dark:text-white leading-snug group-hover:text-cyan-500 transition-colors">
+                  <h3 className="text-base font-bold text-[#1E293B] dark:text-[#F1F5F9] leading-snug group-hover:text-sky-500 transition-colors">
                     {title}
                   </h3>
                 </div>
 
                 {/* Description */}
-                <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3 leading-relaxed">
+                <p className="mt-3 text-sm text-[#334155] dark:text-[#CBD5E1] line-clamp-3 leading-relaxed">
                   {desc}
                 </p>
 
-                {/* Mathematical Formula Preview */}
+                {/* Mathematical Formula Preview (Cajas de ecuaciones: #E2E8F0 light / #131C31 dark) */}
                 {mod.equationsPreview && mod.equationsPreview.length > 0 && (
-                  <div className="mt-4 p-3 rounded-xl bg-zinc-50 dark:bg-zinc-950/80 border border-zinc-100 dark:border-zinc-800/80 text-center overflow-x-auto">
+                  <div className="mt-4 p-3 rounded-xl bg-[#E2E8F0] dark:bg-[#131C31] border border-slate-300 dark:border-slate-700/80 text-[#1E293B] dark:text-[#F1F5F9] text-center overflow-x-auto">
                     <KaTeXRenderer math={mod.equationsPreview[0]} />
                   </div>
                 )}
               </div>
 
               {/* Action link */}
-              <div className="mt-6 pt-4 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between">
+              <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700/80 flex items-center justify-between">
                 <Link
                   href={`/modulos/${mod.id}`}
-                  className="inline-flex items-center gap-2 text-sm font-bold text-cyan-600 dark:text-cyan-400 group-hover:translate-x-1 transition-transform"
+                  className="inline-flex items-center gap-2 text-sm font-bold text-[#0284C7] dark:text-[#38BDF8] group-hover:translate-x-1 transition-transform"
                 >
                   <span>{t('startModule')}</span>
                   <ArrowRight className="w-4 h-4" />

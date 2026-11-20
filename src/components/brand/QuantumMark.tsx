@@ -1,43 +1,31 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface QuantumMarkProps {
   className?: string;
   title?: string;
 }
 
-/** Vector mark with stationary orbital paths and electrons moving along them. */
-export function QuantumMark({ className = '', title }: QuantumMarkProps) {
+/**
+ * Brand logo representing Aprendiendo Cuántica:
+ * The geometric origami hummingbird in golden amber tones.
+ */
+export function QuantumMark({ className = 'w-8 h-8', title = 'Aprendiendo Cuántica' }: QuantumMarkProps) {
   return (
-    <svg
-      viewBox="0 0 64 64"
+    <span
+      className={`relative inline-flex items-center justify-center shrink-0 ${className}`}
       role={title ? 'img' : undefined}
-      aria-hidden={title ? undefined : true}
       aria-label={title}
-      className={`quantum-mark ${className}`}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
+      title={title}
     >
-      {title && <title>{title}</title>}
-      <g transform="rotate(-25 32 32)">
-        <ellipse cx="32" cy="32" rx="23" ry="9" stroke="currentColor" strokeWidth="1.7" opacity="0.9" />
-        <circle r="3.25" className="fill-cyan-500 dark:fill-cyan-300">
-          <animateMotion dur="4.8s" repeatCount="indefinite" path="M 9 32 a 23 9 0 1 0 46 0 a 23 9 0 1 0 -46 0" />
-        </circle>
-      </g>
-      <g transform="rotate(38 32 32)">
-        <ellipse cx="32" cy="32" rx="23" ry="9" stroke="currentColor" strokeWidth="1.7" opacity="0.72" />
-        <circle r="3" className="fill-indigo-500 dark:fill-indigo-300">
-          <animateMotion dur="6.3s" repeatCount="indefinite" path="M 55 32 a 23 9 0 1 0 -46 0 a 23 9 0 1 0 46 0" />
-        </circle>
-      </g>
-      <g transform="rotate(88 32 32)">
-        <ellipse cx="32" cy="32" rx="23" ry="9" stroke="currentColor" strokeWidth="1.5" opacity="0.58" />
-        <circle r="2.75" className="fill-sky-500 dark:fill-sky-300">
-          <animateMotion dur="7.5s" repeatCount="indefinite" path="M 9 32 a 23 9 0 1 0 46 0 a 23 9 0 1 0 -46 0" />
-        </circle>
-      </g>
-      <circle cx="32" cy="32" r="7" className="fill-cyan-500 dark:fill-cyan-300" opacity="0.16" />
-      <circle cx="32" cy="32" r="3.25" className="fill-cyan-600 dark:fill-cyan-300" />
-    </svg>
+      <Image
+        src="/logo.png"
+        alt={title}
+        width={64}
+        height={64}
+        priority
+        className="w-full h-full object-contain filter drop-shadow-[0_2px_8px_rgba(251,169,29,0.35)] select-none transition-transform group-hover:scale-105 duration-200"
+      />
+    </span>
   );
 }

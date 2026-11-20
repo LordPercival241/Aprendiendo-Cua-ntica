@@ -103,8 +103,8 @@ export function QuantumWavepacketSimulator({ tunnelOnly = false }: { tunnelOnly?
       const w = rect.width;
       const h = rect.height;
 
-      // Dark theme background
-      ctx.fillStyle = '#050508';
+      // Dark theme background (spec: #0B1120)
+      ctx.fillStyle = '#0B1120';
       ctx.fillRect(0, 0, w, h);
 
       // Subtle spatial grid
@@ -344,20 +344,20 @@ export function QuantumWavepacketSimulator({ tunnelOnly = false }: { tunnelOnly?
   }, [isPlaying, barrierHeight, packetEnergy, barrierWidth, potentialType, transmissionT, reflectionR, showRealPart, isBelowPotential, regimeLabel]);
 
   return (
-    <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-6 sm:p-8 space-y-6 text-zinc-100 shadow-2xl">
+    <div className="rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1E293B] p-6 sm:p-8 space-y-6 text-[#1E293B] dark:text-[#F1F5F9] shadow-xl">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-800 pb-5">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700/80 pb-5">
         <div>
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
               Ecuación de Schrödinger 1D • {tunnelOnly ? 'Barrera finita' : 'Dispersión estacionaria'}
             </span>
-            <span className="text-xs text-zinc-400 font-mono">Visualización Analítica</span>
+            <span className="text-xs text-[#475569] dark:text-[#94A3B8] font-mono">Visualización Analítica</span>
           </div>
-          <h3 className="text-xl sm:text-2xl font-bold text-white mt-1.5">
+          <h3 className="text-xl sm:text-2xl font-bold text-[#1E293B] dark:text-[#F1F5F9] mt-1.5">
             {tunnelOnly ? 'Tunelamiento a través de una barrera finita' : 'Dispersión 1D, Barreras y Transmisión'}
           </h3>
-          <p className="text-sm text-zinc-400 mt-1 max-w-3xl">
+          <p className="text-sm text-[#334155] dark:text-[#CBD5E1] mt-1 max-w-3xl">
             {tunnelOnly ? 'Un paquete con energía menor o mayor que la barrera se reparte entre reflexión y transmisión. ' : 'Coeficientes analíticos de reflexión y transmisión para perfiles 1D. La envolvente ilustra la dispersión; los valores '}
             <KaTeXRenderer math="R" /> y <KaTeXRenderer math="T" /> provienen de las expresiones estacionarias mostradas.
           </p>
@@ -371,7 +371,7 @@ export function QuantumWavepacketSimulator({ tunnelOnly = false }: { tunnelOnly?
             className={`px-3 py-2 rounded-xl text-xs font-mono font-semibold border transition-colors cursor-pointer ${
               showRealPart
                 ? 'bg-purple-950/40 text-purple-300 border-purple-800/60'
-                : 'bg-zinc-800 text-zinc-400 border-zinc-700 hover:text-white'
+                : 'bg-slate-200 dark:bg-slate-800 text-[#334155] dark:text-[#CBD5E1] border-slate-300 dark:border-slate-700 hover:text-sky-600 dark:hover:text-white'
             }`}
             title="Mostrar u ocultar oscilaciones de fase"
           >
@@ -380,7 +380,7 @@ export function QuantumWavepacketSimulator({ tunnelOnly = false }: { tunnelOnly?
           <button
             type="button"
             onClick={() => setIsPlaying(!isPlaying)}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-mono text-xs font-semibold cursor-pointer transition-colors shadow-sm"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#0284C7] text-[#FFFFFF] dark:bg-[#38BDF8] dark:text-[#0F172A] font-mono text-xs font-bold cursor-pointer transition-colors shadow-sm"
           >
             {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
             <span>{isPlaying ? 'Pausar' : 'Reanudar'}</span>
@@ -390,7 +390,7 @@ export function QuantumWavepacketSimulator({ tunnelOnly = false }: { tunnelOnly?
             onClick={() => {
               timeRef.current = 0;
             }}
-            className="p-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 cursor-pointer border border-zinc-700 transition-colors"
+            className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-[#334155] dark:text-[#CBD5E1] cursor-pointer border border-slate-300 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
             title="Reiniciar paquete de ondas"
           >
             <RotateCcw className="w-4 h-4" />
@@ -398,24 +398,24 @@ export function QuantumWavepacketSimulator({ tunnelOnly = false }: { tunnelOnly?
         </div>
       </div>
 
-      {/* Main Canvas Viewport */}
-      <div className="relative rounded-2xl border border-zinc-800 bg-zinc-950 overflow-hidden shadow-inner">
+      {/* Main Canvas Viewport (spec: #0B1120) */}
+      <div className="relative rounded-2xl border border-slate-700 bg-[#0B1120] overflow-hidden shadow-inner">
         <canvas
           ref={canvasRef}
           className="w-full h-[320px] sm:h-[380px] block"
         />
 
         {/* Probability Meters HUD */}
-        <div className="absolute top-3 right-3 flex items-center gap-3 p-3 rounded-xl bg-zinc-900/90 border border-zinc-800 backdrop-blur-md text-xs font-mono">
+        <div className="absolute top-3 right-3 flex items-center gap-3 p-3 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md text-xs font-mono">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block" />
-            <span className="text-zinc-400">Reflexión R:</span>
+            <span className="text-slate-300">Reflexión R:</span>
             <span className="font-bold text-rose-400">{(reflectionR * 100).toFixed(1)}%</span>
           </div>
-          <div className="h-4 w-[1px] bg-zinc-700" />
+          <div className="h-4 w-[1px] bg-slate-700" />
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block" />
-            <span className="text-zinc-400">Transmisión T:</span>
+            <span className="text-slate-300">Transmisión T:</span>
             <span className="font-bold text-emerald-400">{(transmissionT * 100).toFixed(1)}%</span>
           </div>
         </div>

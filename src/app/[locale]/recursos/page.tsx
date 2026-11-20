@@ -306,18 +306,18 @@ export default function ResourcesPage() {
           <FolderOpen className="w-3.5 h-3.5" />
           <span>Biblioteca Digital • Facultad de Ciencias UNI</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#1E293B] dark:text-[#F1F5F9]">
           {t('title')}
         </h1>
-        <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
+        <p className="mt-2 text-xs sm:text-sm text-[#334155] dark:text-[#CBD5E1] max-w-3xl leading-relaxed">
           {t('subtitle')}
         </p>
       </div>
 
       {/* Filter and Search Bar */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
-        {/* Category Tabs */}
-        <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto p-1 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+        {/* Category Tabs (spec: #0284C7 text #FFFFFF light / #38BDF8 text #0F172A dark) */}
+        <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
           {[
             { id: 'all', label: t('tabAll') },
             { id: 'lectures', label: t('tabLectures') },
@@ -327,10 +327,10 @@ export default function ResourcesPage() {
             <button
               key={tab.id}
             onClick={() => setSelectedCategory(tab.id as 'all' | 'lectures' | 'books' | 'syllabus')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
                 selectedCategory === tab.id
-                  ? 'bg-white dark:bg-slate-800 text-cyan-600 dark:text-cyan-400 shadow-xs'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'
+                  ? 'bg-[#0284C7] text-[#FFFFFF] dark:bg-[#38BDF8] dark:text-[#0F172A] shadow-md'
+                  : 'text-[#475569] dark:text-[#CBD5E1] hover:text-[#1E293B] dark:hover:text-[#F1F5F9]'
               }`}
             >
               {tab.label}
@@ -340,13 +340,13 @@ export default function ResourcesPage() {
 
         {/* Search Input */}
         <div className="relative w-full sm:w-72">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-[#475569] dark:text-[#94A3B8] absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             placeholder="Buscar por tema o autor..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-1.5 text-xs rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:outline-hidden focus:ring-2 focus:ring-cyan-500/50 text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
+            className="w-full pl-9 pr-4 py-1.5 text-xs rounded-xl bg-white dark:bg-[#1E293B] border border-slate-200 dark:border-slate-700 focus:outline-hidden focus:ring-2 focus:ring-sky-500/50 text-[#1E293B] dark:text-[#F1F5F9] placeholder:text-[#475569] dark:placeholder:text-[#94A3B8]"
           />
         </div>
       </div>
@@ -355,11 +355,11 @@ export default function ResourcesPage() {
       {activePdf && (
         <div id="pdf-viewer-section" className="mb-12 scroll-mt-20">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <Eye className="w-4 h-4 text-cyan-500" />
+            <h2 className="text-sm font-bold text-[#1E293B] dark:text-[#F1F5F9] flex items-center gap-2">
+              <Eye className="w-4 h-4 text-sky-500" />
               <span>Documento Activo: {activePdf.title}</span>
             </h2>
-            <span className="text-xs font-mono text-slate-500">
+            <span className="text-xs font-mono text-[#475569] dark:text-[#94A3B8]">
               {activePdf.author || activePdf.week || 'IF411'}
             </span>
           </div>
@@ -367,7 +367,7 @@ export default function ResourcesPage() {
         </div>
       )}
 
-      {/* Resource Cards Grid */}
+      {/* Resource Cards Grid (Tarjetas: #FFFFFF light / #1E293B dark) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredResources.map((res) => {
           const isSelected = activePdf?.id === res.id;
@@ -378,8 +378,8 @@ export default function ResourcesPage() {
               key={res.id}
               className={`flex flex-col justify-between p-5 rounded-2xl border transition-all ${
                 isSelected
-                  ? 'border-cyan-500 bg-cyan-50 dark:bg-black ring-1 ring-cyan-500/40'
-                  : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-black hover:border-slate-300 dark:hover:border-slate-700 shadow-xs'
+                  ? 'border-sky-500 bg-sky-50/50 dark:bg-[#1E293B] ring-1 ring-sky-500/50'
+                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1E293B] hover:border-sky-500/50 shadow-xs'
               }`}
             >
               <div>
@@ -387,44 +387,44 @@ export default function ResourcesPage() {
                   <span
                     className={`px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${
                       isBook
-                        ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20'
-                        : 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20'
+                        ? 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20'
+                        : 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20'
                     }`}
                   >
                     {res.category === 'books' ? 'Libro de Texto' : res.category === 'syllabus' ? 'Sílabo' : 'Diapositivas'}
                   </span>
                   {res.size && (
-                    <span className="text-[10px] font-mono text-slate-500">
+                    <span className="text-[10px] font-mono text-[#475569] dark:text-[#94A3B8]">
                       {res.size}
                     </span>
                   )}
                   {res.week && (
-                    <span className="text-[10px] font-mono text-slate-400">
+                    <span className="text-[10px] font-mono text-[#475569] dark:text-[#94A3B8]">
                       {res.week}
                     </span>
                   )}
                 </div>
 
-                <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 leading-snug line-clamp-2">
+                <h3 className="font-bold text-sm text-[#1E293B] dark:text-[#F1F5F9] leading-snug line-clamp-2">
                   {res.title}
                 </h3>
                 {res.author && (
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                  <p className="text-xs text-[#475569] dark:text-[#94A3B8] mt-1">
                     {res.author}
                   </p>
                 )}
-                <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 line-clamp-2 leading-relaxed">
+                <p className="text-xs text-[#334155] dark:text-[#CBD5E1] mt-2 line-clamp-2 leading-relaxed">
                   {res.description}
                 </p>
               </div>
 
-              <div className="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-2">
+              <div className="mt-5 pt-3 border-t border-slate-100 dark:border-slate-700/80 flex items-center justify-between gap-2">
                 <button
                   onClick={() => handleViewPdf(res)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                     isSelected
-                      ? 'bg-cyan-600 text-white shadow-xs'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-cyan-500 hover:text-white'
+                      ? 'bg-[#0284C7] text-white dark:bg-[#38BDF8] dark:text-[#0F172A] shadow-xs'
+                      : 'bg-slate-100 dark:bg-slate-800 text-[#334155] dark:text-[#CBD5E1] hover:bg-sky-500 hover:text-white'
                   }`}
                 >
                   <Eye className="w-3.5 h-3.5" />
@@ -434,7 +434,7 @@ export default function ResourcesPage() {
                 <a
                   href={encodeURI(res.path)}
                   download
-                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium text-[#475569] dark:text-[#94A3B8] hover:text-[#1E293B] dark:hover:text-[#F1F5F9] hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                   title="Descargar PDF"
                 >
                   <Download className="w-3.5 h-3.5" />
